@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Register {% endblock %}
+
+
+{% block content %}
+<section>
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+        {% include '../message.html' %}
+
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 parent container justify-content-center align-items-center">
+
+            <h3 class="mb-5 text-center">Sign up</h3>
+
+
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-outline">
+                <div class="form-outline mb-4">
+                  <label for="">user name:</label>
+                  {{ user_form.username }}
+                </div>
+                <div class="form-outline mb-4">
+                  <label for="">email:</label>
+                  {{ user_form.email }}
+                </div>
+                <div class="form-outline mb-4">
+                  <label for="">password:</label>
+                  {{ user_form.password }}
+                </div>
+                <div class="form-outline mb-4">
+                  <label for="">confirm password:</label>
+                  {{ user_form.password2 }}
+                </div>
+
+              </div>
+  
+              <button class="btn btn-dark btn-lg btn-block" type="submit">Register</button>
+
+              <hr class="my-4">
+
+            </form>
+            <div class="d-flex justify-content-around align-items-center mb-4" >
+              <p class="mb-0">Do you have an account?
+                  <a href="{% url 'login_user' %}" class="fw-bold">sign in</a>
+              </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
