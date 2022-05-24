@@ -3,22 +3,24 @@ from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm
+from accounts.forms import UserRegisterationForm
 from django.contrib import messages
 
 
 
 def register(request):
     if request.method == 'POST':
-        user_form = CreateUserForm(request.POST)
+        user_form = UserRegisterationForm(request.POST)
         if user_form.is_valid():
-            user_form.save()
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
             messages.success(request, 'Your registration was successfully done.')
             return redirect('login_user')
         else:
             messages.error(request, 'Passwords don\'t match.')
             
-    user_form = CreateUserForm()
+    user_form = UserRegisterationForm()
     context = {
         'user_form': user_form
     }  
@@ -42,4 +44,8 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login_user')
+
+
+def home(request):
+    return render(request, 'home.html')
 

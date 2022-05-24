@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="height: 50px;">
+          <strong>
+          {{ message }}
+        </strong>
+        <a href="" class="close">x</a>
+        </div>
+        {% else %}
+        <div class="alert alert-{{ message.tags }}" style="height: 50px;">
+          <strong>
+          {{ message }}
+        </strong>
+        <a href="" class="close">x</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+{% endblock %}

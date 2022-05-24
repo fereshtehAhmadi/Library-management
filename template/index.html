@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block style %}
+<style>
+  body{
+    background-color: #ffa556;
+  }
+  .dropbtn {
+      border: none;   
+      cursor: pointer;
+  }
+   
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+   
+  .dropdown-content {
+      width: 200px;
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f5f9f9;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+   
+  .dropdown-content a:hover {background-color: #f1f1f1}
+   
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  #menu{
+    background-color: rgb(248, 247, 247);
+  }
+  #add{
+    background-color: rgb(248, 247, 247);
+    margin-left: 20px;
+    border: none;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+  <div class="container py-4">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <!-- navbarText -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-radius: 1rem;">
+            <div class="dropdown bg-light" style="float:right;">
+              <button class="dropbtn" id="menu"><span class="navbar-toggler-icon"></span></button>
+              <div class="dropdown-content dropdown-menu">
+              
+                {% if request.user.is_superuser %}
+                <a href="">Edit info</a>
+                <a href="">Advanced search</a>
+                <a href="{% url 'logout_user' %}">Log out</a>
+                <a href="">about library/ ruls</a>
+        
+                {% elif request.user.is_staff %}
+                <a href="">Edit info</a>
+                <a href="">Advanced search</a>
+                <a href="">your book</a>
+                <a href="">Membership status</a>
+                <a href="">Book request</a>
+                <a href="{% url 'logout_user' %}">Log out</a>
+                <a href="">about library/ ruls</a>
+        
+                {% elif request.user.is_authenticated %}
+                <a href="">Edit info</a>
+                <a href="">Advanced search</a>
+                <a href="">your book</a>
+                <a href="">Book Marck</a>
+                <a href="">Book request</a>
+                <a href="">about library/ ruls</a>
+                <a href="{% url 'logout_user' %}">Log out</a>
+                
+                {% else %}
+                <a href="">Advanced search</a>
+                <a href="{% url 'login_user' %}">login user</a>
+                <a href="{% url 'register' %}">register</a>
+                <a href="">about library/ ruls</a>
+                <a href="{% url 'logout_user' %}">Log out</a>
+                {% endif %}
+              
+            </div>
+              <span class="navbar-text ml-3">
+                {% if request.user.is_authenticated%}
+                {{ user.username }}
+                {% else %}
+                <a href="{% url 'login' %}">login/register</a>
+                {% endif %}
+              </span>
+            </div>
+            <ul class="navbar-nav mr-auto ml-4" >
+            <li class="nav-item">
+        
+              <div class="dropdown dropdown-toggle" style="float:right;">
+                  <button class="dropbtn" id="menu">category</button>
+                  <div class="dropdown-content dropdown-menu">
+                  
+                  <a href="">category1</a>
+                  <a href="">categoty2</a>    
+                  
+                </div>
+                </div>
+          </li>
+          </ul>
+            
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <div class="input-group mr-4 ml-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1" style="cursor: pointer;"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                  </div>
+                </li>
+              </ul>
+        
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <h2 style="color: #4c4c4c;">Library name</h2>
+                </li>
+              </ul>
+        
+            <span class="navbar-text">
+              <a href="{% url 'home' %}"><i class="fas fa-home" style="font-size: 25px;"></i></a>
+            </span>
+            </div>
+          </nav>
+          <div class="card-body p-5 text-center">
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
