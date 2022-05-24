@@ -1,7 +1,7 @@
 from django.contrib import admin
-from extra.models import Categorie, Comment, Publishers
+from extra.models import Categorie, Author, Publishers
 
 
 admin.site.register(Categorie)
 admin.site.register(Publishers)
-admin.site.register(Comment)
+admin.site.register(Author)

@@ -1,5 +1,4 @@
 from django.db import models
-from books.models import Book
 from django.contrib.auth.models import User
 
 
@@ -17,13 +16,9 @@ class Publishers(models.Model):
         return self.name
     
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    like = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+class Author(models.Model):
+    name = models.CharField(max_length = 20)
+    description = models.TextField()
     
     def __str__(self):
-        return self.title
+        return self.name
