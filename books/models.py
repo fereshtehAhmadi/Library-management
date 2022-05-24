@@ -20,3 +20,7 @@ class Book(models.Model):
     def __str__(self):
         return self.book_name
 
+
+class BookMarck(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
