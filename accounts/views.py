@@ -3,9 +3,25 @@ from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegisterationForm
+from accounts.forms import UserRegisterationForm, UpdateUserForm, ProfileForm
 from django.contrib import messages
 
+
+@login_required(login_url='login')
+def account(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile = ProfileForm(request.POST, instance=request.user)
+        if user_form.is_valid() and profile.is_valid():
+            edit_user = user_form.save(commit=False)
+            edit_user.set_password(user_form.cleaned_data['password'])
+            edit_user.save()
+            obj = Profile.objects.get(user= edit_user)
+            n = Profile(profile, user= obj)
+            n.save()
+    user_form = UpdateUserForm(request.POST, instance=request.user)
+    profile = ProfileForm(request.POST, instance=request.user)
+    return render(request, 'accounts/account.html', {'edit': user_form, 'profile': profile})
 
 
 def register(request):
@@ -47,5 +63,5 @@ def logout_user(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 

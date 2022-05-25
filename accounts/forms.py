@@ -24,9 +24,39 @@ class UserRegisterationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
+    
+
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField()
+    email = forms.EmailField()
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    password = forms.CharField()
+    password2 = forms.CharField()
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
+    
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password2']
+    
 
 
 
+class ProfileForm(forms.ModelForm):
+    address = forms.Textarea()
+    national_code = forms.IntegerField(required=True)
+    age = forms.IntegerField(required=True)
+    phone_number = forms.IntegerField(required=True)
+    
+    class Meta:
+        model = Profile
+        fields = ('phone_number', 'address', 'age', 'gender', 'national_code')
+    
+    
 # class CreateUserForm(UserCreationForm):
 #     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %} account {% endblock %}
+{% block style %}
+<style>
+  body{
+    background-color: #ffa556;
+  }
+  .dropbtn {
+      border: none;   
+      cursor: pointer;
+  }
+   
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+   
+  .dropdown-content {
+      width: 200px;
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f5f9f9;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+   
+  .dropdown-content a:hover {background-color: #f1f1f1}
+   
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  #menu{
+    background-color: rgb(248, 247, 247);
+  }
+  #add{
+    background-color: rgb(248, 247, 247);
+    margin-left: 20px;
+    border: none;
+  }
+  a{
+    text-decoration: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="container py-4 col-8">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <!-- navbarText -->
+          {% include '../tem/navbar2.html' %}
+
+          <div class="card-body p-5 text-center">
+            <form method="post">
+
+                {% load widget_tweaks %}
+
+                {% csrf_token %}
+                <div class="form-outline">
+
+                    <div class="row mb-4">
+                        <div class="col">
+                          <label for="firstname">user name:</label>
+                          {% render_field edit.username class="form-control" value=user.username type="text" %}                        
+                        </div>
+                        <div class="col">
+                          <label for="lastname">first name:</label>
+                          {% render_field edit.first_name class="form-control" value=user.first_name type="text" %} 
+                      </div>
+                    </div>
+
+                <div class="row mb-4">
+                  <div class="col">
+                    <label for="firstname">last name:</label>
+                    {% render_field edit.last_name class="form-control" value=user.last_name type="text"  %}                  
+                </div>
+                  <div class="col">
+                    <label for="lastname">national code:</label>
+                    {% render_field profile.national_code class="form-control"  type="text"  %} 
+                </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                      <label for="email">email:</label>
+                      {% render_field edit.email class="form-control" value=user.email type="email"  %}  
+                    </div>
+                    <div class="col">
+                      <label for="firstname">phone number:</label>
+                      {% render_field profile.phone_number class="form-control"  type="text"  %} 
+                    </div>
+                  </div>
+                
+                <div class="row mb-4">
+                    <div class="col">
+                      <label for="email">age:</label>
+                      {% render_field profile.age class="form-control"  type="text"  %} 
+                    </div>
+                    <div class="col">
+                      <label for="firstname">gender:</label>
+                      {% render_field profile.national_code class="form-control"  type="text"  %} 
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label for="address">address:</label>
+                  {% render_field edit.address class="form-control" rows="3" %}              
+                </div>
+
+                <div class="row justify-content-center align-items-center">
+                <button class="btn btn-dark btn-md btn-block col-3" type="submit">Save change</button>
+                <a href="" class="btn btn-dark btn-md btn-block col-3 ml-4" type="submit">Edit password</a>
+                </div>
+              </form>
+
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
