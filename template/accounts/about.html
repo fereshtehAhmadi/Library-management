@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} about {% endblock %}
+
+{% block content %}
+  <div class="container py-4 col-8">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <!-- navbarText -->
+          {% include '../tem/navbar2.html' %}
+
+          <div class="card-body p-5 ">
+
+            <span>Dear Friend Book:</span>
+            <br>
+            <span>In this library, we tried to access different types of books and build a comprehensive system for ease of dear users.</span>
+  
+            <p>After registering information and membership in the library, you can enjoy the features of this collection, including: </p>
+            <ul>
+                <li>Apply up to 5 books simultaneously</li>
+                <li>Book marck and share your faverit books</li>
+                <li>add Like, Dislike and comment for books</li>
+                <li>and ...</li>
+            </ul>
+            <p>You can also, if you don't find your favorite book, offer it via <a href="">Book request</a>.</p>
+            <p>Thank you for your choice...</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

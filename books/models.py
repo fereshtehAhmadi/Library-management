@@ -5,24 +5,24 @@ from extra.models import Author, Categorie, Publishers
 
 class Book(models.Model):
     name = models.CharField(max_length=100)
-    cover = models.ImageField(null=True, blank=True)
+    cover = models.ImageField(null=True, blank=True) 
     description = models.TextField()
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     translator = models.CharField(max_length=100)
     condition = models.BooleanField(default=True)   #active
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # related_name
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Categorie)
     publishers = models.ManyToManyField(Publishers)
         
     def __str__(self):
-        return self.book_name
+        return self.name
 
 
 class BookMarck(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ManyToManyField(Book)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
 
 class Comment(models.Model):
@@ -30,7 +30,7 @@ class Comment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
-    like = models.BooleanField(default=False)
+    like = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -38,11 +38,14 @@ class Comment(models.Model):
     
 
 class Like(models.Model):
-    Vote_status = (
+    vote_status = (
         ('L', 'Like'),
         ('D', 'Dislike'),
     )
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    gender = models.CharField(max_length = 1, choices = Vote_status)
+    vote = models.CharField(max_length = 1, choices = vote_status)
 
+
+
+# python manage.py populate_db

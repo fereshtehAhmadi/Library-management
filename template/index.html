@@ -65,7 +65,7 @@
                 <a href="">your book</a>
                 <a href="">Book Marck</a>
                 <a href="">Book request</a>
-                <a href="">about library/ ruls</a>
+                <a href="{% url 'about' %}">about library/ ruls</a>
                 <a href="{% url 'logout_user' %}">Log out</a>
         
                 {% elif request.user.is_authenticated %}
@@ -74,14 +74,14 @@
                 <a href="">your book</a>
                 <a href="">Book Marck</a>
                 <a href="">Book request</a>
-                <a href="">about library/ ruls</a>
+                <a href="{% url 'about' %}">about library/ ruls</a>
                 <a href="{% url 'logout_user' %}">Log out</a>
                 
                 {% else %}
                 <a href="">Advanced search</a>
                 <a href="{% url 'login_user' %}">login user</a>
                 <a href="{% url 'register' %}">register</a>
-                <a href="">about library/ ruls</a>
+                <a href="{% url 'about' %}">about library/ ruls</a>
                 <a href="{% url 'logout_user' %}">Log out</a>
                 {% endif %}
               
