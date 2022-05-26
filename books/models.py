@@ -11,7 +11,7 @@ class Book(models.Model):
     update = models.DateTimeField(auto_now=True)
     translator = models.CharField(max_length=100)
     condition = models.BooleanField(default=True)   #active
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='book') # related_name
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='book')
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Categorie)
     publishers = models.ManyToManyField(Publishers)

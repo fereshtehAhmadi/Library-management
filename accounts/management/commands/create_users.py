@@ -1,6 +1,13 @@
 from django.contrib.auth.models import User
+from accounts.models import Profile
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
+
+import factory
+from faker import Faker
+from .providers import CustomPhoneProvider
+#  phone_number = factory.LazyAttribute(lambda _: fake.phone_number())
+
 
 class Command(BaseCommand):
     help = 'Create random users'
@@ -18,6 +25,8 @@ class Command(BaseCommand):
         staff = kwargs['staff']
 
         for i in range(total):
+            
+            
             if prefix:
                 username = '{prefix}_{random_string}'.format(prefix=prefix, random_string=get_random_string())
             else:
