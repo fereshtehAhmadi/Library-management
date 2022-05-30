@@ -17,9 +17,7 @@ def user_list(request):
 
 def delete_user(request, pk):
     obj = get_object_or_404(User, id=pk)
-    if request.method == 'POST':
-        obj.delete()
-        return redirect('user_list')
+    obj.delete()
     return redirect('user_list')
 
 
