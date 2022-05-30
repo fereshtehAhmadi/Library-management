@@ -27,27 +27,29 @@ class Command(BaseCommand):
             num = random.randint(0, 300)
             vote_status = ['L', 'D']
             choice = random.choice(vote_status)
-            rand = random.randint(1, 5)
+            rand = random.randint(1, 4)
             user = User.objects.get(id=rand)
             author = Author.objects.filter(id=rand)
-            publishers = Publishers.objects.filter(id=rand)
+            publishers = Publishers.objects.get(id=rand)
             category = Categorie.objects.filter(id=rand)
             books = Book.objects.get(id=rand)
             book = Book.objects.filter(id=rand)
 
             
             obj = Book.objects.create(name=name, description=discription, translator=translator,
-                                      user=user)
+                                      user=user, publishers=publishers)
             obj.author.set(author)
-            obj.publishers.set(publishers)
             obj.category.set(category)
             obj.save()
             
             Comment.objects.create(title=title, content=content, like=num, user=user, book=books)
+            
             Like.objects.create(vote=choice, user=user, book=books)
+            
             mark = BookMarck.objects.create(user=user)
             mark.book.set(book)
             mark.save()
+            
             
 
 # python manage.py create_books 5

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} account {% endblock %}
+{% block title %} Advance search {% endblock %}
 {% block style %}
 <style>
   body{
@@ -69,50 +69,37 @@
                     <div class="row mb-4">
                         <div class="col">
                           <label for="firstname">user name:</label>
-                          {% render_field edit.username class="form-control" value=user.username type="text" %}                        
                         </div>
                         <div class="col">
                           <label for="lastname">first name:</label>
-                          {% render_field edit.first_name class="form-control" value=user.first_name type="text" %} 
                       </div>
                     </div>
 
                 <div class="row mb-4">
                   <div class="col">
                     <label for="firstname">last name:</label>
-                    {% render_field edit.last_name class="form-control" value=user.last_name type="text"  %}                  
                 </div>
                   <div class="col">
                     <label for="lastname">national code:</label>
-                    {% render_field profile.national_code class="form-control"  type="text"  %} 
                 </div>
                 </div>
 
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">email:</label>
-                      {% render_field edit.email class="form-control" value=user.email type="email"  %}  
                     </div>
                     <div class="col">
                       <label for="firstname">phone number:</label>
-                      {% render_field profile.phone_number class="form-control"  type="text"  %} 
                     </div>
                   </div>
                 
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">age:</label>
-                      {% render_field profile.age class="form-control"  type="text"  %} 
                     </div>
                     <div class="col">
                       <label for="firstname">gender:</label>
-                      {% render_field profile.national_code class="form-control"  type="text"  %} 
                     </div>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <label for="address">address:</label>
-                  {% render_field profile.address class="form-control" rows="3" %}  
                 </div>
 
                 <div class="row justify-content-center align-items-center">

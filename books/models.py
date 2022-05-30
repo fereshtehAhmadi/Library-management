@@ -5,16 +5,16 @@ from extra.models import Author, Categorie, Publishers
 
 class Book(models.Model):
     name = models.CharField(max_length=100)
-    cover = models.ImageField(null=True, blank=True) 
+    cover = models.ImageField(null=True, blank=True, default='uploads/default.jpg', upload_to='images/') 
     description = models.TextField()
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     translator = models.CharField(max_length=100)
     condition = models.BooleanField(default=True)   #active
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='book')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Categorie)
-    publishers = models.ManyToManyField(Publishers)
+    publishers = models.ForeignKey(Publishers, on_delete=models.CASCADE, related_name='publisers')
         
     def __str__(self):
         return self.name

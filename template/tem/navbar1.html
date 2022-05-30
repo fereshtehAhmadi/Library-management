@@ -57,27 +57,27 @@
       
       {% if request.user.is_staff %}
       <a href="{% url 'account' %}" style="text-decoration: none;">Edit info</a>
-      <a href="" style="text-decoration: none;">Advanced search</a>
+      <a href="{% url 'advance_search' %}" style="text-decoration: none;">Advanced search</a>
       <a href="" style="text-decoration: none;">your book</a>
       <a href="" style="text-decoration: none;">Book Marck</a>
       <a href="" style="text-decoration: none;">Book request</a>
-      <a href="" style="text-decoration: none;">about library/ ruls</a>
+      <a href="{% url 'about' %}" style="text-decoration: none;">about library/ ruls</a>
       <a href="{% url 'logout_user' %}" style="text-decoration: none;">Log out</a>
 
       {% elif request.user.is_authenticated %}
       <a href="{% url 'account' %}" style="text-decoration: none;">Edit info</a>
-      <a href="" style="text-decoration: none;">Advanced search</a>
+      <a href="{% url 'advance_search' %}" style="text-decoration: none;">Advanced search</a>
       <a href="" style="text-decoration: none;">your book</a>
       <a href="" style="text-decoration: none;">Book Marck</a>
       <a href="" style="text-decoration: none;">Book request</a>
-      <a href="" style="text-decoration: none;">about library/ ruls</a>
+      <a href="{% url 'about' %}" style="text-decoration: none;">about library/ ruls</a>
       <a href="{% url 'logout_user' %}" style="text-decoration: none;">Log out</a>
       
       {% else %}
-      <a href="">Advanced search</a>
+      <a href="{% url 'advance_search' %}">Advanced search</a>
       <a href="{% url 'login_user' %}" style="text-decoration: none;">login user</a>
       <a href="{% url 'register' %}" style="text-decoration: none;">register</a>
-      <a href="" style="text-decoration: none;">about library/ ruls</a>
+      <a href="{% url 'about' %}" style="text-decoration: none;">about library/ ruls</a>
       {% endif %}
     
   </div>
@@ -119,10 +119,9 @@
     <div class="dropdown dropdown-toggle" style="float:right;">
         <button class="dropbtn" id="menu">category</button>
         <div class="dropdown-content dropdown-menu">
-        
-        <a href="" style="text-decoration: none;">category1</a>
-        <a href="" style="text-decoration: none;">categoty2</a>    
-        
+        {% for cat in cate %}
+        <a href="{% url 'category' cat.id %}" style="text-decoration: none;">{{ cat.category }}</a>
+        {% endfor %}
       </div>
       </div>
 </li>

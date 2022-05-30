@@ -7,7 +7,7 @@
     background-color: #ffa556;
   }
   .cardd{
-    background: #ebf7ff;
+    background: #eee;
   }
   .dropbtn {
       border: none;   
@@ -55,18 +55,28 @@
 <div class="container py-4 col-12">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
-      <div class="card shadow-2-strong" style="border-radius: 1rem;">
+      <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
         <!-- navbarText -->
-
           {% include 'tem/navbar1.html' %}
-          <div class="cardd card-body p-5 text-center">
 
+
+            <!-- body  -->
+          {% if book %}
+          {% include 'books/category.html' %}
+          {% else %}
           {% include 'books/books.html' %}
+          {% endif %}
+
 
           </div>
-        </div>
+
       </div>
+      <!-- <div>
+        footer 
+        {% include 'tem/footer.html' %}
+      </div> -->
     </div>
+    
   </div>
 
 {% endblock %}

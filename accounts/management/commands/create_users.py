@@ -3,9 +3,9 @@ from accounts.models import Profile
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
-import factory
-from faker import Faker
-from .providers import CustomPhoneProvider
+# import factory
+# from faker import Faker
+# from .providers import CustomPhoneProvider
 #  phone_number = factory.LazyAttribute(lambda _: fake.phone_number())
 
 

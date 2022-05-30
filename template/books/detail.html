@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% block link %}
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+{% endblock %}
+{% block title %} Detail {% endblock %}
+
+{% block style %}
+<style>
+  body{
+    background-color: white;
+  }
+  .cardd{
+    background: #eee;
+  }
+  .dropbtn {
+      border: none;   
+      cursor: pointer;
+  }
+   
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+   
+  .dropdown-content {
+      width: 200px;
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f5f9f9;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+   
+  .dropdown-content a:hover {background-color: #f1f1f1}
+   
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  #menu{
+    background-color: rgb(248, 247, 247);
+  }
+  #add{
+    background-color: rgb(248, 247, 247);
+    margin-left: 20px;
+    border: none;
+  }
+  #heart{
+    cursor: pointer;
+    color: #abb0b8;
+}
+#heart .icon-heart-empty{
+    color: #ff6161;
+}
+  
+  .preview {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    @media screen and (max-width: 996px) {
+      .preview {
+        margin-bottom: 20px; } }
+  
+
+  
+  .preview-thumbnail.nav-tabs {
+    border: none;
+    margin-top: 15px; }
+    .preview-thumbnail.nav-tabs li {
+      width: 18%;
+      margin-right: 2.5%; }
+      .preview-thumbnail.nav-tabs li img {
+        max-width: 100%;
+        display: block; }
+      .preview-thumbnail.nav-tabs li a {
+        padding: 0;
+        margin: 0; }
+      .preview-thumbnail.nav-tabs li:last-of-type {
+        margin-right: 0; }
+  
+  .tab-content {
+    overflow: hidden; }
+    .tab-content img {
+      width: 100%;
+      -webkit-animation-name: opacity;
+              animation-name: opacity;
+      -webkit-animation-duration: .3s;
+              animation-duration: .3s; }
+  
+  #card {
+    margin-top: 10px;
+    background: #eee;
+    padding: 3em;
+    border: none;
+  }
+  
+  @media screen and (min-width: 997px) {
+    .wrapper {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex; } }
+  
+  .details {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+  
+  .colors {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; }
+  
+  .product-title, .price, .sizes, .colors {
+    text-transform: UPPERCASE;
+    font-weight: bold; }
+  
+  .checked, .price span {
+    color: #ff9f1a; }
+  
+  .product-title, .rating, .product-description, .price, .vote, .sizes {
+    margin-bottom: 15px; }
+  
+  .product-title {
+    margin-top: 0; }
+  
+  .size {
+    margin-right: 10px; }
+    .size:first-of-type {
+      margin-left: 40px; }
+  
+  .color {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    height: 2em;
+    width: 2em;
+    border-radius: 2px; }
+    .color:first-of-type {
+      margin-left: 20px; }
+  
+  .add-to-cart, .like {
+    background: #ff9f1a;
+    padding: 1.2em 1.5em;
+    border: none;
+    text-transform: UPPERCASE;
+    font-weight: bold;
+    color: #fff;
+    -webkit-transition: background .3s ease;
+            transition: background .3s ease; }
+  
+  .not-available {
+    text-align: center;
+    line-height: 2em; }
+    .not-available:before {
+      font-family: fontawesome;
+      content: "\f00d";
+      color: #fff; }
+  
+  @-webkit-keyframes opacity {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(3);
+              transform: scale(3); }
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+              transform: scale(1); } }
+  
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(3);
+              transform: scale(3); }
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+              transform: scale(1); } }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container py-4 col-10">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-12">
+      <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
+        <!-- navbarText -->
+          {% include 'tem/navbar2.html' %}
+            <!-- body  -->
+              <div class="card" id="card">
+                <div class="container-fliud">
+                  <div class="wrapper row">
+                    
+                      
+                    <div class="preview col-md-4">
+                        <div class="tab-pane active" id="pic"style="width:350px; height:100px; margin-left: 50px;">
+                          <img src="https://imgv2-1-f.scribdassets.com/img/word_document/168907403/original/216x287/184af85d56/1653515586?v=1" />
+                        <div style="margin-top: 50px;">
+                          <span class="heart" id="heart"><i class="icon-heart-empty" style="font-size: 40px;"></i></span>
+                          <span><i class="fa fa-share-alt" style="font-size: 40px; margin-left: 40px;"></i></span>
+                          <span><i class="icon-bookmark-empty" style="font-size: 40px; margin-left: 40px;"></i></span>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div class="details col-8">
+                      <h2 class="product-title">{{ detail.name }}</h2>
+                      <div class="rating">
+                        {% if detail.condition == True %}
+                        <span class="review-no" style="color: green;">This book is available</span>
+                        {% else %}
+                        <span class="review-no" style="color: red;">This book is not available right now!!</span>
+                        {% endif %}
+                      </div>
+                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(151, 151, 151);">author: </span>
+                        {% for author in detail.author.all %}
+                        {{ author.name }}, 
+                        {% endfor %}
+                      </h5>
+                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(151, 151, 151);">category: </span>
+                        {% for category in detail.category.all %}
+                        {{ category.category }}, 
+                        {% endfor %}
+                      </h5>
+                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(151, 151, 151);">translator: </span>
+                        {{ detail.translator }}
+                      </h5>
+                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(151, 151, 151);">publishers: </span>
+                        {{ detail.publishers }}
+                      </h5>
+                      <br>
+                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(151, 151, 151);">description: </span>
+                        {{ detail.description }}
+                      </h5>
+                      
+                      <div class="action">
+                        {% if detail.condition == True %}
+                        <button class="btn btn-info btn-lg" type="button">request</button>
+                        {% else %}
+                        <button class="add-to-cart btn btn-secondary btn-lg" type="button">not available</button>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- footer  -->
+    <!-- {% include 'tem/footer.html' %} -->
+  </div>
+
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(function(){
+    $(".heart i").click(function(){
+      $(this).toggleClass("icon-heart icon-heart-empty");
+    });
+  });	
+  </script>
+{% endblock%}

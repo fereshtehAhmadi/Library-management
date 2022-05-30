@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,6 +58,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'library_managment.urls'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'images') 
+MEDIA_URL = '/images/'
 
 TEMPLATES = [
     {

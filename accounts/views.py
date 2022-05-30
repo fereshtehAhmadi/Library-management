@@ -21,7 +21,6 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
         return render(request, 'accounts/change_password.html', {'form': form})
-        
 
 
 @login_required(login_url='login')
@@ -79,9 +78,10 @@ def logout_user(request):
     return redirect('login_user')
 
 
-def home(request):
-    return render(request, 'index.html')
-
 
 def about(request):
     return render(request, 'accounts/about.html')
+
+
+def advance_search(request):
+    return render(request, 'other/advance_search.html')
