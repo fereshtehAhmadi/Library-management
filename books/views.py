@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from books.models import Book, BookMarck, Comment, Like
 from django.contrib import messages
 from extra.models import Categorie
+from django.db.models import Count
 
 
 def books(request):
@@ -23,9 +24,12 @@ def category(request, cats):
 
 
 def detail_book(request, pk):
+    book = Book.objects.get(id=pk)
     content = {
-        'detail' : Book.objects.get(id=pk),
-        # 'comment': Comment.objects.get(book=pk),
+        'detail' : book,
+        'comment': Comment.objects.filter(book=pk),
+        'like' : Like.objects.filter(book=book, vote='L').count(),
+        'dislike' : Like.objects.filter(book=book, vote='D').count(),
     }
     return render(request, 'books/detail.html', content)
     
