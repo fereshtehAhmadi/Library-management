@@ -48,6 +48,9 @@
     .media-comment {
         margin-top:20px
     }
+    a{
+        text-decoration: none;
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -65,13 +68,13 @@
                   <p>{{ obj.content }}</p>
                   <ul class="list-inline d-sm-flex my-0">
                     <li class="list-inline-item g-mr-20">
-                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                      <a href="" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
                         <i class="icon-heart-empty g-pos-rel g-top-1 g-mr-3"></i>
                         {{ obj.like }}
                       </a>
                     </li>
                     <li class="list-inline-item ml-auto">
-                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                      <a href="" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
                         <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
                         Reply
                       </a>
@@ -81,6 +84,29 @@
             </div>
         </div>
         {% endfor %}
+        
     </div>
 </div>
+<br>
+{% if request.user.is_authenticated %}
+<h5>Add comment:</h5>
+<form action="">
+<div class="col-md-10" style="margin-top: 10px;">
+    
+          <input type="text" class="form-control" placeholder="title" name="title">
+          <textarea name="content" class="form-control" id="" cols="5" rows="5" placeholder="comment"></textarea>
+          <ul class="list-inline d-sm-flex my-0">
+            
+            <li class="list-inline-item ml-auto">
+              <button class="btn btn-primary" style="margin-top: 10px;">submit</button>
+            </li>
+          </ul>
+       
+</div>
+</form>
+{% endif %}
+
+</div>
+</div>
+
 {% endblock %}

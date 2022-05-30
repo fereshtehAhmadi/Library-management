@@ -264,7 +264,7 @@
                       
                       <div class="action">
                         {% if detail.condition == True %}
-                        <button class="btn btn-info btn-lg" type="button">request</button>
+                        <button class="btn btn-lg btn-primary" type="button" style="background-color: #483D8B;">request</button>
                         {% else %}
                         <button class="add-to-cart btn btn-secondary btn-lg" type="button">not available</button>
                         {% endif %}
@@ -279,13 +279,13 @@
                   {% include 'books/comment.html' %}
 
 
+                  <!-- footer  -->
+                  {% include 'tem/footer.html' %}
                 </div>
               </div>
           </div>
       </div>
     </div>
-    <!-- footer  -->
-    <!-- {% include 'tem/footer.html' %} -->
   </div>
 
 {% endblock %}
@@ -299,9 +299,6 @@ let dislike = document.getElementById('dislike')
 dislike.onclick = function(){
   document.getElementById('dislike').style = 'color: red;'
 }
-let dislike = document.getElementById('bookmarck')
-dislike.onclick = function(){
-  document.getElementsByClassName('bookmarck i').class = 'icon-bookmark';
-}
+
 </script>
 {% endblock%}

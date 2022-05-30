@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %} User list {% endblock %}
+{% block style %}
+<style>
+  body{
+    background-color: #483D8B;
+  }
+  .cardd{
+    background: #eee;
+  }
+  .dropbtn {
+      border: none;   
+      cursor: pointer;
+  }
+   
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+   
+  .dropdown-content {
+      width: 200px;
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f5f9f9;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+   
+  .dropdown-content a:hover {background-color: #f1f1f1}
+   
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  #menu{
+    background-color: rgb(248, 247, 247);
+  }
+  #add{
+    background-color: rgb(248, 247, 247);
+    margin-left: 20px;
+    border: none;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<table class="table table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">row</th>
+        <th scope="col">Username</th>
+        <th scope="col">Join date</th>
+        <th scope="col">dastresii</th>
+        <th scope="col">delete</th>
+        </tr>
+       </thead>
+       <tbody>
+        {% for obj in user_list %}
+        {% if obj.is_staff %}
+        <tr class="table-secondary">
+        {% else %}
+        <tr class="table-Light">
+        {% endif %}
+        {% if obj.is_superuser %}
+        {% else %}
+        <th scope="row">{{ obj.id }}</th>
+        <td>{{ obj.username }}</td>
+        <td>{{ obj.date_joined }}</td>
+        {% if obj.is_staff %}
+        <td><button type="button" class="btn btn-warning">Decline</button></td>
+        {% else%}
+        <td><a href="" class="btn btn-info">Promotion</a></td>
+        {% endif %}
+        {% csrf_token %}
+        <td><a href="{% url 'delete' obj.id %}" id="demo" class="btn btn-danger">delete</a></td>
+    </tr>
+      <!-- Decline -->
+      {% endif %}
+      {% endfor %}
+    </tbody>
+      </table>
+{% endblock %}

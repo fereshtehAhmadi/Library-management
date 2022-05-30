@@ -32,7 +32,18 @@ def detail_book(request, pk):
         'dislike' : Like.objects.filter(book=book, vote='D').count(),
     }
     return render(request, 'books/detail.html', content)
-    
+
+
+
+# def comment(request, pk):
+#     if request.method == 'POST':
+#         title = request.POST['title']
+#         content = request.POST['content']
+#         book = Book.objects.get(id=pk)
+#         user = ?
+#         Book.objects.create(title=title, content=content, book=book, user=user)
+#         return redirect('detail/<int:pk>')
+#     return redirect('detail/<int:pk>')
 
 
 def new_book(request):

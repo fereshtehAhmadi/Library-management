@@ -63,20 +63,23 @@
             <!-- body  -->
           {% if book %}
           {% include 'books/category.html' %}
+          {% elif user_list %}
+          {% include 'accounts/userlist.html' %}
           {% else %}
           {% include 'books/books.html' %}
           {% endif %}
+          
 
+
+          
+          <!-- footer  -->
+          <!-- {% include 'tem/footer.html' %} -->
 
           </div>
-
+        <div>
       </div>
-      <!-- <div>
-        footer 
-        {% include 'tem/footer.html' %}
-      </div> -->
     </div>
-    
   </div>
+</div>
 
 {% endblock %}

@@ -30,7 +30,7 @@ class Comment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comment')
     title = models.CharField(max_length=100)
     content = models.TextField()
-    like = models.IntegerField()
+    like = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

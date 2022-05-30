@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -6,6 +6,21 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import UserRegisterationForm, UpdateUserForm, ProfileForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
+
+
+def user_list(request):
+    content = {
+        'user_list': User.objects.all()
+    }
+    return render(request, 'index.html', content)
+
+
+def delete_user(request, pk):
+    obj = get_object_or_404(User, id=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('user_list')
+    return redirect('user_list')
 
 
 def change_password(request):
