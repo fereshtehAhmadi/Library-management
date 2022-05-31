@@ -276,9 +276,9 @@
                   <div>
                     <h3>comments</h3>
                   </div>
-                  {% include 'books/comment.html' %}
+                  {% include 'books/comment.html'  with book_id=detail.id %}
 
-
+                  
                   <!-- footer  -->
                   {% include 'tem/footer.html' %}
                 </div>

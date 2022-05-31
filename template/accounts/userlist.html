@@ -75,9 +75,9 @@
         <td>{{ obj.username }}</td>
         <td>{{ obj.date_joined }}</td>
         {% if obj.is_staff %}
-        <td><button type="button" class="btn btn-warning">Decline</button></td>
+        <td><a href="{% url 'decline' obj.id %}" class="btn btn-warning">Decline</a></td>
         {% else%}
-        <td><a href="" class="btn btn-info">Promotion</a></td>
+        <td><a href="{% url 'promote' obj.id %}" class="btn btn-info">Promotion</a></td>
         {% endif %}
         {% csrf_token %}
         <td><a href="{% url 'delete' obj.id %}" id="demo" class="btn btn-danger">delete</a></td>

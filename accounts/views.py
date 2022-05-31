@@ -4,13 +4,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserRegisterationForm, UpdateUserForm, ProfileForm
+from books.models import Categorie
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 
 
 def user_list(request):
     content = {
-        'user_list': User.objects.all()
+        'user_list': User.objects.all(),
+        'cate': Categorie.objects.all(),
     }
     return render(request, 'index.html', content)
 
@@ -19,6 +21,22 @@ def delete_user(request, pk):
     obj = get_object_or_404(User, id=pk)
     obj.delete()
     return redirect('user_list')
+
+
+
+def decline(request, pk):
+    obj = get_object_or_404(User, id=pk)
+    obj.is_staff=False
+    obj.save()
+    return redirect('user_list')    
+    
+    
+def promote(request, pk):
+    obj = get_object_or_404(User, id=pk)
+    obj.is_staff=True 
+    obj.save()
+    return redirect('user_list')
+    
 
 
 def change_password(request):

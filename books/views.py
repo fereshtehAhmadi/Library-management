@@ -35,15 +35,23 @@ def detail_book(request, pk):
 
 
 
-# def comment(request, pk):
-#     if request.method == 'POST':
-#         title = request.POST['title']
-#         content = request.POST['content']
-#         book = Book.objects.get(id=pk)
-#         user = ?
-#         Book.objects.create(title=title, content=content, book=book, user=user)
-#         return redirect('detail/<int:pk>')
-#     return redirect('detail/<int:pk>')
+def comment(request, pk):
+    book = Book.objects.get(id=pk)
+    
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        user = request.user
+        Comment.objects.create(title=title, content=content, book=book, user=user)
+        return redirect('detail', pk=book.id)
+    return redirect('detail', pk=book.id)
+
+
+def delete_comment(request, pk):
+    obj = get_object_or_404(Comment, id=pk)
+    book = Book.objects.get(comment=obj)
+    obj.delete()
+    return redirect('detail', pk=book.id)
 
 
 def new_book(request):
