@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from books.models import Book, BookMarck, Comment, Like
 from django.contrib import messages
@@ -44,7 +45,7 @@ def detail_book(request, pk):
     return render(request, 'books/detail.html', content)    
 
 
-
+@login_required(login_url='login')
 def comment(request, pk):
     book = Book.objects.get(id=pk)
     
@@ -57,6 +58,45 @@ def comment(request, pk):
     return redirect('detail', pk=book.id)
 
 
+@login_required(login_url='login')
+def like_books(request, pk):
+    user = CustomUserModel.objects.get(user=request.user)
+    book = Book.objects.get(id=pk)
+    validation = Like.objects.filter(user=user, book=book)
+    if validation.exists():
+        valid = Like.objects.filter(user=user, book=book, vote='L').exists()
+        if not valid:
+            like = Like.objects.get(user=user, book=book)
+            like.vote = 'L'
+            like.save()
+        return redirect('detail', pk=book.id)
+    else:
+        Like.objects.create(user=user, book=book, vote='L')
+        return redirect('detail', pk=book.id)
+    return redirect('detail', pk=book.id)
+
+
+@login_required(login_url='login')
+def dislike_books(request, pk):
+    user = CustomUserModel.objects.get(user=request.user)
+    book = Book.objects.get(id=pk)
+    validation = Like.objects.filter(user=user, book=book)
+    if validation.exists():
+        valid = Like.objects.filter(user=user, book=book, vote='D').exists()
+        if not valid:
+            like = Like.objects.get(user=user, book=book)
+            like.vote = 'D'
+            like.save()
+        return redirect('detail', pk=book.id)
+    else:
+        Like.objects.create(user=user, book=book, vote='D')
+        return redirect('detail', pk=book.id)
+    return redirect('detail', pk=book.id)
+
+
+        
+    
+@login_required(login_url='login')   
 def delete_comment(request, pk):
     obj = get_object_or_404(Comment, id=pk)
     book = Book.objects.get(comment=obj)
@@ -64,7 +104,7 @@ def delete_comment(request, pk):
     return redirect('detail', pk=book.id)
         
         
-        
+@login_required(login_url='login')       
 def new_book(request):
     if request.method == 'POST':
         book_form = NewBook(request.POST)
@@ -85,6 +125,7 @@ def new_book(request):
     return render(request, 'index2.html', content)
 
 
+@login_required(login_url='login')
 def new_author(request):
     if request.method == 'POST':
         pass
