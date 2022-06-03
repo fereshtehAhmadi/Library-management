@@ -16,7 +16,7 @@ class CustomUserModel(models.Model):
     national_code = models.CharField(max_length=10)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length = 1, choices = GENDER_CHOICES)
-    debt = models.OneToOneField("loan.DebtModel", on_delete=models.CASCADE)
+    debt = models.OneToOneField("loan.DebtModel", on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username}'

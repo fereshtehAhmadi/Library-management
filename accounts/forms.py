@@ -46,7 +46,7 @@ class UpdateUserForm(forms.ModelForm):
 
 
 
-class ProfileForm(forms.ModelForm):
+class CustomUserForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea())
     national_code = forms.IntegerField(required=True)
     age = forms.IntegerField(required=True)

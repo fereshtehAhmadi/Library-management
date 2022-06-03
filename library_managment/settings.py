@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'books',
     'extra',
-    'loan'
+    'loan',
 ]
 
 MIDDLEWARE = [

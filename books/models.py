@@ -16,7 +16,6 @@ class Book(models.Model):
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Categorie)
     publishers = models.ForeignKey(Publishers, on_delete=models.CASCADE, related_name='books')
-    loan = models.ForeignKey("loan.LoanModel", on_delete=models.CASCADE, related_name='books')
         
     def __str__(self):
         return self.name + '        ' + str(self.id)

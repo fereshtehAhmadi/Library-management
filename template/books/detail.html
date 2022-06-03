@@ -216,12 +216,12 @@
                         <div class="tab-pane active" id="pic"style="width:350px; height:100px;">
                           <img src="https://imgv2-1-f.scribdassets.com/img/word_document/168907403/original/216x287/184af85d56/1653515586?v=1" />
                         <div style="margin-top: 50px;">
-                          <span style="font-size: 20px;">{{ like }}</span>
-                          <span id="like" style="cursor: pointer;"><i class="fa fa-thumbs-up" style="font-size: 30px;"></i></span>
-                          <span style="font-size: 20px; margin-left: 30px;">{{ dislike }}</span>
-                          <span style="cursor: pointer;" id="dislike"><i class="fa fa-thumbs-down" style="font-size: 30px;"></i></span>
-                          <span style="cursor: pointer;"><i class="fa fa-share-alt" style="font-size: 30px; margin-left: 30px;"></i></span>
-                          <span class="bookmarck" id="bookmarck" style="cursor: pointer;"><i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px;"></i></span>
+                          <a href="" style="font-size: 20px;">{{ like }}</span>
+                          <a href="{% url 'like' detail.id %}" id="like" style="cursor: pointer;"><i class="fa fa-thumbs-up" style="font-size: 30px;"></i></a>
+                          <a href="" style="font-size: 20px; margin-left: 30px;">{{ dislike }}</a>
+                          <a href="" style="cursor: pointer;" id="dislike"><i class="fa fa-thumbs-down" style="font-size: 30px;"></i></a>
+                          <a href="" style="cursor: pointer;"><i class="fa fa-share-alt" style="font-size: 30px; margin-left: 30px;"></i></a>
+                          <a href="" class="bookmarck" id="bookmarck" style="cursor: pointer;"><i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px;"></i></a>
                         </div>
                         </div>
                     </div>

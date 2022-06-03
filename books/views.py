@@ -41,7 +41,7 @@ def detail_book(request, pk):
         'like' : Like.objects.filter(book=book, vote='L').count(),
         'dislike' : Like.objects.filter(book=book, vote='D').count(),
     }
-    return render(request, 'books/detail.html', content)
+    return render(request, 'books/detail.html', content)    
 
 
 

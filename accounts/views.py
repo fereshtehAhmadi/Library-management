@@ -3,7 +3,7 @@ from accounts.models import CustomUserModel
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegisterationForm, UpdateUserForm, ProfileForm
+from accounts.forms import UserRegisterationForm, UpdateUserForm, CustomUserForm
 from books.models import Categorie
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -56,19 +56,22 @@ def change_password(request):
 
 @login_required(login_url='login')
 def account(request):
-    if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile = ProfileForm(request.POST, instance=request.user)
-        if user_form.is_valid() and profile.is_valid():
-            edit_user = user_form.save(commit=False)
-            edit_user.set_password(user_form.cleaned_data['password'])
-            edit_user.save()
-            obj = Profile.objects.get(user= edit_user)
-            n = Profile(profile, user= obj)
-            n.save()
     user_form = UpdateUserForm(request.POST, instance=request.user)
-    profile = ProfileForm(request.POST, instance=request.user)
-    return render(request, 'accounts/account.html', {'edit': user_form, 'profile': profile})
+    profile = CustomUserForm(request.POST, instance=request.user)
+    if request.method == 'POST':
+        if profile.is_valid():
+            user_form.save()
+            profile = profile.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('home')
+    content = {
+        'user_form': user_form,
+        'profile': profile,
+        'customuser': CustomUserModel.objects.get(user=request.user),
+        
+    }
+    return render(request, 'accounts/account.html',content)
 
 
 def register(request):
