@@ -34,12 +34,17 @@ class Comment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comment')
     title = models.CharField(max_length=100)
     content = models.TextField()
-    like = models.IntegerField(default=0)
     create = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.title
-    
+
+
+class LikeComment(models.Model):
+    comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUserModel, null=True, blank=True, on_delete=models.CASCADE)
+    like = models.BooleanField(default=True)
+
 
 class Like(models.Model):
     vote_status = (
