@@ -5,6 +5,7 @@ from django.contrib import messages
 from extra.models import Categorie, Author
 from django.db.models import Count
 from books.forms import NewBook
+from accounts.models import CustomUserModel
 
 
 def books(request):
@@ -50,8 +51,8 @@ def comment(request, pk):
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        user = request.user
-        Comment.objects.create(title=title, content=content, book=book, user=user)
+        customuser = CustomUserModel.objects.get(user=request.user)
+        Comment.objects.create(title=title, content=content, book=book, user=customuser)
         return redirect('detail', pk=book.id)
     return redirect('detail', pk=book.id)
 
@@ -69,7 +70,8 @@ def new_book(request):
         book_form = NewBook(request.POST)
         if book_form.is_valid():
             book_form.save(commit=False)
-            book_form.user = request.user
+            customuser = CustomUserModel.objects.get(user=request.user)
+            book_form.user = customuser
             book_form.save()
             book_form.save_m2m()
             messages.success(request, 'Your registration was successfully done.')
