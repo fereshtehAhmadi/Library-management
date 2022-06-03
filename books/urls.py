@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.books, name="home"),
     path('detail/<int:pk>', views.detail_book, name="detail"),
     path('category/<int:cats>', views.category, name="category"),
+    path('author/<int:auth>', views.search_author, name="author"),
     path('comment/<int:pk>', views.comment, name="comment"),
+    path('new_book/', views.new_book, name="new_book"),
     path('delete_comment/<int:pk>', views.delete_comment, name="delete_comment"),
     ]

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block style %}
+<style>
+  body{
+    background-color: #483D8B;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="p-5">
+<form method="POST" action="{% url 'new_book' %}">
+  {% csrf_token %}
+  {% load widget_tweaks %}
+
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">book name:</label>
+    <div class="col-6">
+      {{ new_book.name }}
+  </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">translator:</label>
+    <div class="col-6">
+      {{ new_book.translator }}
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">description:</label>
+    <div class="col-sm-10">
+      {% render_field new_book.description class="form-control" rows="3" %}
+    </div>
+  </div>
+ 
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">category:</label>
+    <div class="col-3">
+      {{ new_book.category }}
+    </div>
+    <a href=""><i class="fa fa-plus"></i></a>
+  </div>
+ 
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">author:</label>
+    <div class="col-3">
+      {{ new_book.author }}
+    </div>
+    <a href=""><i class="fa fa-plus"></i></a>
+  </div>
+  
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">publishers:</label>
+    <div class="col-3">
+      {{ new_book.publishers }}
+    </div>
+    <a href=""><i class="fa fa-plus"></i></a>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">cover:</label>
+    <div class="col-6">
+      {{ new_book.cover }}
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-10">
+      <input type="submit" value="Add booook" class="btn btn-primary">
+      <!-- <a href="{% url 'new_book' %}" class="btn btn-primary">Add book</a> -->
+    </div>
+  </div>
+</form>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from accounts.models import Profile
+from accounts.models import CustomUserModel
 from django.contrib.auth.models import User
 
 
@@ -53,7 +53,7 @@ class ProfileForm(forms.ModelForm):
     phone_number = forms.IntegerField(required=True)
     
     class Meta:
-        model = Profile
+        model = CustomUserModel
         fields = ('phone_number', 'address', 'age', 'gender', 'national_code')
     
     

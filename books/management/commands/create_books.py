@@ -1,6 +1,7 @@
 from books.models import Book, BookMarck, Comment, Like
 from extra.models import Author, Publishers, Categorie
 from django.contrib.auth.models import User
+from accounts.models import CustomUserModel
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 import random
@@ -28,27 +29,28 @@ class Command(BaseCommand):
             vote_status = ['L', 'D']
             choice = random.choice(vote_status)
             rand = random.randint(1, 4)
-            user = User.objects.get(id=rand)
+            # user = User.objects.get(id=rand)
+            user = User.objects.create_user(username=get_random_string(), password='passwd@2')
             author = Author.objects.filter(id=rand)
             publishers = Publishers.objects.get(id=rand)
             category = Categorie.objects.filter(id=rand)
-            books = Book.objects.get(id=rand)
+            books = Book.objects.get(id=1)
             book = Book.objects.filter(id=rand)
 
             
             obj = Book.objects.create(name=name, description=discription, translator=translator,
-                                      user=user, publishers=publishers)
+                                      CustomUserModel=user, publishers=publishers)
             obj.author.set(author)
             obj.category.set(category)
             obj.save()
             
-            Comment.objects.create(title=title, content=content, like=num, user=user, book=books)
+            Comment.objects.create(title=title, content=content, like=num, CustomUserModel=user, book=books)
             
-            Like.objects.create(vote=choice, user=user, book=books)
+            Like.objects.create(vote=choice, CustomUserModel=user, book=books)
             
-            mark = BookMarck.objects.create(user=user)
-            mark.book.set(book)
-            mark.save()
+            # mark = BookMarck.objects.create(user=user)
+            # mark.book.set(book)
+            # mark.save()
             
             
 

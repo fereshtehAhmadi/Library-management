@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 
-class Profile(models.Model):
+class CustomUserModel(models.Model):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -16,4 +16,8 @@ class Profile(models.Model):
     national_code = models.CharField(max_length=10)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length = 1, choices = GENDER_CHOICES)
+    debt = models.OneToOneField("loan.DebtModel", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username}'
 

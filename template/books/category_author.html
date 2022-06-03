@@ -114,12 +114,14 @@
                                     <div class="img-box">
                                         <img src="/{{ BASIC_DIR }}/{{ obj.cover.url }}" class="img-fluid" alt="book{{obj.id}}">
                                     </div>
-                                    <div class="thumb-content">
+                                    <div class="thumb-content ">
                                         <h4 style="color: black;">{{ obj.name }}</h4>
-                                        {% for author in obj.author.all %}									
-                                        <a class="item-price" style="color: rgb(97, 97, 97);">{{ author.name }}, </a>
-                                        {% endfor %}
-                                        <br>
+                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
+                                            {% for auth in obj.author.all %}									
+                                        <a href="{% url 'author' auth.id %}" class="item-price" style="color: rgb(97, 97, 97);">{{ auth.name }}</a>
+                                        <small>,</small>
+                                            {% endfor %}
+                                        </div>
                                         <a href="{% url 'detail' obj.id %}" class="btn btn-primary">detail</a>
                                     </div>		
                                 </div>

@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from django.contrib.auth.models import User
 from books.models import Book, BookMarck, Comment, Like
 from django.contrib import messages
-from extra.models import Categorie
+from extra.models import Categorie, Author
 from django.db.models import Count
+from books.forms import NewBook
 
 
 def books(request):
@@ -17,6 +18,14 @@ def books(request):
 def category(request, cats):
     context = {
         'book': get_list_or_404(Book, category= cats),
+        'cate': Categorie.objects.all(),
+    }
+    return render(request, 'index.html', context)
+
+
+def search_author(request, auth):
+    context = {
+        'book': get_list_or_404(Book, author= auth),
         'cate': Categorie.objects.all(),
     }
     return render(request, 'index.html', context)
@@ -52,9 +61,30 @@ def delete_comment(request, pk):
     book = Book.objects.get(comment=obj)
     obj.delete()
     return redirect('detail', pk=book.id)
-
-
+        
+        
+        
 def new_book(request):
     if request.method == 'POST':
+        book_form = NewBook(request.POST)
+        if book_form.is_valid():
+            book_form.save(commit=False)
+            book_form.user = request.user
+            book_form.save()
+            book_form.save_m2m()
+            messages.success(request, 'Your registration was successfully done.')
+            return redirect('home')
+        else:
+            print('this is a test in case of failure.')
+    book_form = NewBook()
+    content = {
+        'new_book':book_form,
+    }
+    return render(request, 'index2.html', content)
+
+
+def new_author(request):
+    if request.method == 'POST':
         pass
+        
     

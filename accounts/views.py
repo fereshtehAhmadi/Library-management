@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from accounts.models import Profile
+from accounts.models import CustomUserModel
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ def user_list(request):
         'user_list': User.objects.all(),
         'cate': Categorie.objects.all(),
     }
-    return render(request, 'index.html', content)
+    return render(request, 'index2.html', content)
 
 
 def delete_user(request, pk):
