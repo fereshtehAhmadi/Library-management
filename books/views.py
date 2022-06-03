@@ -17,7 +17,7 @@ def books(request):
 
 def category(request, cats):
     context = {
-        'book': get_list_or_404(Book, category= cats),
+        'separation': get_list_or_404(Book, category= cats),
         'cate': Categorie.objects.all(),
     }
     return render(request, 'index.html', context)
@@ -25,7 +25,7 @@ def category(request, cats):
 
 def search_author(request, auth):
     context = {
-        'book': get_list_or_404(Book, author= auth),
+        'separation': get_list_or_404(Book, author= auth),
         'cate': Categorie.objects.all(),
     }
     return render(request, 'index.html', context)
