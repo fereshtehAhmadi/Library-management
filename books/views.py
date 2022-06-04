@@ -86,3 +86,13 @@ def request_book(request):
         messages.success(request, 'Your request was send successfully!')
         return redirect('request_book')
     return render(request, 'books/request_book.html')
+
+
+
+@login_required(login_url='login')
+def request_list(request):
+    content = {
+        'list': BookRequest.objects.all(),
+    }
+    return render(request, 'other/request_list.html', content)
+    

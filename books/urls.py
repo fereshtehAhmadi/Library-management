@@ -9,4 +9,5 @@ urlpatterns = [
     path('author/<int:auth>', views.search_author, name="author"),
     path('new_book/', views.new_book, name="new_book"),
     path('request_book/', views.request_book, name="request_book"),
+    path('request_list/', views.request_list, name="request_list"),
     ]
