@@ -14,7 +14,7 @@ def books(request):
         'books': Book.objects.all(),
         'cate': Categorie.objects.all(),
     }
-    return render(request, 'index.html', context)
+    return render(request, 'home.html', context)
 
 
 def category(request, cats):
@@ -22,7 +22,7 @@ def category(request, cats):
         'separation': get_list_or_404(Book, category= cats),
         'cate': Categorie.objects.all(),
     }
-    return render(request, 'index.html', context)
+    return render(request, 'home.html', context)
 
 
 def search_author(request, auth):
@@ -30,7 +30,7 @@ def search_author(request, auth):
         'separation': get_list_or_404(Book, author= auth),
         'cate': Categorie.objects.all(),
     }
-    return render(request, 'index.html', context)
+    return render(request, 'home.html', context)
 
 
 
@@ -64,7 +64,7 @@ def new_book(request):
     content = {
         'new_book':book_form,
     }
-    return render(request, 'index2.html', content)
+    return render(request, 'books/add/new_books.html', content)
 
 
 @login_required(login_url='login')
@@ -73,7 +73,10 @@ def new_author(request):
         pass
         
     
-
+    
+@login_required(login_url='login')
 def request_book(request):
     if request.method == 'POST':
         pass
+    
+    return render(request, 'books/request_book.html')

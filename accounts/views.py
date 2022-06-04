@@ -14,7 +14,7 @@ def user_list(request):
         'user_list': User.objects.all(),
         'cate': Categorie.objects.all(),
     }
-    return render(request, 'index2.html', content)
+    return render(request, 'accounts/userlist.html', content)
 
 
 def delete_user(request, pk):
