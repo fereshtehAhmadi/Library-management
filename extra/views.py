@@ -10,6 +10,32 @@ from accounts.models import CustomUserModel
 
 
 @login_required(login_url='login')
+def add_book_marck(request, pk):
+    book = Book.objects.get(id=pk)
+    user = CustomUserModel.objects.get(user=request.user)
+    bookmarck = BookMarck.objects.filter(user=user).exists()
+    if not bookmarck:
+        obj = BookMarck.objects.create(user=user)
+        obj.book.add(book)
+        obj.save()
+    else:
+        obj = BookMarck.objects.get(user=user)
+        obj.book.add(book)
+        obj.save()
+    return redirect('detail', pk=book.id)
+
+
+def book_marck(request):
+    user = CustomUserModel.objects.get(user=request.user)
+    bookmarck = BookMarck.objects.filter(user=user)
+    content = {
+        'book': get_list_or_404(Book, id= bookmarck.book),
+    }
+    return render(request, 'extra/book_marck.html', content)
+
+
+
+@login_required(login_url='login')
 def comment(request, pk):
     book = Book.objects.get(id=pk)
     if request.method == 'POST':

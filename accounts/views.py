@@ -12,7 +12,6 @@ from django.contrib import messages
 def user_list(request):
     content = {
         'user_list': User.objects.all(),
-        'cate': Categorie.objects.all(),
     }
     return render(request, 'accounts/userlist.html', content)
 

@@ -221,7 +221,7 @@
                           <span style="font-size: 20px; margin-left: 30px;">{{ dislike }}</span>
                           <a href="{% url 'dislike' detail.id %}" style="cursor: pointer;" id="dislike"><i class="fa fa-thumbs-down" style="font-size: 30px; color: black;"></i></a>
                           <a href="" style="cursor: pointer;"><i class="fa fa-share-alt" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
-                          <a href="" class="bookmarck" id="bookmarck" style="cursor: pointer;"><i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
+                          <a href="{% url 'add_book_marck' detail.id %}" class="bookmarck" id="bookmarck" style="cursor: pointer;"><i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
                         </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                   <div>
                     <h3>comments</h3>
                   </div>
-                  {% include 'books/comment.html'  with book_id=detail.id %}
+                  {% include 'extra/comment.html'  with book_id=detail.id %}
 
                   
                   <!-- footer  -->
