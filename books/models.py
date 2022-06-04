@@ -1,9 +1,35 @@
 from django.db import models
 from django.contrib.auth.models import User
-from extra.models import Author, Categorie, Publishers
 from accounts.models import CustomUserModel
 
 
+
+class Categorie(models.Model):
+    category = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.category
+
+
+class Publishers(models.Model):
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
+    
+
+class Author(models.Model):
+    name = models.CharField(max_length = 20)
+    description = models.TextField()
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Authors'
+        verbose_name = 'Author'
+        
+        
 class Book(models.Model):
     name = models.CharField(max_length=100)
     cover = models.ImageField(null=True, blank=True, default='uploads/default.jpg', upload_to='images/') 
@@ -19,42 +45,13 @@ class Book(models.Model):
         
     def __str__(self):
         return self.name + '        ' + str(self.id)
-
-
-
-class BookMarck(models.Model):
-    book = models.ManyToManyField(Book)
-    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
-    create = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+        
     
 
-class Comment(models.Model):
-    user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, related_name='comment')
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comment')
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    create = models.DateTimeField(auto_now_add=True)
+class BookRequest(models.Model):
+    name = models.CharField(max_length=50)
+    author = models.CharField(max_length=50, null=True, blank=True) #just say one 
+    translator = models.CharField(max_length=50, null=True, blank=True)
+    publisher = models.CharField(max_length=50, null=True, blank=True)
+    user = models.ManyToManyField(CustomUserModel)
     
-    def __str__(self):
-        return self.title
-
-
-class LikeComment(models.Model):
-    comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUserModel, null=True, blank=True, on_delete=models.CASCADE)
-    like = models.BooleanField(default=True)
-
-
-class Like(models.Model):
-    vote_status = (
-        ('L', 'Like'),
-        ('D', 'Dislike'),
-    )
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='like')
-    user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, related_name='like')
-    vote = models.CharField(max_length = 1, choices = vote_status)
-
-
-
-# python manage.py populate_db
