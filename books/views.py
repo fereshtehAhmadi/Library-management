@@ -77,6 +77,12 @@ def new_author(request):
 @login_required(login_url='login')
 def request_book(request):
     if request.method == 'POST':
-        pass
-    
+        user = CustomUserModel.objects.get(user=request.user)
+        name= request.POST['name']
+        author= request.POST['author']
+        translator= request.POST['translator']
+        publisher= request.POST['publisher']
+        BookRequest.objects.create(name=name, author=author, translator=translator, publisher=publisher, user=user)
+        messages.success(request, 'Your request was send successfully!')
+        return redirect('request_book')
     return render(request, 'books/request_book.html')

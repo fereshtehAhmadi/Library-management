@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Add new book {% endblock %}
+{% block title %} Request book {% endblock %}
 {% block style %}
 <style>
   body{
@@ -52,6 +52,9 @@
 
 
 {% block content %}
+
+{% include '../tem/message.html' %}
+
 <div class="container py-4 col-10">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
@@ -61,63 +64,46 @@
 
           <!-- body  -->
 <div class="p-5">
-<form method="POST" action="{% url 'new_book' %}">
+    <h5>Dear {{ user.username }}:</h5>
+    <h6>If you haven't found your favorite book in the books list in library, send us the book profile.</h6>
+    <h6>To we provide it as soon as possible ...</h6>
+    <br>
+
+<form method="POST" action="{% url 'request_book' %}">
   {% csrf_token %}
-  {% load widget_tweaks %}
 
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">book name:</label>
     <div class="col-6">
-      {{ new_book.name }}
+        <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="book name" required>
   </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">author:</label>
+    <div class="col-6">
+        <input type="text" name="author" class="form-control" id="formGroupExampleInput" placeholder="author">
+    </div>
+    <small>It is enough to mention the name of a author.</small>
   </div>
   
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">translator:</label>
     <div class="col-6">
-      {{ new_book.translator }}
+        <input type="text" name="translator" class="form-control" id="formGroupExampleInput" placeholder="translator">
     </div>
   </div>
-  
+
   <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">description:</label>
-    <div class="col-sm-10">
-      {% render_field new_book.description class="form-control" rows="3" %}
-    </div>
-  </div>
- 
-  <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">category:</label>
-    <div class="col-3">
-      {{ new_book.category }}
-    </div>
-    <a href=""><i class="fa fa-plus"></i></a>
-  </div>
- 
-  <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">author:</label>
-    <div class="col-3">
-      {{ new_book.author }}
-    </div>
-    <a href=""><i class="fa fa-plus"></i></a>
-  </div>
-  
-  <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">publishers:</label>
-    <div class="col-3">
-      {{ new_book.publishers }}
-    </div>
-    <a href=""><i class="fa fa-plus"></i></a>
-  </div>
-  <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">cover:</label>
+    <label for="inputPassword3" class="col-sm-2 col-form-label">publisher:</label>
     <div class="col-6">
-      {{ new_book.cover }}
+        <input type="text" name="publisher" class="form-control" id="formGroupExampleInput" placeholder="publisher">
     </div>
   </div>
+ 
   <div class="form-group row">
-    <div class="col-10">
-      <input type="submit" value="Add booook" class="btn btn-primary">
+    <div class="col-6">
+      <input type="submit" value="Send" class="btn btn-primary">
       <!-- <a href="{% url 'new_book' %}" class="btn btn-primary">Add book</a> -->
     </div>
   </div>

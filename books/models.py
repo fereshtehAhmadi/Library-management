@@ -53,5 +53,5 @@ class BookRequest(models.Model):
     author = models.CharField(max_length=50, null=True, blank=True) #just say one 
     translator = models.CharField(max_length=50, null=True, blank=True)
     publisher = models.CharField(max_length=50, null=True, blank=True)
-    user = models.ManyToManyField(CustomUserModel)
+    user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     

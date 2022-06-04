@@ -114,7 +114,7 @@ def logout_user(request):
 
 
 def about(request):
-    return render(request, 'accounts/about.html')
+    return render(request, 'other/about.html')
 
 
 def advance_search(request):
