@@ -26,8 +26,8 @@ class Author(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural = 'Authors'
-        verbose_name = 'Author'
+        verbose_name_plural = 'Authorss'
+        verbose_name = 'Authorrr'
         
         
 class Book(models.Model):
@@ -42,7 +42,7 @@ class Book(models.Model):
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Categorie)
     publishers = models.ForeignKey(Publishers, on_delete=models.CASCADE, related_name='books')
-        
+    
     def __str__(self):
         return self.name + '        ' + str(self.id)
         
@@ -55,3 +55,5 @@ class BookRequest(models.Model):
     publisher = models.CharField(max_length=50, null=True, blank=True)
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     
+    def __str__(self):
+        return f'{self.user.user.username} request {self.name}'

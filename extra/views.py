@@ -27,9 +27,8 @@ def add_book_marck(request, pk):
 
 def book_marck(request):
     user = CustomUserModel.objects.get(user=request.user)
-    bookmarck = BookMarck.objects.filter(user=user)
     content = {
-        'book': get_list_or_404(Book, id= bookmarck.book),
+        'book': get_list_or_404(BookMarck, user=user ),
     }
     return render(request, 'extra/book_marck.html', content)
 

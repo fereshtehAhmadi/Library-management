@@ -10,6 +10,11 @@ class BookMarck(models.Model):
     create = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
+    def __str__(self):
+        return f'{self.user.user.username}'
+    
+    
+    
 
 class Comment(models.Model):
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, related_name='comment')
@@ -19,13 +24,16 @@ class Comment(models.Model):
     create = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.title
+        return f'{self.user.user.username} write comment for {self.book.id}'
 
 
 class LikeComment(models.Model):
     comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUserModel, null=True, blank=True, on_delete=models.CASCADE)
     like = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f'{self.user.user.username} like {self.comment.title}'
 
 
 class LikeBook(models.Model):
@@ -36,3 +44,6 @@ class LikeBook(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='like')
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, related_name='like')
     vote = models.CharField(max_length = 1, choices = vote_status)
+    
+    def __str__(self):
+            return f'{self.user.user.username} like {self.book.id}'

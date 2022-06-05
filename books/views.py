@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
+from loan.models import LoanModel, DebtModel
 from django.contrib import messages
 from django.db.models import Count
 from books.forms import NewBook
@@ -41,6 +42,7 @@ def detail_book(request, pk):
         'comment': Comment.objects.filter(book=pk),
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
+        'loan': LoanModel.objects.filter(book=book, status='S').exists()
     }
     return render(request, 'books/detail.html', content)    
 
@@ -54,7 +56,6 @@ def new_book(request):
             book_form.save(commit=False)
             customuser = CustomUserModel.objects.get(user=request.user)
             book_form.user = customuser
-            book_form.save()
             book_form.save_m2m()
             messages.success(request, 'Your registration was successfully done.')
             return redirect('home')

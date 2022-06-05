@@ -3,7 +3,7 @@ from django.urls import path, include
 from extra import views
 
 urlpatterns = [
-    path('', include('books.urls')),
+    path('', include('loan.urls')),
     path('like/<int:pk>', views.like_books, name="like"),
     path('dislike/<int:pk>', views.dislike_books, name="dislike"),
     path('comment/<int:pk>', views.comment, name="comment"),

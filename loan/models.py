@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import CustomUserModel
+from books.models import Book
 
 
 class LoanModel(models.Model):
@@ -12,15 +13,15 @@ class LoanModel(models.Model):
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=LOAN_STATUS)
-    book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.user.user.username} has {self.books} and loan is in {self.status} faze'
+        return f'{self.user.user.username} has {self.book} and loan is in {self.status} faze'
 
 
 class DebtModel(models.Model):
     amount = models.PositiveIntegerField()
-    book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.amount}'

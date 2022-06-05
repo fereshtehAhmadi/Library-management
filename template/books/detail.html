@@ -199,8 +199,11 @@
               transform: scale(1); } }
 </style>
 {% endblock %}
+
 {% block content %}
+
 <div class="container py-4 col-10">
+  {% include '../tem/message.html' %}
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
       <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
@@ -229,7 +232,7 @@
                     <div class="details col-8">
                       <h2 class="product-title">{{ detail.name }}</h2>
                       <div class="rating">
-                        {% if detail.condition == True %}
+                        {% if not loan %}
                         <span class="review-no" style="color: green;">This book is available</span>
                         {% else %}
                         <span class="review-no" style="color: red;">This book is not available right now!!</span>
@@ -263,10 +266,10 @@
                       <br>
                       
                       <div class="action">
-                        {% if detail.condition == True %}
-                        <button class="btn btn-lg btn-primary" type="button" style="background-color: #483D8B;">request</button>
+                        {% if not loan %}
+                        <a href="{% url 'add_loan' detail.id %}" class="btn btn-lg btn-primary" type="button">request</a>
                         {% else %}
-                        <button class="add-to-cart btn btn-secondary btn-lg" type="button">not available</button>
+                        <button class="add-to-cart btn btn-secondary btn-lg" type="button" style="color: black;">not available</button>
                         {% endif %}
                       </div>
                     </div>
