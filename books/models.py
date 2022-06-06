@@ -32,7 +32,7 @@ class Author(models.Model):
         
 class Book(models.Model):
     name = models.CharField(max_length=100)
-    cover = models.ImageField(null=True, blank=True, default='uploads/default.jpg', upload_to='images/') 
+    cover = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='images/') 
     description = models.TextField()
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)

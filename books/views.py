@@ -12,7 +12,7 @@ from accounts.models import CustomUserModel
 
 def books(request):
     context = {
-        'books': Book.objects.all(),
+        'books': Book.objects.all()[:6],
         'cate': Categorie.objects.all(),
     }
     return render(request, 'home.html', context)
@@ -37,6 +37,15 @@ def search_author(request, auth):
 
 def detail_book(request, pk):
     book = Book.objects.get(id=pk)
+    obj = Comment.objects.filter(book=pk)
+    
+    # for obj in obj.likecomment_set.all():
+    #     if obj.likecomment_set.like == True:
+    #         l.append(obj.likecomment_set)
+    # else:
+    #     count(l)
+    
+    # obj.likecomment_set.count()
     content = {
         'detail' : book,
         'comment': Comment.objects.filter(book=pk),

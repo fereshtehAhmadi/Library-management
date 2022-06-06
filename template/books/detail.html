@@ -213,11 +213,10 @@
               <div class="card" id="card">
                 <div class="container-fliud">
                   <div class="wrapper row">
-                    
                       
                     <div class="preview col-md-4">
                         <div class="tab-pane active" id="pic"style="width:350px; height:100px;">
-                          <img src="https://imgv2-1-f.scribdassets.com/img/word_document/168907403/original/216x287/184af85d56/1653515586?v=1" />
+                          <img src="{{ detail.cover.url }}" alt="Alternative">
                         <div style="margin-top: 50px;">
                           <span style="font-size: 20px;">{{ like }}</span>
                           <a href="{% url 'like' detail.id %}" id="like" style="cursor: pointer;"><i class="fa fa-thumbs-up" style="font-size: 30px; color: black;"></i></a>
