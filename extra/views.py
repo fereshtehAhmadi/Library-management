@@ -14,21 +14,27 @@ def add_book_marck(request, pk):
     book = Book.objects.get(id=pk)
     user = CustomUserModel.objects.get(user=request.user)
     bookmarck = BookMarck.objects.filter(user=user).exists()
+    validbook = BookMarck.objects.filter(user=user, book=book).exists()
     if not bookmarck:
         obj = BookMarck.objects.create(user=user)
         obj.book.add(book)
         obj.save()
     else:
         obj = BookMarck.objects.get(user=user)
-        obj.book.add(book)
-        obj.save()
+        if validbook:
+            obj.book.remove(book)
+            obj.save()
+        else:
+            obj.book.add(book)
+            obj.save()
     return redirect('detail', pk=book.id)
+
 
 
 def book_marck(request):
     user = CustomUserModel.objects.get(user=request.user)
     content = {
-        'book': get_list_or_404(BookMarck, user=user ),
+        'bookmarck': BookMarck.objects.filter(user=user),
     }
     return render(request, 'extra/book_marck.html', content)
 
