@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('books.urls')),
     path('add_loan/<int:pk>', views.add_loan, name="add_loan"),
     path('loan/', views.loan_lis, name="loan"),
+    path('receive/', views.receive, name="receive"),
     ]

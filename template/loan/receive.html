@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} about {% endblock %}
+
+{% block content %}
+  <div class="container py-4 col-8">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <!-- navbarText -->
+          {% include '../tem/navbar2.html' %}
+
+          <div class="card-body p-5 ">
+
+            <span>Enter the code of the received books....</span>
+            <br>
+            <br>
+            <br>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="form-group row">
+                <input type="text" name="id" class="form-control col-6" name="" id="" placeholder="book id">
+                <div class="col-6">
+                  <button class="btn btn-info">receive</button>
+              </div>
+              </div>
+            </form>
+          </div>
+  
+          <!-- footer  -->
+          {% include 'tem/footer.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

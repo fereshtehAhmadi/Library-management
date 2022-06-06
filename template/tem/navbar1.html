@@ -57,6 +57,7 @@
       
       {% if request.user.is_staff %}
       <a href="{% url 'account' %}" style="text-decoration: none;">Edit info</a>
+      <a href="{% url 'receive' %}" style="text-decoration: none;">Receive</a>
       <a href="{% url 'advance_search' %}" style="text-decoration: none;">Advanced search</a>
       <a href="{% url 'loan' %}" style="text-decoration: none;">your book</a>
       <a href="{% url 'book_marck' %}" style="text-decoration: none;">Book Marck</a>

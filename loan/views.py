@@ -33,4 +33,14 @@ def loan_lis(request):
     except:
         messages.error(request, 'Please complete your user information!!')
     return render(request, 'loan/loan_list.html', content)
+
+
+
+def receive(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        loan = LoanModel.objects.get(book=id)
+        loan.status = 'R'
+        loan.save()
+    return render(request, 'loan/receive.html')
         
