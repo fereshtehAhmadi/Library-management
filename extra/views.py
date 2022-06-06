@@ -11,22 +11,25 @@ from accounts.models import CustomUserModel
 
 @login_required(login_url='login')
 def add_book_marck(request, pk):
-    book = Book.objects.get(id=pk)
-    user = CustomUserModel.objects.get(user=request.user)
-    bookmarck = BookMarck.objects.filter(user=user).exists()
-    validbook = BookMarck.objects.filter(user=user, book=book).exists()
-    if not bookmarck:
-        obj = BookMarck.objects.create(user=user)
-        obj.book.add(book)
-        obj.save()
-    else:
-        obj = BookMarck.objects.get(user=user)
-        if validbook:
-            obj.book.remove(book)
-            obj.save()
-        else:
+    try:
+        book = Book.objects.get(id=pk)
+        user = CustomUserModel.objects.get(user=request.user)
+        bookmarck = BookMarck.objects.filter(user=user).exists()
+        validbook = BookMarck.objects.filter(user=user, book=book).exists()
+        if not bookmarck:
+            obj = BookMarck.objects.create(user=user)
             obj.book.add(book)
             obj.save()
+        else:
+            obj = BookMarck.objects.get(user=user)
+            if validbook:
+                obj.book.remove(book)
+                obj.save()
+            else:
+                obj.book.add(book)
+                obj.save()
+    except:
+        messages.error(request, 'Please complete your user information!!')
     return redirect('detail', pk=book.id)
 
 
@@ -42,71 +45,81 @@ def book_marck(request):
 
 @login_required(login_url='login')
 def comment(request, pk):
-    book = Book.objects.get(id=pk)
-    if request.method == 'POST':
-        title = request.POST['title']
-        content = request.POST['content']
+    try:
+        book = Book.objects.get(id=pk)
         customuser = CustomUserModel.objects.get(user=request.user)
-        Comment.objects.create(title=title, content=content, book=book, user=customuser)
-        return redirect('detail', pk=book.id)
+        if request.method == 'POST':
+            title = request.POST['title']
+            content = request.POST['content']
+            Comment.objects.create(title=title, content=content, book=book, user=customuser)
+            return redirect('detail', pk=book.id)
+    except:
+        messages.error(request, 'Please complete your user information!!')
     return redirect('detail', pk=book.id)
 
 
 
 def like_comment(request, pk, bk):
-    book = Book.objects.get(comment=bk)
-    user = CustomUserModel.objects.get(user=request.user)
-    comment = Comment.objects.get(id=pk)
-    validation = LikeComment.objects.filter(user=user, comment=comment).exists()
-    if validation:
-        valid = LikeComment.objects.filter(user=user, comment=comment, like=True).exists()
-        if valid:
-            accept = LikeComment.objects.get(user=user, comment=comment)
-            accept.like = False
-            accept.save()
+    try:
+        book = Book.objects.get(comment=bk)
+        comment = Comment.objects.get(id=pk)
+        validation = LikeComment.objects.filter(user=request.user, comment=comment).exists()
+        if validation:
+            valid = LikeComment.objects.filter(user=request.user, comment=comment, like=True).exists()
+            if valid:
+                accept = LikeComment.objects.get(user=request.user, comment=comment)
+                accept.like = False
+                accept.save()
+            else:
+                accept = LikeComment.objects.get(user=request.user, comment=comment)
+                accept.like = True
+                accept.save()
         else:
-            accept = LikeComment.objects.get(user=user, comment=comment)
-            accept.like = True
-            accept.save()
-    else:
-        LikeComment.objects.create(user=user, comment=comment, like=True)
+            LikeComment.objects.create(user=request.user, comment=comment, like=True)
+    except:
+        messages.error(request, 'Please login first!!')
     return redirect('detail', pk=book.id)        
     
 
 
 @login_required(login_url='login')
 def like_books(request, pk):
-    user = CustomUserModel.objects.get(user=request.user)
-    book = Book.objects.get(id=pk)
-    validation = LikeBook.objects.filter(user=user, book=book)
-    if validation.exists():
-        valid = LikeBook.objects.filter(user=user, book=book, vote='L').exists()
-        if not valid:
-            like = LikeBook.objects.get(user=user, book=book)
-            like.vote = 'L'
-            like.save()
+    try:
+        book = Book.objects.get(id=pk)
+        validation = LikeBook.objects.filter(user=request.user, book=book)
+        if validation.exists():
+            valid = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
+            if not valid:
+                like = LikeBook.objects.get(user=request.user, book=book)
+                like.vote = 'L'
+                like.save()
+                return redirect('detail', pk=book.id)
+        else:
+            LikeBook.objects.create(user=request.user, book=book, vote='L')
             return redirect('detail', pk=book.id)
-    else:
-        LikeBook.objects.create(user=user, book=book, vote='L')
-        return redirect('detail', pk=book.id)
+    except:
+        messages.error(request, 'Please login first!!')
     return redirect('detail', pk=book.id)
+
 
 
 @login_required(login_url='login')
 def dislike_books(request, pk):
-    user = CustomUserModel.objects.get(user=request.user)
-    book = Book.objects.get(id=pk)
-    validation = LikeBook.objects.filter(user=user, book=book)
-    if validation.exists():
-        valid = LikeBook.objects.filter(user=user, book=book, vote='D').exists()
-        if not valid:
-            like = LikeBook.objects.get(user=user, book=book)
-            like.vote = 'D'
-            like.save()
+    try:
+        book = Book.objects.get(id=pk)
+        validation = LikeBook.objects.filter(user=request.user, book=book)
+        if validation.exists():
+            valid = LikeBook.objects.filter(user=request.user, book=book, vote='D').exists()
+            if not valid:
+                like = LikeBook.objects.get(user=request.user, book=book)
+                like.vote = 'D'
+                like.save()
+                return redirect('detail', pk=book.id)
+        else:
+            LikeBook.objects.create(user=request.user, book=book, vote='D')
             return redirect('detail', pk=book.id)
-    else:
-        LikeBook.objects.create(user=user, book=book, vote='D')
-        return redirect('detail', pk=book.id)
+    except:
+        messages.error(request, 'Please login first!!')
     return redirect('detail', pk=book.id)
 
 

@@ -42,19 +42,19 @@ def detail_book(request, pk):
         'comment': Comment.objects.filter(book=pk),
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
-        'loan': LoanModel.objects.filter(book=book, status='S').exists()
+        'loan': LoanModel.objects.filter(book=book, status='S').exists(),
     }
     return render(request, 'books/detail.html', content)    
 
 
-        
+# inam try except mikhad...     
 @login_required(login_url='login')       
 def new_book(request):
     if request.method == 'POST':
         book_form = NewBook(request.POST)
+        customuser = CustomUserModel.objects.get(user=request.user)
         if book_form.is_valid():
             book_form.save(commit=False)
-            customuser = CustomUserModel.objects.get(user=request.user)
             book_form.user = customuser
             book_form.save_m2m()
             messages.success(request, 'Your registration was successfully done.')
@@ -77,15 +77,18 @@ def new_author(request):
     
 @login_required(login_url='login')
 def request_book(request):
-    if request.method == 'POST':
-        user = CustomUserModel.objects.get(user=request.user)
-        name= request.POST['name']
-        author= request.POST['author']
-        translator= request.POST['translator']
-        publisher= request.POST['publisher']
-        BookRequest.objects.create(name=name, author=author, translator=translator, publisher=publisher, user=user)
-        messages.success(request, 'Your request was send successfully!')
-        return redirect('request_book')
+    try:
+        if request.method == 'POST':
+            user = CustomUserModel.objects.get(user=request.user)
+            name= request.POST['name']
+            author= request.POST['author']
+            translator= request.POST['translator']
+            publisher= request.POST['publisher']
+            BookRequest.objects.create(name=name, author=author, translator=translator, publisher=publisher, user=user)
+            messages.success(request, 'Your request was send successfully!')
+            return redirect('request_book')
+    except:
+        messages.error(request, 'Please complete your user information!!')
     return render(request, 'books/request_book.html')
 
 
