@@ -24,7 +24,7 @@ def search(request):
 
 def books(request):
     context = {
-        'books': Book.objects.all()[:6],
+        'books': Book.objects.all()[:36],
         'cate': Categorie.objects.all(),
     }
     return render(request, 'home.html', context)
@@ -50,23 +50,35 @@ def search_author(request, auth):
 def detail_book(request, pk):
     book = Book.objects.get(id=pk)
     comment = Comment.objects.filter(book=pk)
-    count = 0
-    l = []
-    
-    
+    user = CustomUserModel.objects.get(user=request.user)
+    bookmarck_status = BookMarck.objects.filter(user=user, book=book).exists()
+    like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
+    if like_b:
+        LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
+        if LB:
+            color_like = 'green'
+            color_dislike = 'black'
+        else:
+            color_like = 'black'
+            color_dislike = 'red'
+    else:
+        color_like = 'black'
+        color_dislike = 'black'    
+    # count = 0
+    # l = []
     # for obj in comment:
     #     comment = Comment.objects.get(id=obj.id)
     #     comment.title = []
     #     for i in comment.likecomment.all():
     #         if i.like == True:
     #             count += 1
-                
-                
-    
     content = {
         'detail' : book,
         'comment': Comment.objects.filter(book=pk),
+        'bookmarck_status': bookmarck_status,
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
+        'color_like':color_like,
+        'color_dislike':color_dislike,
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
         'loan': LoanModel.objects.filter(book=book, status='S').exists(),
         # 'likecomment': Comment.objects.select_related(LikeComment).count

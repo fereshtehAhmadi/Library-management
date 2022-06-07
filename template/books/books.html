@@ -121,14 +121,14 @@
                     <div class="item carousel-item active">
                         <div class="row">
                             {% for obj in books %}
-                            <div class="col-2">
+                            <div class="col-2" style="margin-top: 10px;">
                                 <div class="thumb-wrapper">
                                     <div class="img-box">
                                         <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
                                     </div>
                                     <div class="thumb-content">
                                         <h6 style="color: black;">{{ obj.name }}</h6>
-                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 40px;">
+                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
                                             {% for auth in obj.author.all %}									
                                         <a href="{% url 'author' auth.id %}" class="consol-price" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
                                         <small>,</small>
