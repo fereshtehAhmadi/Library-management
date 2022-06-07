@@ -63,8 +63,10 @@
             <!-- body  -->
           {% if separation %}
           {% include 'books/category_author.html' %}
-          {% else %}
+          {% elif books %}
           {% include 'books/books.html' %}
+          {% else %}
+          {% include 'books/search.html' %}
           {% endif %}
           
 

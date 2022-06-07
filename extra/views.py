@@ -60,8 +60,8 @@ def comment(request, pk):
 
 
 def like_comment(request, pk, bk):
+    book = Book.objects.get(id=bk)
     try:
-        book = Book.objects.get(comment=bk)
         comment = Comment.objects.get(id=pk)
         validation = LikeComment.objects.filter(user=request.user, comment=comment).exists()
         if validation:
@@ -76,6 +76,7 @@ def like_comment(request, pk, bk):
                 accept.save()
         else:
             LikeComment.objects.create(user=request.user, comment=comment, like=True)
+        return redirect('detail', pk=book.id)
     except:
         messages.error(request, 'Please login first!!')
     return redirect('detail', pk=book.id)        

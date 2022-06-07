@@ -29,7 +29,7 @@ class Comment(models.Model):
 
 
 class LikeComment(models.Model):
-    comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE, related_name='likecomment')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.BooleanField(default=True)
     

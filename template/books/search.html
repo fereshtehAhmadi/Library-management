@@ -23,8 +23,8 @@
         margin: 30px 0 60px;
     }
     .carousel {
-        margin: 50px 10px;
-        padding: 0 10px;
+        margin: 50px auto;
+        padding: 0 70px;
     }
     .carousel .item {
         color: #747d89;
@@ -33,7 +33,7 @@
         overflow: hidden;
     }
     .carousel .thumb-wrapper {
-        padding: 15px 5px;
+        padding: 25px 15px;
         background: #fff;
         border-radius: 6px;
         text-align: center;
@@ -79,31 +79,18 @@
         background: #483D8B;
         box-shadow: none;
     }
-
-    .carousel-control-prev, .carousel-control-next {
-        height: 44px;
-        width: 30px;
-        background: #483D8B;	
-        margin: auto 0;
-        border-radius: 4px;
-        opacity: 0.8;
-    }
-    .carousel-control-prev:hover, .carousel-control-next:hover {
-        background: #483D8B;
-        opacity: 1;
-    }
-    .carousel-control-prev i, .carousel-control-next i {
-        font-size: 36px;
-        position: absolute;
-        top: 50%;
-        display: inline-block;
-        margin: -19px 0 0 0;
-        z-index: 5;
-        left: 0;
-        right: 0;
-        color: #fff;
-        text-shadow: none;
+    .carousel .thumb-content .btn i {
+        font-size: 14px;
         font-weight: bold;
+        margin-left: 5px;
+    }
+    .carousel .item-price {
+        font-size: 13px;
+        padding: 2px 0;
+    }
+    .carousel .item-price strike {
+        opacity: 0.7;
+        margin-right: 5px;
     }
 
 
@@ -111,7 +98,7 @@
 {% endblock %}
 
 {% block content %}
-<body>     
+<body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -120,17 +107,20 @@
                 <div class="carousel-inner">
                     <div class="item carousel-item active">
                         <div class="row">
-                            {% for obj in books %}
-                            <div class="col-2">
+                        {% if book_search %}
+                            
+                            {% for obj in book_search %}
+                            <div class="col-sm-3" style="margin-top: 10px;">
                                 <div class="thumb-wrapper">
+                                    <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
                                     <div class="img-box">
-                                        <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
+                                        <img src="/{{ BASIC_DIR }}/{{ obj.cover.url }}" class="img-fluid" alt="book{{obj.id}}">
                                     </div>
-                                    <div class="thumb-content">
-                                        <h6 style="color: black;">{{ obj.name }}</h6>
-                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 40px;">
+                                    <div class="thumb-content ">
+                                        <h4 style="color: black;">{{ obj.name }}</h4>
+                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
                                             {% for auth in obj.author.all %}									
-                                        <a href="{% url 'author' auth.id %}" class="consol-price" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
+                                        <a href="{% url 'author' auth.id %}" class="item-price" style="color: rgb(97, 97, 97);">{{ auth.name }}</a>
                                         <small>,</small>
                                             {% endfor %}
                                         </div>
@@ -138,17 +128,25 @@
                                     </div>		
                                 </div>
                             </div>
-                            {% endfor %} 
+                            {% endfor %}
+                            {% elif searched %} 
+                            <div style="justify-content: center; align-items: center;">
+                                <h3 style="color:#747d89;">we are sorry... </h3>
+                                <h3 style="color:#747d89;">A book called {{ searched }} is not available :(((</h3>
+                            </div>
+                            {% endif %}
+                            </div>
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
-                <!-- Carousel controls -->
-           </div>
-           </div>
+            </div>
+            
         </div>
+        {% include 'tem/footer.html' %}
     </div>
-    <!-- footer  -->
-    {% include 'tem/footer.html' %}
 </div>
+<!-- footer  -->
 </body>
 {% endblock %}

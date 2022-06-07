@@ -61,7 +61,7 @@
 
           <!-- body  -->
 <div class="p-5">
-<form method="POST" action="{% url 'new_book' %}">
+<form action="{% url 'new_book' %}" method="post">
   {% csrf_token %}
   {% load widget_tweaks %}
 
@@ -91,7 +91,7 @@
     <div class="col-3">
       {{ new_book.category }}
     </div>
-    <a href=""><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_category' %}"><i class="fa fa-plus"></i></a>
   </div>
  
   <div class="form-group row">
@@ -99,7 +99,7 @@
     <div class="col-3">
       {{ new_book.author }}
     </div>
-    <a href=""><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_author' %}"><i class="fa fa-plus"></i></a>
   </div>
   
   <div class="form-group row">
@@ -107,7 +107,7 @@
     <div class="col-3">
       {{ new_book.publishers }}
     </div>
-    <a href=""><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_publisher' %}"><i class="fa fa-plus"></i></a>
   </div>
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">cover:</label>
