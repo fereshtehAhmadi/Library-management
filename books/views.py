@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from books.models import Book, Categorie, Author, Publishers, BookRequest
@@ -23,24 +24,33 @@ def search(request):
 
 
 def books(request):
+    p = Paginator(Book.objects.all().order_by('?'), 12)
+    page = request.GET.get('page')
+    book_list = p.get_page(page)
     context = {
-        'books': Book.objects.all()[:36],
+        'books': book_list,
         'cate': Categorie.objects.all(),
     }
     return render(request, 'home.html', context)
 
 
 def category(request, cats):
+    p = Paginator(get_list_or_404(Book, category= cats), 12)
+    page = request.GET.get('page')
+    cate = p.get_page(page)
     context = {
-        'separation': get_list_or_404(Book, category= cats),
+        'separation': cate,
         'cate': Categorie.objects.all(),
     }
     return render(request, 'home.html', context)
 
 
 def search_author(request, auth):
+    p = Paginator(get_list_or_404(Book, author= auth), 12)
+    page = request.GET.get('page')
+    author = p.get_page(page)
     context = {
-        'separation': get_list_or_404(Book, author= auth),
+        'separation': author,
         'cate': Categorie.objects.all(),
     }
     return render(request, 'home.html', context)

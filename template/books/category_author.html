@@ -147,6 +147,20 @@
         </div>
     </div>
 </div>
+    <!-- pagintion  -->
+    <div class="text-center" style="margin-top: 20px;">
+
+        {% if books.has_previous %}
+        <a href="?page={{ books.previous_page_number }}" style="color: black; font-size: 25px;">&laquo</a>
+        {% endif %}
+    
+        Page {{books.number}} of {{ books.paginator.num_pages }}
+    
+        {% if books.has_next %}
+        <a href="?page={{ books.next_page_number }}" style="color: black; font-size: 25px;">&raquo</a>
+        {% endif %}
+    
+        </div>
 <!-- footer  -->
 {% include 'tem/footer.html' %}
     </body>

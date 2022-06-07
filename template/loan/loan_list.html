@@ -163,8 +163,8 @@
                             <tbody>
                                 {% for obj in loan %}
                               <tr>
-                                <th scope="row"><img src="" style="height: 100px; width:70px;" alt="{{ obj.id }}"></th>
-                                <td><div class="row"> <div>{{ obj.book.name }}</td>
+                                <th scope="row"><img src="{{ obj.book.cover.url }}" style="height: 100px; width:70px;" alt="{{ obj.id }}"></th>
+                                <td><br>{{ obj.book.name }}</td>
                                 <td><br>{{ obj.start_date }}</td>
                                 <td><br> 20000$</td>
                                 <td>
