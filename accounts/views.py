@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.core.mail import send_mail
+from library_managment import settings
 from accounts.models import CustomUserModel
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -98,6 +100,15 @@ def logout_user(request):
 
 
 def about(request):
+    if request.method == 'POST':
+        user = request.user
+        title = request.POST['title']
+        message = request.POST['message']
+    
+        send_mail(title, message, settings.EMAIL_HOST_USER, [user.email])
+        messages.success(request, 'your massage send successfully!!')
+        redirect('about')
+        
     return render(request, 'other/about.html')
 
 

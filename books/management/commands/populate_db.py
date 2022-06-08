@@ -10,13 +10,13 @@ from random import randint, choice
 # fake = Faker()
 #
 #
-# def create_publisher(num=None):
+# def create_publishers(num=6):
 #     if num:
 #         for _ in num:
-#             Publishers.objects.get_or_create(name=fake.name(), address=fake.address())
+#             Publishers.objects.get_or_create(name=fake.name())
 #     else:
 #         for _ in range(5):
-#             Publishers.objects.get_or_create(name=fake.name(), address=fake.address())
+#             Publishers.objects.get_or_create(name=fake.name())
 #
 #
 # def create_author(num=None):
@@ -240,7 +240,7 @@ def create_debt(num=10):
     return [DebtModel.objects.create(amount=0) for _ in range(num)]
 
 
-def create_publisher(num=10):
+def create_publishers(num=10):
     return [
         Publishers.objects.create(
             name=fake.name(),
@@ -256,7 +256,7 @@ def create_category(num=20):
     for _ in range(num):
         random_category = choice(cat_list)
         cat_list.remove(random_category)
-        cat_obj_list.append(CategoryModel.objects.create(name=random_category))
+        cat_obj_list.append(CategoryModel.objects.create(category=random_category))
     else:
         return cat_obj_list
 
@@ -285,12 +285,11 @@ def create_custom_user(users_list, debt_list):
     return [
         CustomUserModel.objects.create(
             age=randint(18, 35),
-            phone='random later!',
+            phone= +12125553648,
             gender=choice(['M', 'F']),
             address=fake.address(),
             national_code=choice(national_code_list),
             user=user_obj,
-            debt=debt_list.pop(),
         )
         for user_obj in users_list
     ]
@@ -298,8 +297,27 @@ def create_custom_user(users_list, debt_list):
 
 def create_loan(num=5):
     LoanModel.objects.create(
-
+        user=user_obj,
+        book=book_obj,
+        status=choice(['S', 'T', 'R', 'C']),
     )
+    
+
+def create_comment(num=20):
+    Comment.objects.create(
+        user=user_obj,
+        book=book_obj,
+        title=fake.name(),
+        content=fake.text(),
+    )
+    
+def create_like_book(num=5):
+    LikeBook(
+        user=user_obj,
+        book=book_obj,
+        vote=choice(['L', 'D']),
+    )
+    
 
 
 class Command(BaseCommand):
@@ -307,15 +325,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         debt_list = create_debt()
-        pub_list = create_publisher()
+        pub_list = create_publishers()
         cate_list = create_category()
         author_list = create_author()
         user_list = create_user()
         staff_list = create_user(staff=True)
         custom_user_list = create_custom_user(user_list.extend(staff_list), debt_list)
         loan_list = create_loan()
+        comment_list = create_comment()
         # book_list = create_book()
         # bookmark_list = create_bookmark()
-        # comment_list = create_comment()
 
         self.stdout.write("Database has been populated successfully.")

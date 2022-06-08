@@ -8,7 +8,6 @@ from django.db.models import Count
 from accounts.models import CustomUserModel
 
 
-
 @login_required(login_url='login')
 def add_book_marck(request, pk):
     try:
