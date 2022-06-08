@@ -2,8 +2,8 @@ from django import forms
 from books.models import Book, Categorie, Author, Publishers
 
 class NewBook(forms.ModelForm):
-    category = forms.ModelChoiceField(Categorie.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
-    author = forms.ModelChoiceField(Author.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    category = forms.ModelMultipleChoiceField(Categorie.objects.all())
+    author = forms.ModelMultipleChoiceField(Author.objects.all())
     publishers = forms.ModelChoiceField(Publishers.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
     class Meta:
         model = Book

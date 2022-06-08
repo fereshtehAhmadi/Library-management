@@ -132,7 +132,7 @@
   
     <ul class="navbar-nav">
       <li class="nav-item">
-        <form action="{% url 'search' %}" method="POST">
+        <form action="{% url 'search' %}" method="get">
           {% csrf_token %}
         <div class="input-group mr-4 ml-4">
           

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from books.models import Book, Categorie, Author, Publishers, BookRequest
@@ -9,17 +11,6 @@ from django.contrib import messages
 from django.db.models import Count
 from books.forms import NewBook
 from accounts.models import CustomUserModel
-
-
-
-def search(request):
-    if request.method == 'POST':
-        searched = request.POST['searched']
-        book = Book.objects.filter(name=searched)
-        if book.exists():
-            return render(request, 'home.html', {'book_search':book})
-        else:
-            return render(request, 'home.html', {'searched': searched})
 
 
 
@@ -33,6 +24,18 @@ def books(request):
     }
     return render(request, 'home.html', context)
 
+    
+
+def search(request):
+    if request.method == 'GET':
+        searched = request.GET['searched']
+        book = Book.objects.filter(name__contains=searched)
+        if book.exists():
+            return render(request, 'home.html', {'book_search':book})
+        else:
+            return render(request, 'home.html', {'searched': searched})
+        
+        
 
 def category(request, cats):
     p = Paginator(get_list_or_404(Book, category= cats), 12)
@@ -74,14 +77,6 @@ def detail_book(request, pk):
     else:
         color_like = 'black'
         color_dislike = 'black'    
-    # count = 0
-    # l = []
-    # for obj in comment:
-    #     comment = Comment.objects.get(id=obj.id)
-    #     comment.title = []
-    #     for i in comment.likecomment.all():
-    #         if i.like == True:
-    #             count += 1
     content = {
         'detail' : book,
         'comment': Comment.objects.filter(book=pk),
@@ -103,8 +98,21 @@ def new_book(request):
         book_form = NewBook(request.POST)
         customuser = CustomUserModel.objects.get(user=request.user)
         if book_form.is_valid():
-            book_form.user = customuser
-            book_form.save_m2m()
+            name = form.cleaned_data["name"]
+            translator = form.cleaned_data["translator"]
+            discription = form.cleaned_data["discription"]
+            cover = form.cleaned_data["cover"]
+            publishers = form.cleaned_data["publishers"]
+            user = customuser
+            new = Book.objects.create(name=name,
+                       translator=translator,
+                       discription=discription,
+                       cover=cover,
+                       publishers=publishers,
+                       user=user)
+            new.author.add(form.cleaned_data["author"])
+            new.category.add(form.cleaned_data["category"])
+            new.save()
             messages.success(request, 'Your registration was successfully done.')
             return redirect('home')
         else:
