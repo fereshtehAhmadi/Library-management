@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block link%}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+{% endblock %}
+{% block style %}
+<style>
+    body{
+        background-color: #483D8B;
+      }
+    a{
+        text-decoration: none;
+    }
+    h2 {
+        color: #000;
+        font-size: 26px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        margin: 30px 0 60px;
+    }
+    .carousel {
+        margin: 20px 10px;
+        padding: 0 10px;
+    }
+    .carousel .item {
+        color: #747d89;
+        min-height: 325px;
+        text-align: center;
+        overflow: hidden;
+    }
+    .carousel .thumb-wrapper {
+        padding: 15px 5px;
+        background: #fff;
+        border-radius: 6px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    }
+    .carousel .item .img-box {
+        height: 120px;
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+    }
+    .carousel .item img {	
+        max-width: 100%;
+        max-height: 100%;
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
+    .carousel .item h4 {
+        font-size: 18px;
+    }
+    .carousel .item h4, .carousel .item p, .carousel .item ul {
+        margin-bottom: 5px;
+    }
+    .carousel .thumb-content .btn {
+        color: #483D8B;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: none;
+        border: 1px solid #483D8B;
+        padding: 6px 14px;
+        margin-top: 5px;
+        line-height: 16px;
+        border-radius: 20px;
+    }
+    .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+        color: #fff;
+        background: #483D8B;
+        box-shadow: none;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        height: 44px;
+        width: 30px;
+        background: #483D8B;	
+        margin: auto 0;
+        border-radius: 4px;
+        opacity: 0.8;
+    }
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+        background: #483D8B;
+        opacity: 1;
+    }
+    .carousel-control-prev i, .carousel-control-next i {
+        font-size: 36px;
+        position: absolute;
+        top: 50%;
+        display: inline-block;
+        margin: -19px 0 0 0;
+        z-index: 5;
+        left: 0;
+        right: 0;
+        color: #fff;
+        text-shadow: none;
+        font-weight: bold;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<body>     
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    <div class="item carousel-item active">
+                        <div class="row">
+                            {% for i in bookmarck %}
+                                    {% for obj in i.book.all %}
+                            <div class="col-2" style="margin-top: 30px;">
+                                <div class="thumb-wrapper">
+                                    <div class="img-box">
+                                        <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h6 style="color: black;">{{ obj.name }}</h6>
+                                        <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
+                                            {% for auth in obj.author.all %}									
+                                        <a href="{% url 'author' auth.id %}" class="consol-price" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
+                                        <small>,</small>
+                                            {% endfor %}
+                                        </div>
+                                        <a href="{% url 'detail' obj.id %}" class="btn btn-primary">detail</a>
+                                    </div>		
+                                </div>
+                            </div>
+                            {% endfor %} 
+                        </div>
+                    </div>
+                </div>
+           </div>
+           </div>
+        </div>
+    </div>
+
+    <!-- pagintion  -->
+    <div class="text-center" style="margin-top: 20px;">
+
+    {% if books.has_previous %}
+    <a href="?page={{ books.previous_page_number }}" style="color: black; font-size: 25px;">&laquo</a>
+    {% endif %}
+
+    Page {{books.number}} of {{ books.paginator.num_pages }}
+
+    {% if books.has_next %}
+    <a href="?page={{ books.next_page_number }}" style="color: black; font-size: 25px;">&raquo</a>
+    {% endif %}
+
+    </div>
+    <!-- footer  -->
+    {% include 'tem/footer.html' %}
+</div>
+</body>
+{% endblock %}
