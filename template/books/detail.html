@@ -222,14 +222,20 @@
                           <img src="{{ detail.cover.url }}" alt="Alternative">
                         <div style="margin-top: 50px;">
                           <span style="font-size: 20px;">{{ like }}</span>
-                          <a href="{% url 'like' detail.id %}" style="cursor: pointer;"><i class="fa fa-thumbs-up" style="font-size: 30px; color: {{ color_like }};"></i></a>
+                          <a href="{%if request.user.is_authenticated %}{% url 'like' detail.id %}{%endif%}" 
+                          style="cursor: pointer;">
+                          <i class="fa fa-thumbs-up" id="thumbs_up" style="font-size: 30px;"></i></a>
                           <span style="font-size: 20px; margin-left: 30px;">{{ dislike }}</span>
-                          <a href="{% url 'dislike' detail.id %}" style="cursor: pointer;"><i class="fa fa-thumbs-down" style="font-size: 30px; color: {{ color_dislike }};"></i></a>
+                          <a href="{%if request.user.is_authenticated %}{% url 'dislike' detail.id %}{%endif%}" 
+                          style="cursor: pointer;">
+                          <i class="fa fa-thumbs-down" id="thumbs_down" style="font-size: 30px;"></i></a>
                           <a href="" style="cursor: pointer;"><i class="fa fa-share-alt" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
                         {% if bookmarck_status%}
                           <a href="{% url 'add_book_marck' detail.id %}"style="cursor: pointer;"><i class="fa fa-bookmark" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
                         {% else %}
-                          <a href="{% url 'add_book_marck' detail.id %}"style="cursor: pointer; text-decoration: none;"><i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
+                          <a href="{%if request.user.is_authenticated %}{% url 'add_book_marck' detail.id %}{%endif%}"
+                          style="cursor: pointer; text-decoration: none;">
+                          <i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
                         {% endif %}
                         </div>
                         </div>
@@ -296,5 +302,25 @@
       </div>
     </div>
   </div>
+
+{% endblock %}
+{% block script %}
+<script>
+  thumbs_up = document.getElementById('thumbs_up');
+  thumbs_down = document.getElementById('thumbs_down');
+  {% if color_like_b %}
+  thumbs_up.style.color = 'green';
+  thumbs_down.style.color = 'black';
+  {% elif color_like_b == False %}
+  thumbs_up.style.color = 'black';
+  thumbs_down.style.color = 'red';
+  {% else %}
+  thumbs_up.style.color = 'black';
+  thumbs_down.style.color = 'black';
+  {% endif %}
+
+</script>
+
+
 
 {% endblock %}

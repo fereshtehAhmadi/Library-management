@@ -65,6 +65,7 @@
   {% csrf_token %}
   {% load widget_tweaks %}
 
+
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">book name:</label>
     <div class="col-6">
@@ -109,6 +110,10 @@
     </div>
     <a href="{% url 'new_publisher' %}"><i class="fa fa-plus"></i></a>
   </div>
+  
+      <!-- custom user  -->
+      {% render_field new_book.hidden_user value=request.user.username %}
+      
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">cover:</label>
     <div class="col-6">

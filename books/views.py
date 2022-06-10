@@ -62,34 +62,30 @@ def search_author(request, auth):
 
 
 def detail_book(request, pk):
-    book = Book.objects.get(id=pk)
-    comment = Comment.objects.filter(book=pk)
-    user = CustomUserModel.objects.get(user=request.user)
-    bookmarck_status = BookMarck.objects.filter(user=user, book=book).exists()
-    like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
-    if like_b:
-        LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
-        if LB:
-            color_like = 'green'
-            color_dislike = 'black'
-        else:
-            color_like = 'black'
-            color_dislike = 'red'
-    else:
-        color_like = 'black'
-        color_dislike = 'black'    
-    content = {
+    try:
+        book = Book.objects.get(id=pk)
+        comment = Comment.objects.filter(book=pk)
+        bookmarck_status = BookMarck.objects.filter(user=request.user, book=book).exists()
+        like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
+        LB = None
+        if like_b:
+            LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
+            
+    except:
+        LB = None
+        bookmarck_status = False
+    
+    finally:    
+        content = {
         'detail' : book,
         'comment': Comment.objects.filter(book=pk),
         'bookmarck_status': bookmarck_status,
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
-        'color_like':color_like,
-        'color_dislike':color_dislike,
+        'color_like_b':LB,
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
         'loan': LoanModel.objects.filter(book=book, status='S').exists(),
-        # 'likecomment': Comment.objects.select_related(LikeComment).count
-    }
-    return render(request, 'books/detail.html', content)    
+        }
+        return render(request, 'books/detail.html', content)    
 
 
 # inam try except mikhad...     
@@ -97,27 +93,26 @@ def detail_book(request, pk):
 def new_book(request):
     if request.method == 'POST':
         book_form = NewBook(request.POST)
-        customuser = CustomUserModel.objects.get(user=request.user)
+        
         if book_form.is_valid():
-            name = form.cleaned_data["name"]
-            translator = form.cleaned_data["translator"]
-            discription = form.cleaned_data["discription"]
-            cover = form.cleaned_data["cover"]
-            publishers = form.cleaned_data["publishers"]
-            user = customuser
-            new = Book.objects.create(name=name,
-                       translator=translator,
-                       discription=discription,
-                       cover=cover,
-                       publishers=publishers,
-                       user=user)
-            new.author.add(form.cleaned_data["author"])
-            new.category.add(form.cleaned_data["category"])
-            new.save()
+            cd = book_form.cleaned_data
+            current_user_object = CustomUserModel.objects.get(user__username=cd['hidden_user'])        
+            book_obj = Book.objects.create(
+                user= current_user_object,
+                name = cd['name'],
+                cover=cd['cover'],
+                description=cd['description'],
+                translator=cd['translator'],
+                condition=cd['condition'],
+                publishers=cd['publishers'],
+            )
+            book_obj.author.set(cd["author"])
+            book_obj.category.set(cd["category"])
+            book_obj.save()
             messages.success(request, 'Your registration was successfully done.')
             return redirect('home')
         else:
-            print('this is a test in case of failure.')
+            print(book_form.errors.as_data())
     book_form = NewBook()
     content = {
         'new_book':book_form,
