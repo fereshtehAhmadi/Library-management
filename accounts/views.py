@@ -43,7 +43,6 @@ def promote(request, pk):
     return redirect('user_list')
     
 
-
 @login_required(login_url='login')
 def account(request):
     validation = CustomUserModel.objects.filter(user= request.user).exists()
@@ -76,6 +75,30 @@ def account(request):
             'custom_user': custom_user_obj,
         }
         return render(request, 'accounts/account.html', content)
+    
+    
+@login_required(login_url='login')
+def edit_user_info(request):
+    custom_user = CustomUserModel.objects.get(user=request.user)
+    user = User.objects.get(username=request.user.username)
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address = request.POST['address']
+        
+        user.username = username
+        user.email = email
+        user.save()
+        custom_user.phone = phone
+        custom_user.address = address
+        custom_user.save()
+        return redirect('account')
+    content = {
+        'custom_user': custom_user,
+    }
+    return render(request, 'accounts/edit_user_info.html', content)
+        
 
 
 def register(request):

@@ -59,10 +59,7 @@
           {% include '../tem/navbar2.html' %}
 
           <div class="card-body p-5 text-center">
-            <form action="{% url 'account' %}" method="post">
-
-                {% load widget_tweaks %}
-
+            <form action="{% url 'edit' %}" method="post">
                 {% csrf_token %}
                 <div class="form-outline">
 
@@ -70,60 +67,35 @@
 
                     <div class="row mb-4">
                         <div class="col">
-                          <label for="firstname">user name:</label>
-                          {% render_field user_form.username class="form-control" value=user.username type="text" %} 
-
-                        </div>
-                        <div class="col">
-                          <label for="lastname">first name:</label>
-                          {% render_field user_form.first_name class="form-control" type="text" %} 
-                      </div>
+                          <label for="username">user name:</label>
+                          <input type="text" class="form-control" name="username" id="" value={{request.user.username}}>
+                    </div>
                     </div>
 
-                <div class="row mb-4">
-                  <div class="col">
-                    <label for="firstname">last name:</label>
-                    {% render_field user_form.last_name class="form-control" type="text"  %}                  
-                </div>
-                  <div class="col">
-                    <label for="lastname">national code:</label>
-                    {% render_field profile.national_code class="form-control" type="text"  %} 
-                </div>
-                </div>
+                
 
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">email:</label>
-                      {% render_field user_form.email class="form-control" value=user.email type="email"  %}  
+                      <input type="text" class="form-control" name="email"value={{request.user.email}}>
+
                     </div>
                     <div class="col">
-                      <label for="firstname">phone number:</label>
-                      {% render_field profile.phone class="form-control"  type="text" %} 
+                      <label for="phone">phone number:</label>
+                      <input type="text" class="form-control" name="phone" value={{custom_user.phone}}>
                     </div>
                   </div>
 
-                <div class="row mb-4">
-                    <div class="col">
-                      <label for="email">age:</label>
-                      {% render_field profile.age class="form-control"  type="text" %} 
-                    </div>
-                    <div class="col">
-                      <label for="firstname">gender:</label>
-                      {% render_field profile.gender class="form-control"  type="text"  %} 
-                    </div>
-                </div>
 
                 <div class="form-outline mb-4">
                   <label for="address">address:</label>
-                  {% render_field profile.address class="form-control" rows="3" %}  
+                  <textarea type="text" class="form-control" name="address">{{custom_user.address}}</textarea>
                 </div>
 
                 <div class="row justify-content-center align-items-center">
                 <input class="btn btn-info btn-md btn-block col-3" type="submit" value="save change">
                 </div>
               </form>
-
-            
 
           </div>
         </div>
