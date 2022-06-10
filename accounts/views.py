@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from accounts.models import CustomUserModel
 from books.models import Categorie
 
-from accounts.forms import UserRegisterationForm, UpdateUserForm, CustomUserForm
+from accounts.forms import UserRegisterationForm
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
