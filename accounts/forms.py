@@ -39,29 +39,6 @@ class UserRegisterationForm(forms.ModelForm):
         return cd['password2']
     
 
-class UpdateUserForm(forms.ModelForm):
-    # hidden_user = forms.CharField(widget=forms.HiddenInput())
-    username = forms.CharField()
-    email = forms.EmailField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
-        # fields = ('email', 'first_name', 'last_name')
 
         
 # https://stackoverflow.com/questions/68248311/how-to-change-django-phonenumber-field-error-messages
-
-class CustomUserForm(forms.ModelForm):
-    address = forms.CharField(widget=forms.Textarea())
-    national_code = forms.IntegerField(required=True)
-    age = forms.IntegerField(required=True)
-    phone = forms.CharField(required=True)
-    # phone = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='GE'))
-    
-    class Meta:
-        model = CustomUserModel
-        exclude = ("user","debt")
-    

@@ -60,9 +60,6 @@
 
           <div class="card-body p-5 text-center">
             <form action="{% url 'account' %}" method="post">
-
-                {% load widget_tweaks %}
-
                 {% csrf_token %}
                 <div class="form-outline">
 
@@ -71,51 +68,54 @@
                     <div class="row mb-4">
                         <div class="col">
                           <label for="firstname">user name:</label>
-                          {% render_field user_form.username class="form-control" value=user.username type="text" %} 
-
+                          <input type="text" name="username" class="form-control" value={{user.username}}>
                         </div>
                         <div class="col">
                           <label for="lastname">first name:</label>
-                          {% render_field user_form.first_name class="form-control" type="text" %} 
+                          <input type="text" name="first_name" class="form-control">
                       </div>
                     </div>
 
                 <div class="row mb-4">
                   <div class="col">
                     <label for="firstname">last name:</label>
-                    {% render_field user_form.last_name class="form-control" type="text"  %}                  
+                    <input type="text" class="form-control" name="last_name">
                 </div>
                   <div class="col">
                     <label for="lastname">national code:</label>
-                    {% render_field profile.national_code class="form-control" type="text"  %} 
+                    <input type="text" class="form-control" name="national_code">
                 </div>
                 </div>
 
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">email:</label>
-                      {% render_field user_form.email class="form-control" value=user.email type="email"  %}  
+                      <input type="text" name="email" class="form-control" value={{user.email}}>
                     </div>
                     <div class="col">
                       <label for="firstname">phone number:</label>
-                      {% render_field profile.phone class="form-control"  type="text" %} 
+                      <input type="text" name="phone" class="form-control">
                     </div>
                   </div>
+
 
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">age:</label>
-                      {% render_field profile.age class="form-control"  type="text" %} 
+                      <input type="number" name="age" class="form-control">
                     </div>
                     <div class="col">
                       <label for="firstname">gender:</label>
-                      {% render_field profile.gender class="form-control"  type="text"  %} 
+                      <select name="gender" class="form-control">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                      </select>
                     </div>
                 </div>
 
                 <div class="form-outline mb-4">
                   <label for="address">address:</label>
-                  {% render_field profile.address class="form-control" rows="3" %}  
+                  <textarea type="text" name="address" class="form-control" rows="3"></textarea>
                 </div>
 
                 <div class="row justify-content-center align-items-center">

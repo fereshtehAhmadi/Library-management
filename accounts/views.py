@@ -46,35 +46,35 @@ def promote(request, pk):
 @login_required(login_url='login')
 def account(request):
     validation = CustomUserModel.objects.filter(user= request.user).exists()
-    custom_user_obj = CustomUserModel.objects.get(user=request.user)
+    user = User.objects.get(username=request.user.username)
     if not validation:
-        profile = CustomUserForm(request.POST, instance=custom_user_obj)
-        user_form = UpdateUserForm(request.POST)
         if request.method == 'POST':
-            if user_form.is_valid():
-                user_edit = User.objects.get(username=request.user.username)
-                cd = book_form.cleaned_data
-                if user_edit != cd['username']:
-                    user_edit.username = cd['username']   
-                user_edit.first_name = cd['first_name']
-                user_edit.last_name = cd['last_name']
-                user_edit.email = cd['email']
-                user_edit.save()
-            else:
-                print(user_form.errors)        
-            if profile.is_valid():
-                profile.save()
-                return redirect('home')
-            content = {
-                'profile': profile,
-                'user_form': user_form,
-            }
-            return render(request, 'accounts/custom_user.html',content)
+            user.username = request.POST['username']
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.email = request.POST['email']
+            user.save()
+            
+            phone= request.POST['phone']
+            address = request.POST['address']
+            national_code = request.POST['national_code']
+            age = request.POST['age']
+            gender = request.POST['gender']
+            customuser = CustomUserModel(
+                user=user, phone=phone,
+                address=address, national_code=national_code,
+                age=age, gender=gender,
+            )
+            customuser.save()
+            return redirect('home')
+        return render(request, 'accounts/custom_user.html', {'user':user})
     else:
+        custom_user_obj = CustomUserModel.objects.get(user=request.user)
         content = {
             'custom_user': custom_user_obj,
         }
         return render(request, 'accounts/account.html', content)
+    
     
     
 @login_required(login_url='login')
