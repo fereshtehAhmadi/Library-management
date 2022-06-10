@@ -12,15 +12,14 @@ from accounts.models import CustomUserModel
 def add_book_marck(request, pk):
     try:
         book = Book.objects.get(id=pk)
-        user = CustomUserModel.objects.get(user=request.user)
-        bookmarck = BookMarck.objects.filter(user=user).exists()
-        validbook = BookMarck.objects.filter(user=user, book=book).exists()
+        bookmarck = BookMarck.objects.filter(user=request.user).exists()
+        validbook = BookMarck.objects.filter(user=request.user, book=book).exists()
         if not bookmarck:
             obj = BookMarck.objects.create(user=user)
             obj.book.add(book)
             obj.save()
         else:
-            obj = BookMarck.objects.get(user=user)
+            obj = BookMarck.objects.get(user=request.user)
             if validbook:
                 obj.book.remove(book)
                 obj.save()
@@ -28,15 +27,15 @@ def add_book_marck(request, pk):
                 obj.book.add(book)
                 obj.save()
     except:
+        book = Book.objects.get(id=pk)
         messages.error(request, 'Please complete your user information!!')
     return redirect('detail', pk=book.id)
 
 
 
 def book_marck(request):
-    user = CustomUserModel.objects.get(user=request.user)
     content = {
-        'bookmarck': BookMarck.objects.filter(user=user),
+        'bookmarck': BookMarck.objects.filter(user=request.user),
     }
     return render(request, 'extra/book_marck.html', content)
 

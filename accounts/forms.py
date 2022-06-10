@@ -1,8 +1,11 @@
 from django import forms
+from django.urls import reverse_lazy
+from phonenumber_field.formfields import PhoneNumberField
+
+from accounts.models import CustomUserModel
+
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
-from accounts.models import CustomUserModel
 from django.contrib.auth.models import User
 
 
@@ -37,33 +40,28 @@ class UserRegisterationForm(forms.ModelForm):
     
 
 class UpdateUserForm(forms.ModelForm):
+    # hidden_user = forms.CharField(widget=forms.HiddenInput())
     username = forms.CharField()
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
-    password = forms.CharField()
-    password2 = forms.CharField()
+    
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
-    
-    def clean_password2(self):
-        cd = self.cleaned_data
-        if cd['password'] != cd['password2']:
-            raise forms.ValidationError('Passwords don\'t match.')
-        return cd['password2']
-    
+        # fields = ('email', 'first_name', 'last_name')
 
-
+        
+# https://stackoverflow.com/questions/68248311/how-to-change-django-phonenumber-field-error-messages
 
 class CustomUserForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea())
     national_code = forms.IntegerField(required=True)
     age = forms.IntegerField(required=True)
-    phone_number = forms.IntegerField(required=True)
+    phone = forms.CharField(required=True)
+    # phone = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='GE'))
     
     class Meta:
         model = CustomUserModel
-        fields = ('phone_number', 'address', 'age', 'gender', 'national_code')
-    
+        exclude = ("user","debt")
     

@@ -60,56 +60,35 @@
 
           <div class="card-body p-5 text-center">
             <form method="post">
-
-                {% load widget_tweaks %}
-
                 {% csrf_token %}
                 <div class="form-outline">
 
                     <div class="row mb-4">
                         <div class="col">
-                          <label for="firstname">user name:</label>
+                          <label for="firstname">book name:</label>
+                          <input type="text" class="form-control" >
                         </div>
                         <div class="col">
-                          <label for="lastname">first name:</label>
+                          <label for="lastname">author:</label>
+                          <input type="text" class="form-control" >
                       </div>
                     </div>
 
                 <div class="row mb-4">
                   <div class="col">
-                    <label for="firstname">last name:</label>
+                    <label for="firstname">translator:</label>
+                    <input type="text" class="form-control" >
                 </div>
                   <div class="col">
-                    <label for="lastname">national code:</label>
+                    <label for="lastname">publishers:</label>
+                    <input type="text" class="form-control" >
                 </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col">
-                      <label for="email">email:</label>
-                    </div>
-                    <div class="col">
-                      <label for="firstname">phone number:</label>
-                    </div>
-                  </div>
-                
-                <div class="row mb-4">
-                    <div class="col">
-                      <label for="email">age:</label>
-                    </div>
-                    <div class="col">
-                      <label for="firstname">gender:</label>
-                    </div>
                 </div>
 
                 <div class="row justify-content-center align-items-center">
-                <button class="btn btn-dark btn-md btn-block col-3" type="submit">Save change</button>
-                <a href="{% url 'change_password' %}" class="btn btn-dark btn-md btn-block col-3 ml-4" type="submit">Edit password</a>
+                <button class="btn btn-dark btn-md btn-block col-3" type="submit">Search</button>
                 </div>
               </form>
-
-            
-
           </div>
         </div>
       </div>

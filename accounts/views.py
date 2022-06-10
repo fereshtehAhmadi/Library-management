@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.core.mail import send_mail
 from library_managment import settings
-from accounts.models import CustomUserModel
+
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegisterationForm, UpdateUserForm, CustomUserForm
+from accounts.models import CustomUserModel
 from books.models import Categorie
+
+from accounts.forms import UserRegisterationForm, UpdateUserForm, CustomUserForm
+
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 
 def user_list(request):
@@ -42,22 +46,36 @@ def promote(request, pk):
 
 @login_required(login_url='login')
 def account(request):
-    user_form = UpdateUserForm(request.POST, instance=request.user)
-    profile = CustomUserForm(request.POST, instance=request.user)
-    if request.method == 'POST':
-        if profile.is_valid():
-            user_form.save()
-            profile = profile.save(commit=False)
-            profile.user = request.user
-            profile.save()
-            return redirect('home')
-    content = {
-        'user_form': user_form,
-        'profile': profile,
-        'customuser': CustomUserModel.objects.get(user=request.user),
-        
-    }
-    return render(request, 'accounts/account.html',content)
+    validation = CustomUserModel.objects.filter(user= request.user).exists()
+    custom_user_obj = CustomUserModel.objects.get(user=request.user)
+    if not validation:
+        profile = CustomUserForm(request.POST, instance=custom_user_obj)
+        user_form = UpdateUserForm(request.POST)
+        if request.method == 'POST':
+            if user_form.is_valid():
+                user_edit = User.objects.get(username=request.user.username)
+                cd = book_form.cleaned_data
+                if user_edit != cd['username']:
+                    user_edit.username = cd['username']   
+                user_edit.first_name = cd['first_name']
+                user_edit.last_name = cd['last_name']
+                user_edit.email = cd['email']
+                user_edit.save()
+            else:
+                print(user_form.errors)        
+            if profile.is_valid():
+                profile.save()
+                return redirect('home')
+            content = {
+                'profile': profile,
+                'user_form': user_form,
+            }
+            return render(request, 'accounts/custom_user.html',content)
+    else:
+        content = {
+            'custom_user': custom_user_obj,
+        }
+        return render(request, 'accounts/account.html', content)
 
 
 def register(request):

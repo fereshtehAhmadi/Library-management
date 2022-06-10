@@ -1,18 +1,29 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.contrib import messages
+from django.db.models import Count
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from accounts.models import CustomUserModel
 from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
 from loan.models import LoanModel, DebtModel
-from django.contrib import messages
-from django.db.models import Count
-from accounts.models import CustomUserModel
+
+# from loan.models.LoanModel import diff_time
+
+
+# def debt(request):
+#     diff = diff_time
+#     if diff >= 0/1/0:
+#         pass
+
 
 
 def add_loan(request, pk):
+    book = Book.objects.get(id=pk)
     try:
         user = CustomUserModel.objects.get(user=request.user)
-        book = Book.objects.get(id=pk)
         valid = LoanModel.objects.filter(user=user, status='S').count()
         if valid < 5:
             loan = LoanModel.objects.create(user=user,book=book, status='S')

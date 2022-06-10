@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-
-
 class CustomUserModel(models.Model):
     GENDER_CHOICES = (
         ('M', 'Male'),

@@ -7,7 +7,7 @@ from books.models import Book
         
 class BookMarck(models.Model):
     book = models.ManyToManyField(Book)
-    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     create = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     
@@ -26,7 +26,13 @@ class Comment(models.Model):
     
     def __str__(self):
         return f'{self.user.user.username} write comment for {self.book.id}'
-
+    
+    def like_c(comment_pk):
+        comment_obj = Comment.objects.get(id=comment_pk)
+        obj_list = comment_obj.likecomment.all()
+        return obj_list.filter(like=True).count()
+    # {{ obj.like_c | obj.id }}
+    #  annonate
 
 class LikeComment(models.Model):
     comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE, related_name='likecomment')
