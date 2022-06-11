@@ -10,13 +10,11 @@ from django.contrib.auth.models import User
 
 
 
-class PasswordChangeView(PasswordChangeView):
+class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy('home')
     
     
-
-
 
 class UserRegisterationForm(forms.ModelForm):
     password = forms.CharField( label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -37,6 +35,7 @@ class UserRegisterationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
+    
     
 
 

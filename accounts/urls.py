@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from django.contrib.auth import views as auth_views
-from accounts.forms import PasswordChangeView
+from accounts.forms import PasswordsChangeView
 from accounts import views
 
 urlpatterns = [
@@ -13,19 +13,14 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('advance_search/', views.advance_search, name='advance_search'),
     path('user_list/', views.user_list, name='user_list'),
-    path('user_detail/<int:pk>', views.user_detail, name='detail'),
+    path('user_detail/<int:pk>', views.user_detail, name='user_detail'),
     path('delete_user/<int:pk>', views.delete_user, name='delete'),
     path('promote_user/<int:pk>', views.promote, name='promote'),
     path('decline/<int:pk>', views.decline, name='decline'),
     path('logout/', views.logout_user, name='logout_user'),
-    
-#     path('change_password/', 
-#          auth_views.PasswordChangeView.as_view(template_name='accounts/change_password.html'), 
-#          name='change_password'),
-    path('change_password/', 
-         PasswordChangeView.as_view(template_name='accounts/change_password.html'), 
-         name='change_password'),
-    
+#     path('password/', auth_views.PasswordChangeDoneView.as_view(template_name='accounts/change_password.html')),
+    path('password/', PasswordsChangeView.as_view(template_name='accounts/change_password.html'), name='change_password'),
+
     
     
     path('reset_password/', 

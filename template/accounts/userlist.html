@@ -88,7 +88,7 @@
         <td><a href="{% url 'promote' obj.id %}" class="btn btn-info">Promotion</a></td>
         {% endif %}
         {% csrf_token %}
-        <td><a href="{% url 'detail' obj.id %}" id="demo" class="btn btn-dark">detail</a></td>
+        <td><a href="{% url 'user_detail' obj.id %}" id="demo" class="btn btn-dark">detail</a></td>
     </tr>
       <!-- Decline -->
       {% endif %}

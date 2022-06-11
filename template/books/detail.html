@@ -218,7 +218,7 @@
                   <div class="wrapper row">
                       
                     <div class="preview col-md-4">
-                        <div class="tab-pane active" id="pic"style="width:350px; height:100px;">
+                        <div class="col-12" id="pic"style="width:350px; height:100px;">
                           <img src="{{ detail.cover.url }}" alt="Alternative">
                         <div style="margin-top: 50px;">
                           <span style="font-size: 20px;">{{ like }}</span>
@@ -324,3 +324,6 @@
 
 
 {% endblock %}
+
+
+<!-- {{ request.build_absolute_url }} -->

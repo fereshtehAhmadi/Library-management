@@ -9,10 +9,11 @@ class CustomUserModel(models.Model):
         ('F', 'Female'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    phone = PhoneNumberField(null=True, blank=False, unique=True) # PhoneNumberField, CharField
-    address = models.CharField(max_length=200, null=True)
-    national_code = models.CharField(max_length=10, null=True)
-    age = models.PositiveIntegerField(null=True)
+    phone = PhoneNumberField(null=False, blank=False, unique=True) # PhoneNumberField, CharField
+    address = models.CharField(max_length=200)
+    national_code = models.CharField(max_length=10)
+    # age = models.PositiveIntegerField(null=True)
+    birthday = models.DateField()
     gender = models.CharField(max_length = 1,null=True, choices = GENDER_CHOICES)
     debt = models.OneToOneField("loan.DebtModel",null=True, on_delete=models.CASCADE, blank=True)
 

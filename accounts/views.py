@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from accounts.models import CustomUserModel
 from books.models import Categorie
 
-from accounts.forms import UserRegisterationForm
-
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -68,12 +66,12 @@ def account(request):
             phone= request.POST['phone']
             address = request.POST['address']
             national_code = request.POST['national_code']
-            age = request.POST['age']
+            birthday = request.POST['birthday']
             gender = request.POST['gender']
             customuser = CustomUserModel(
                 user=user, phone=phone,
                 address=address, national_code=national_code,
-                age=age, gender=gender,
+                birthday=birthday, gender=gender,
             )
             customuser.save()
             return redirect('home')
