@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 
 def user_list(request):
     content = {
-        'user_list': User.objects.all(),
+        'user_list': User.objects.order_by('username'),
     }
     return render(request, 'accounts/userlist.html', content)
 
