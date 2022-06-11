@@ -131,10 +131,10 @@
                       <hr>
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Age</h6>
+                          <h6 class="mb-0">Birth Day</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          {{ custom_user.age }}
+                          {{ custom_user.birthday }}
                         </div>
                       </div>
                       <hr>
@@ -154,9 +154,6 @@
                         {% else%}               
                     <a href="{% url 'promote' user.id %}" class="btn btn-info btn-lg">Promotion</a>
                         {% endif %}
-                      </div>
-                      <div class="col-sm-12 col-md-7" style="margin-top: 10px;">
-                        <a href="{% url 'delete' user.id %}"class="btn btn-danger btn-lg">delete</a>
                       </div>
                     </div>
           </div>

@@ -30,12 +30,6 @@ def user_detail(request,pk):
     return render(request, 'accounts/user_detail.html', {'user':user, 'custom_user': custom_user})
 
 
-def delete_user(request, pk):
-    obj = get_object_or_404(User, id=pk)
-    obj.delete()
-    return redirect('user_list')
-
-
 
 def decline(request, pk):
     obj = get_object_or_404(User, id=pk)
