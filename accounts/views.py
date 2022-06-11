@@ -22,6 +22,16 @@ def user_list(request):
     return render(request, 'accounts/userlist.html', content)
 
 
+def user_detail(request,pk):
+    user = User.objects.get(id=pk)
+    validation = CustomUserModel.objects.filter(user=user).exists()
+    if validation:
+        custom_user = CustomUserModel.objects.get(user=user)
+    else:
+        custom_user = None
+    return render(request, 'accounts/user_detail.html', {'user':user, 'custom_user': custom_user})
+
+
 def delete_user(request, pk):
     obj = get_object_or_404(User, id=pk)
     obj.delete()
