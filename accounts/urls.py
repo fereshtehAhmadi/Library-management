@@ -11,7 +11,6 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('edit/', views.edit_user_info, name='edit'),
     path('about/', views.about, name='about'),
-    path('advance_search/', views.advance_search, name='advance_search'),
     path('user_list/', views.user_list, name='user_list'),
     path('user_detail/<int:pk>', views.user_detail, name='user_detail'),
     path('promote_user/<int:pk>', views.promote, name='promote'),

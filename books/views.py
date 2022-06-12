@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User, Group
@@ -18,6 +18,12 @@ from books.forms import NewBook
 
 
 
+def advance_search(request):
+    return render(request, 'other/advance_search.html')
+
+
+
+
 def books(request):
     p = Paginator(Book.objects.all().order_by('?'), 12)
     page = request.GET.get('page')
@@ -28,17 +34,31 @@ def books(request):
     }
     return render(request, 'home.html', context)
 
-    
 
 def search(request):
     if request.method == 'GET':
-        searched = request.GET['searched']
-        book = Book.objects.filter(name__contains=searched)
-        if book.exists():
-            return render(request, 'home.html', {'book_search':book})
-        else:
-            return render(request, 'home.html', {'searched': searched})
-        
+        q = request.GET.get('q')
+        if q:
+           query_set = Book.objects.filter(Q(name__icontains=q) | Q(
+            author__name__icontains=q)).distinct()
+
+        if not query_set:
+            return redirect('home')
+
+        elif query_set:
+            paginator = Paginator(query_set, 12)
+            page = request.GET.get('page')
+            posts = paginator.get_page(page)
+            
+            context = {
+                'page': page,
+                'book_search': posts,
+                'query': str(q),
+            }
+            return render(request, 'home.html', context)
+    return redirect('home')
+
+
         
 
 def category(request, cats):

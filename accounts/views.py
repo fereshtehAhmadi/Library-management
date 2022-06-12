@@ -7,12 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
-
 from django.http import HttpResponse
 from .decorators import unauthenticated_user, super_user, staff_user
 
 from accounts.forms import CustomUserForm, UserRegisterationForm
-
 from accounts.models import CustomUserModel
 from books.models import Categorie
 
@@ -170,6 +168,3 @@ def about(request):
         
     return render(request, 'other/about.html')
 
-
-def advance_search(request):
-    return render(request, 'other/advance_search.html')
