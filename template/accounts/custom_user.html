@@ -54,12 +54,14 @@
   <div class="container py-4 col-8">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
+        {% include '../tem/message.html' %}
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <!-- navbarText -->
           {% include '../tem/navbar2.html' %}
 
           <div class="card-body p-5 text-center">
             <form action="{% url 'account' %}" method="post">
+              {% load widget_tweaks %}
                 {% csrf_token %}
                 <div class="form-outline">
 
@@ -83,7 +85,7 @@
                 </div>
                   <div class="col">
                     <label for="lastname">national code:</label>
-                    <input type="text" class="form-control" name="national_code">
+                    {{ profile.national_code }}
                 </div>
                 </div>
 
@@ -94,7 +96,7 @@
                     </div>
                     <div class="col">
                       <label for="firstname">phone number:</label>
-                      <input type="text" name="phone" class="form-control">
+                      {{ profile.phone }}
                     </div>
                   </div>
 
@@ -102,7 +104,7 @@
                 <div class="row mb-4">
                     <div class="col">
                       <label for="email">birthday:</label>
-                      <input type="date" class="form-control" name="birthday">
+                      {% render_field profile.birthday type="date" class="form-control" %}
                     </div>
                     <div class="col">
                       <label for="firstname">gender:</label>
@@ -115,7 +117,8 @@
 
                 <div class="form-outline mb-4">
                   <label for="address">address:</label>
-                  <textarea type="text" name="address" class="form-control" rows="3"></textarea>
+                  {% render_field profile.address rows=3 class="form-control" %}
+
                 </div>
 
                 <div class="row justify-content-center align-items-center">

@@ -4,11 +4,14 @@ from django.contrib import messages
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from accounts.models import CustomUserModel
 from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
 from loan.models import LoanModel, DebtModel
+
+from django.http import HttpResponse
+from accounts.decorators import unauthenticated_user, super_user, staff_user
 
 from books.forms import NewBook
 
@@ -89,7 +92,8 @@ def detail_book(request, pk):
 
 
 # inam try except mikhad...     
-@login_required(login_url='login')       
+@login_required(login_url='login')
+@staff_user
 def new_book(request):
     if request.method == 'POST':
         book_form = NewBook(request.POST)
@@ -122,6 +126,7 @@ def new_book(request):
 
 
 @login_required(login_url='login')
+@staff_user
 def new_catrgory(request):
     if request.method == 'POST':
         category = request.POST['category']
@@ -135,6 +140,7 @@ def new_catrgory(request):
 
 
 @login_required(login_url='login')
+@staff_user
 def new_author(request):
     if request.method == 'POST':
         author = request.POST['author']
@@ -147,8 +153,8 @@ def new_author(request):
     return render(request, 'books/add/new_forenkey.html', content)
 
 
-
 @login_required(login_url='login')
+@staff_user
 def new_publisher(request):
     if request.method == 'POST':
         publisher = request.POST['publisher']

@@ -36,6 +36,34 @@ class UserRegisterationForm(forms.ModelForm):
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
     
+
+class CustomUserForm(forms.ModelForm):
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    national_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gender = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}))
+    birthday = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(label='Confirm password', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    
+    class Meta:
+        model = CustomUserModel
+        fields = ('phone', 'address', 'national_code', 'gender', 'birthday')
+        
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone', None)
+        try:
+            int(phone)
+        except (ValueError):
+            raise forms.ValidationError('Please enter a valid phone number!')
+        return phone
+    
+    def clean_national_code(self):
+        national_code = self.cleaned_data.get('national_code', None)
+        try:
+            int(national_code)
+        except (ValueError):
+            raise forms.ValidationError('Please enter a valid national_code!')
+        return national_code
+    
     
 
 

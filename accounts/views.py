@@ -2,17 +2,24 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from django.core.mail import send_mail
 from library_managment import settings
 
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
+
+from django.http import HttpResponse
+from .decorators import unauthenticated_user, super_user, staff_user
+
+from accounts.forms import CustomUserForm, UserRegisterationForm
+
 from accounts.models import CustomUserModel
 from books.models import Categorie
 
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
 
-
+@login_required(login_url='login')
+@super_user
 def user_list(request):
     content = {
         'user_list': User.objects.order_by('username'),
@@ -20,6 +27,8 @@ def user_list(request):
     return render(request, 'accounts/userlist.html', content)
 
 
+@login_required(login_url='login')
+@super_user
 def user_detail(request,pk):
     user = User.objects.get(id=pk)
     validation = CustomUserModel.objects.filter(user=user).exists()
@@ -30,14 +39,17 @@ def user_detail(request,pk):
     return render(request, 'accounts/user_detail.html', {'user':user, 'custom_user': custom_user})
 
 
-
+@login_required(login_url='login')
+@super_user
 def decline(request, pk):
     obj = get_object_or_404(User, id=pk)
     obj.is_staff=False
     obj.save()
     return redirect('user_list')    
     
-    
+ 
+@login_required(login_url='login')
+@super_user  
 def promote(request, pk):
     obj = get_object_or_404(User, id=pk)
     obj.is_staff=True 
@@ -49,27 +61,30 @@ def promote(request, pk):
 def account(request):
     validation = CustomUserModel.objects.filter(user= request.user).exists()
     user = User.objects.get(username=request.user.username)
+    custom_user_form = CustomUserForm(request.POST)
     if not validation:
         if request.method == 'POST':
-            user.username = request.POST['username']
-            user.first_name = request.POST['first_name']
-            user.last_name = request.POST['last_name']
-            user.email = request.POST['email']
-            user.save()
-            
-            phone= request.POST['phone']
-            address = request.POST['address']
-            national_code = request.POST['national_code']
-            birthday = request.POST['birthday']
-            gender = request.POST['gender']
-            customuser = CustomUserModel(
-                user=user, phone=phone,
-                address=address, national_code=national_code,
-                birthday=birthday, gender=gender,
-            )
-            customuser.save()
-            return redirect('home')
-        return render(request, 'accounts/custom_user.html', {'user':user})
+            if custom_user_form.is_valid():
+                user.username = request.POST['username']
+                user.first_name = request.POST['first_name']
+                user.last_name = request.POST['last_name']
+                user.email = request.POST['email']
+                user.save()
+                cd = custom_user_form.cleaned_data
+                phone= cd['phone']
+                address = cd['address']
+                national_code = cd['national_code']
+                birthday = cd['birthday']
+                gender = cd['gender']
+                customuser = CustomUserModel.objects.create(
+                    user=user, phone=phone,
+                    address=address, national_code=national_code,
+                    birthday=birthday, gender=gender,
+                )
+                return redirect('home')
+            else:
+                print(custom_user_form.errors)
+        return render(request, 'accounts/custom_user.html', {'user':user, 'profile':custom_user_form})
     else:
         custom_user_obj = CustomUserModel.objects.get(user=request.user)
         content = {
@@ -102,7 +117,7 @@ def edit_user_info(request):
     return render(request, 'accounts/edit_user_info.html', content)
         
 
-
+@unauthenticated_user
 def register(request):
     if request.method == 'POST':
         user_form = UserRegisterationForm(request.POST)
@@ -122,6 +137,7 @@ def register(request):
     return render(request,'accounts/register.html', context)
 
 
+@unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
