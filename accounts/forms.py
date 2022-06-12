@@ -42,7 +42,7 @@ class CustomUserForm(forms.ModelForm):
     national_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     gender = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}))
     birthday = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}))
-    address = forms.CharField(label='Confirm password', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    address = forms.CharField(label='Confirm password', widget=forms.Textarea())
     
     class Meta:
         model = CustomUserModel
@@ -52,6 +52,9 @@ class CustomUserForm(forms.ModelForm):
         phone = self.cleaned_data.get('phone', None)
         try:
             int(phone)
+            l = list(phone)
+            if l[0] != '0' and l[1] != '9':
+                raise forms.ValidationError('Please enter a valid phone number!')
         except (ValueError):
             raise forms.ValidationError('Please enter a valid phone number!')
         return phone
@@ -65,7 +68,3 @@ class CustomUserForm(forms.ModelForm):
         return national_code
     
     
-
-
-        
-# https://stackoverflow.com/questions/68248311/how-to-change-django-phonenumber-field-error-messages

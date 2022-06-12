@@ -83,7 +83,7 @@ def account(request):
                 )
                 return redirect('home')
             else:
-                print(custom_user_form.errors)
+                messages.error(request, custom_user_form.errors)
         return render(request, 'accounts/custom_user.html', {'user':user, 'profile':custom_user_form})
     else:
         custom_user_obj = CustomUserModel.objects.get(user=request.user)
