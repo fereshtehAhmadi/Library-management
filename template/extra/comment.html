@@ -75,21 +75,12 @@
                     </li>
 
                     {% if request.user.is_staff %}
-                    <form action="" method="POST">
-                    <li class="list-inline-item g-mr-20 ml-4">
+                    <li class="list-inline-item ml-auto">
                       <a href="{% url 'delete_comment' obj.id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
                         <i class="fa fa-trash g-pos-rel g-top-1 g-mr-3"></i>
                       </a>
                     </li>
-                    </form>
                     {% endif %}
-
-                    <li class="list-inline-item ml-auto">
-                      <a href="" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
-                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                        Reply
-                      </a>
-                    </li>
                   </ul>
                 </div>
             </div>

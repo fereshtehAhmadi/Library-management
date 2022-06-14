@@ -2,18 +2,19 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Count, Q
+
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import unauthenticated_user, super_user, staff_user
 
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponse
+
 from accounts.models import CustomUserModel
 from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
 from loan.models import LoanModel, DebtModel
 
-from django.http import HttpResponse
-from accounts.decorators import unauthenticated_user, super_user, staff_user
-
-from books.forms import NewBook
+from books.forms import NewBook, EditBook
 
 
 def books(request):
@@ -157,7 +158,37 @@ def book_info(request, pk):
                 
     
     return render(request, 'books/book_info.html', content)
-  
+
+
+
+@login_required(login_url='login')
+@staff_user  
+def edit_book(request, pk):
+    book = Book.objects.get(id=pk)
+    book_form = NewBook(request.POST, instance=request.user)
+    if request.method == 'POST':
+        if book_form.is_valid():
+            cd = book_form.cleaned_data
+            
+            book.name=cd['name']
+            book.cover=cd['cover']
+            book.description=cd['description']
+            book.translator=cd['translator']
+            book.condition=cd['condition']
+            book.publishers=cd['publishers']
+            book.save()
+            book.author.set(cd["author"])
+            book.category.set(cd["category"])
+            book.save()
+            return redirect('detail', pk=book.id)
+        else:
+            messages.error(request, book_form.errors)
+    content = {
+        'edit_book':book_form,
+        'book': book,
+    }
+    return render(request, 'books/edit_book.html', content)
+
 
 
 # inam try except mikhad...     
@@ -185,7 +216,7 @@ def new_book(request):
             messages.success(request, 'Your registration was successfully done.')
             return redirect('home')
         else:
-            print(book_form.errors.as_data())
+            messages.error(request, book_form.errors.as_data())
     book_form = NewBook()
     content = {
         'new_book':book_form,

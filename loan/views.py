@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.db.models import Count
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from accounts.decorators import unauthenticated_user, super_user, staff_user
 
+from django.contrib.auth.models import User
 from accounts.models import CustomUserModel
 from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
@@ -46,7 +47,8 @@ def loan_lis(request):
     return render(request, 'loan/loan_list.html', content)
 
 
-
+@login_required(login_url='login')
+@staff_user
 def receive(request):
     if request.method == 'POST':
         id = request.POST['id']

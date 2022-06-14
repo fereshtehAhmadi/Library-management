@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import unauthenticated_user, super_user, staff_user
+
 from django.contrib.auth.models import User
-from extra.models import LikeBook, Comment, BookMarck, LikeComment
-from books.models import Book
 from django.contrib import messages
 from django.db.models import Count
+
+from extra.models import LikeBook, Comment, BookMarck, LikeComment
+from books.models import Book
 from accounts.models import CustomUserModel
+
 
 
 @login_required(login_url='login')
@@ -32,7 +36,7 @@ def add_book_marck(request, pk):
     return redirect('detail', pk=book.id)
 
 
-
+@unauthenticated_user
 def book_marck(request):
     content = {
         'bookmarck': BookMarck.objects.filter(user=request.user),
@@ -124,7 +128,8 @@ def dislike_books(request, pk):
 
         
     
-@login_required(login_url='login')   
+@login_required(login_url='login')
+@staff_user 
 def delete_comment(request, pk):
     obj = get_object_or_404(Comment, id=pk)
     book = Book.objects.get(comment=obj)

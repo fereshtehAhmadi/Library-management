@@ -39,7 +39,6 @@ def staff_user(view_func):
 
 
 
-# We've set some permissions based on different user groups
 # def allowed_users(allowed_roles=[]):
 #     def decorator(view_func):
 #         def wrapper(request, *args, **kwargs):
