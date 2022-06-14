@@ -130,7 +130,7 @@
                                         <h6 style="color: black;">{{ obj.name }}</h6>
                                         <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
                                             {% for auth in obj.author.all %}									
-                                        <a href="{% url 'author' auth.id %}" class="consol-price" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
+                                        <a href="{% url 'author' auth.id %}" class="consol-price p-1" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
                                         <small>,</small>
                                             {% endfor %}
                                         </div>

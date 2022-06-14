@@ -59,29 +59,29 @@
           {% include '../tem/navbar2.html' %}
 
           <div class="card-body p-5 text-center">
-            <form method="post">
+            <form method="get">
                 {% csrf_token %}
                 <div class="form-outline">
 
                     <div class="row mb-4">
                         <div class="col">
                           <label for="firstname">book name:</label>
-                          <input type="text" class="form-control" >
+                          <input type="text" name="n" class="form-control" >
                         </div>
                         <div class="col">
                           <label for="lastname">author:</label>
-                          <input type="text" class="form-control" >
+                          <input type="text" name="a" class="form-control" >
                       </div>
                     </div>
 
                 <div class="row mb-4">
                   <div class="col">
                     <label for="firstname">translator:</label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="t" class="form-control" >
                 </div>
                   <div class="col">
                     <label for="lastname">publishers:</label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="p" class="form-control" >
                 </div>
                 </div>
 

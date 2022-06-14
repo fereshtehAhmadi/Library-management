@@ -5,16 +5,20 @@ from books import views
 urlpatterns = [
     path('', views.books, name="home"),
     path('search/', views.search, name="search"),
-    path('detail/<int:pk>', views.detail_book, name="detail"),
+    path('advance_search/', views.advance_search, name='advance_search'),
     path('category/<int:cats>', views.category, name="category"),
     path('author/<int:auth>', views.search_author, name="author"),
+    
+    path('detail/<int:pk>', views.detail_book, name="detail"),
+    path('book_info/<int:pk>', views.book_info, name="book_info"),
+    
     path('new_book/', views.new_book, name="new_book"),
     path('new_author/', views.new_author, name="new_author"),
     path('new_publisher/', views.new_publisher, name="new_publisher"),
     path('new_category/', views.new_catrgory, name="new_category"),
+    
     path('request_book/', views.request_book, name="request_book"),
     path('request_list/', views.request_list, name="request_list"),
     
-    path('advance_search/', views.advance_search, name='advance_search'),
 
     ]

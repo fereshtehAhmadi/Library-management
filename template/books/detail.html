@@ -283,6 +283,9 @@
                         {% else %}
                         <button class="add-to-cart btn btn-secondary btn-lg" type="button" style="color: black;">not available</button>
                         {% endif %}
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'book_info' detail.id %}" class="btn btn-sm btn-primary ml-4" type="button">detail</a>
+                        {% endif %}
                       </div>
                     </div>
                   </div>

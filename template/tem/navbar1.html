@@ -90,7 +90,6 @@
   </div>
   </div>
 
-  <div class="collapse  navbar-collapse col-5" id="navbarText">
 
   <ul class="navbar-nav ml-4" >
     <li class="nav-item">
@@ -126,6 +125,7 @@
 
   <ul class="navbar-nav ml-4">
   <li class="nav-item">
+    <div class="collapse  navbar-collapse" id="navbarText">
     <div class="dropdown dropdown-toggle" style="float:right;">
         <button class="dropbtn" id="menu">category</button>
         <div class="dropdown-content dropdown-menu">
@@ -134,11 +134,11 @@
         {% endfor %}
       </div>
       </div>
+    </div>
 </li>
 </ul>
-</div>
   
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <div class="search-container">
         <form action="{% url 'search' %}" method="get">

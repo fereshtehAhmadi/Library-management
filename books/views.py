@@ -16,14 +16,6 @@ from accounts.decorators import unauthenticated_user, super_user, staff_user
 from books.forms import NewBook
 
 
-
-
-def advance_search(request):
-    return render(request, 'other/advance_search.html')
-
-
-
-
 def books(request):
     p = Paginator(Book.objects.all().order_by('?'), 12)
     page = request.GET.get('page')
@@ -40,7 +32,8 @@ def search(request):
         q = request.GET.get('q')
         if q:
            query_set = Book.objects.filter(Q(name__icontains=q) | Q(
-            author__name__icontains=q)).distinct()
+            author__name__icontains=q) | Q(
+                category__category__icontains=q)).distinct()
 
         if not query_set:
             return redirect('home')
@@ -48,7 +41,39 @@ def search(request):
         elif query_set:
             paginator = Paginator(query_set, 12)
             page = request.GET.get('page')
-            posts = paginator.get_page(page)
+            book_search = paginator.get_page(page)
+            
+            context = {
+                'page': page,
+                'book_search': book_search,
+                'query': str(q),
+                'cate': Categorie.objects.all(),
+            }
+            return render(request, 'home.html', context)
+    return redirect('home')
+
+
+
+def advance_search(request):
+    if request.method == 'GET':
+        n = request.GET.get('n')
+        a = request.GET.get('a')
+        t = request.GET.get('t')
+        p = request.GET.get('p')
+        
+        if n or a or t or p:
+           query_set = Book.objects.filter(Q(name__icontains=n) | Q(
+            author__name__icontains=a) | Q(
+                publishers__name__icontains=p) |Q(
+                    translator__icontains=t)).distinct()
+
+        if not query_set:
+            return redirect('advance_search')
+
+        elif query_set:
+            paginator = Paginator(query_set, 12)
+            page = request.GET.get('page')
+            book_search = paginator.get_page(page)
             
             context = {
                 'page': page,
@@ -56,13 +81,12 @@ def search(request):
                 'query': str(q),
             }
             return render(request, 'home.html', context)
-    return redirect('home')
-
-
+    return render(request, 'other/advance_search.html')
         
 
+
 def category(request, cats):
-    p = Paginator(get_list_or_404(Book, category= cats), 12)
+    p = Paginator(Book.objects.filter(category= cats), 12)
     page = request.GET.get('page')
     cate = p.get_page(page)
     context = {
@@ -108,7 +132,22 @@ def detail_book(request, pk):
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
         'loan': LoanModel.objects.filter(book=book, status='S').exists(),
         }
-        return render(request, 'books/detail.html', content)    
+        return render(request, 'books/detail.html', content)  
+    
+    
+    
+@login_required(login_url='login')
+@staff_user
+def book_info(request, pk):
+    book = Book.objects.get(id=pk)
+    loan = LoanModel.objects.filter(book=book, status='S').exists()
+    if loan:
+        obj =LoanModel.objects.get(book=book)
+        borrower = obj.user
+    else:
+        borrower = '____'
+    return render(request, 'books/book_info.html', {'book': book, 'borrower': borrower})
+  
 
 
 # inam try except mikhad...     
