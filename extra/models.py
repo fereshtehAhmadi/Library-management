@@ -27,13 +27,13 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.user.user.username} write comment for {self.book.id}'
     
-    def like_c(comment_id):
-        comment_obj = Comment.objects.get(id=comment_id)
+    def like_c(self):
+        comment_obj = Comment.objects.get(id=self.id)
         obj_list = comment_obj.likecomment.all()
         return obj_list.filter(like=True).count()
-    # {{ obj.like_c | obj.id }}
-    #  annonate
-    # {{ obj.likecomment.count }}
+    
+        
+    
 
 class LikeComment(models.Model):
     comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE, related_name='likecomment')

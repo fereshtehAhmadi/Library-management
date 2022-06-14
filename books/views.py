@@ -197,10 +197,11 @@ def book_condition(request, pk):
     if book.condition == True:
         book.condition = False
         book.save()
+        return redirect('book_info', pk=book.id)
     else:
         book.condition = True
         book.save()
-    return redirect('book_info', pk=book.id)
+        return redirect('unactive_books')
 
 
 @login_required(login_url='login')
