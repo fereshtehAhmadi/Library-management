@@ -17,7 +17,7 @@ from books.models import Categorie
 
 
 @login_required(login_url='login')
-@super_user
+@staff_user
 def user_list(request):
     content = {
         'user_list': User.objects.order_by('username'),
@@ -26,15 +26,15 @@ def user_list(request):
 
 
 @login_required(login_url='login')
-@super_user
+@staff_user
 def user_detail(request,pk):
-    user = User.objects.get(id=pk)
-    validation = CustomUserModel.objects.filter(user=user).exists()
+    user_info = User.objects.get(id=pk)
+    validation = CustomUserModel.objects.filter(user=user_info).exists()
     if validation:
-        custom_user = CustomUserModel.objects.get(user=user)
+        custom_user = CustomUserModel.objects.get(user=user_info)
     else:
         custom_user = None
-    return render(request, 'accounts/user_detail.html', {'user':user, 'custom_user': custom_user})
+    return render(request, 'accounts/user_detail.html', {'user_info':user_info, 'custom_user': custom_user})
 
 
 @login_required(login_url='login')

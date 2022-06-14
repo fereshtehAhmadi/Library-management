@@ -67,7 +67,7 @@
                         <h6 class="mb-0">User Name</h6>
                       </div>
                       <div class="col-sm-9 text-secondary">
-                        {{ user.username }}
+                        {{ user_info.username }}
                       </div>
                     </div>
                     <hr>
@@ -76,7 +76,7 @@
                           <h6 class="mb-0">User Staff</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {% if user.is_staff %}
+                            {% if user_info.is_staff %}
                             True
                             {% else %}
                             False
@@ -89,7 +89,7 @@
                         <h6 class="mb-0">First Name</h6>
                       </div>
                       <div class="col-sm-9 text-secondary">
-                        {{ user.first_name }}
+                        {{ user_info.first_name }}
                       </div>
                     </div>
                     <hr>
@@ -98,7 +98,7 @@
                         <h6 class="mb-0">Last Name</h6>
                       </div>
                       <div class="col-sm-9 text-secondary">
-                        {{ user.last_name }}
+                        {{ user_info.last_name }}
                       </div>
                     </div>
                     <hr>
@@ -107,7 +107,7 @@
                         <h6 class="mb-0">Email</h6>
                       </div>
                       <div class="col-sm-9 text-secondary">
-                        {{ user.email }}
+                        {{ user_info.email }}
                       </div>
                     </div>
                     <hr>
@@ -147,16 +147,18 @@
                         </div>
                       </div>
                     <hr>
-                    <div class="row">
-                      <div class="col-sm-12 col-md-5" style="margin-top: 10px;">
-                        {% if user.is_staff %}
-                    <a href="{% url 'decline' user.id %}" class="btn btn-warning btn-lg">Decline</a>
+                    {% if user.is_superuser %}
+
+                    <div class="row justify-content-center align-items-center" style="margin-top: 10px;">
+                        {% if user_info.is_superuser %}
+                        {% elif user_info.is_staff %}
+                    <a href="{% url 'decline' user_info.id %}" class="btn btn-warning btn-lg">Decline</a>
                         {% else%}               
-                    <a href="{% url 'promote' user.id %}" class="btn btn-info btn-lg">Promotion</a>
+                    <a href="{% url 'promote' user_info.id %}" class="btn btn-info btn-lg">Promotion</a>
                         {% endif %}
                       </div>
-                    </div>
-          </div>
+                      {% endif %}
+            </div>
         </div>
       </div>
     </div>

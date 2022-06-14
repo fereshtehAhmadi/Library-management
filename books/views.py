@@ -144,9 +144,19 @@ def book_info(request, pk):
     if loan:
         obj =LoanModel.objects.get(book=book)
         borrower = obj.user
+        custom_user = CustomUserModel.objects.get(user=borrower)
+        content = {
+        'book': book,
+        'borrower': borrower,
+        'custom_user': custom_user.user.id,
+        }
     else:
-        borrower = '____'
-    return render(request, 'books/book_info.html', {'book': book, 'borrower': borrower})
+         content = {
+        'book': book,
+        }
+                
+    
+    return render(request, 'books/book_info.html', content)
   
 
 
