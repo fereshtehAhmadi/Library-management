@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %} Loan {% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color: #483D8B;
+      }
+      .cardd{
+        background: #eee;
+      }
+      .dropbtn {
+          border: none;   
+          cursor: pointer;
+      }
+       
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+       
+      .dropdown-content {
+          width: 200px;
+          display: none;
+          position: absolute;
+          right: 0;
+          background-color: #f5f9f9;
+      }
+    
+      .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+      }
+       
+      .dropdown-content a:hover {background-color: #f1f1f1}
+       
+      .dropdown:hover .dropdown-content {
+          display: block;
+      }
+      #menu{
+        background-color: rgb(248, 247, 247);
+      }
+      #add{
+        background-color: rgb(248, 247, 247);
+        margin-left: 20px;
+        border: none;
+      }
+    a{
+        text-decoration: none;
+    }
+    h2 {
+        color: #000;
+        font-size: 26px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        margin: 30px 0 60px;
+    }
+    .carousel {
+        margin: 50px auto;
+        padding: 0 70px;
+    }
+    .carousel .item {
+        color: #747d89;
+        min-height: 325px;
+        text-align: center;
+        overflow: hidden;
+    }
+    .carousel .thumb-wrapper {
+        padding: 25px 15px;
+        background: #fff;
+        border-radius: 6px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    }
+    .carousel .item .img-box {
+        height: 120px;
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+    }
+    .carousel .item img {	
+        max-width: 100%;
+        max-height: 100%;
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
+    .carousel .item h4 {
+        font-size: 18px;
+    }
+    .carousel .item h4, .carousel .item p, .carousel .item ul {
+        margin-bottom: 5px;
+    }
+    .carousel .thumb-content .btn {
+        color: #483D8B;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: none;
+        border: 1px solid #483D8B;
+        padding: 6px 14px;
+        margin-top: 5px;
+        line-height: 16px;
+        border-radius: 20px;
+    }
+    .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+        color: #fff;
+        background: #483D8B;
+        box-shadow: none;
+    }
+    .carousel .thumb-content .btn i {
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 5px;
+    }
+    .carousel .item-price {
+        font-size: 13px;
+        padding: 2px 0;
+    }
+    .carousel .item-price strike {
+        opacity: 0.7;
+        margin-right: 5px;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 col-12">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-11">
+        <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
+          <!-- navbarText -->
+            {% include 'tem/navbar2.html' %}
+  
+            <!-- body  -->
+            <table class="table mb-4">
+                <thead>
+                    <tr>
+                        <th scope="col">pic</th>
+                        <th scope="col">book name</th>
+                        <th scope="col">condition</th>
+                        <th scope="col">detail</th>
+                    </tr>
+                </thead>
+                        <tbody>
+                            {% for obj in books %}
+                              <tr>
+                                <th scope="row"><img src="{{ obj.cover.url }}" style="height: 100px; width:70px;" alt="{{ obj.id }}"></th>
+                                <td><br><h5>{{ obj.name }}</h5></td>
+                                <td><br><a href="{% url 'book_condition' obj.id %}" class="btn btn-info">active</a></td>
+                                <td><br><a href="{% url 'book_info' obj.id %}" id="demo" class="btn btn-dark">detail</a></td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+
+          <!-- footer  -->
+          {% include 'tem/footer.html' %}
+
+        </div>
+        <div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -44,7 +44,7 @@ class Book(models.Model):
     publishers = models.ForeignKey(Publishers, on_delete=models.CASCADE, related_name='books')
     
     def __str__(self):
-        return self.name + '        ' + str(self.id)
+        return self.name + str(self.id)+ str(self.condition)
         
     
 

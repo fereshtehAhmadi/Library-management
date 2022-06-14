@@ -36,7 +36,6 @@ def add_book_marck(request, pk):
     return redirect('detail', pk=book.id)
 
 
-@unauthenticated_user
 def book_marck(request):
     content = {
         'bookmarck': BookMarck.objects.filter(user=request.user),

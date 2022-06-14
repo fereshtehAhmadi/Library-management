@@ -147,7 +147,11 @@
                         <a href="{% url 'edit_book' book.id %}" class="btn btn-info btn-lg">Edit</a>
                       </div>
                       <div class="col-sm-12 col-md-7" style="margin-top: 10px;">
-                        <a href="" class="btn btn-danger btn-lg">unactive</a>
+                        {% if book.condition %}
+                        <a href="{% url 'book_condition' book.id %}" class="btn btn-danger btn-lg">unactive</a>
+                        {% else %}
+                        <a href="{% url 'book_condition' book.id %}" class="btn btn-primary btn-lg">active</a>
+                        {% endif %}
                       </div>
                     </div>
           </div>

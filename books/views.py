@@ -16,9 +16,9 @@ from loan.models import LoanModel, DebtModel
 
 from books.forms import NewBook, EditBook
 
-
+# home page 
 def books(request):
-    p = Paginator(Book.objects.all().order_by('?'), 12)
+    p = Paginator(Book.objects.filter(condition=True).order_by('?'), 12)
     page = request.GET.get('page')
     book_list = p.get_page(page)
     context = {
@@ -34,7 +34,7 @@ def search(request):
         if q:
            query_set = Book.objects.filter(Q(name__icontains=q) | Q(
             author__name__icontains=q) | Q(
-                category__category__icontains=q)).distinct()
+                category__category__icontains=q), condition=True).distinct()
 
         if not query_set:
             return redirect('home')
@@ -87,7 +87,7 @@ def advance_search(request):
 
 
 def category(request, cats):
-    p = Paginator(Book.objects.filter(category= cats), 12)
+    p = Paginator(Book.objects.filter(category= cats, condition=True), 12)
     page = request.GET.get('page')
     cate = p.get_page(page)
     context = {
@@ -98,7 +98,7 @@ def category(request, cats):
 
 
 def search_author(request, auth):
-    p = Paginator(get_list_or_404(Book, author= auth), 12)
+    p = Paginator(get_list_or_404(Book, author= auth, condition=True), 12)
     page = request.GET.get('page')
     author = p.get_page(page)
     context = {
@@ -108,7 +108,7 @@ def search_author(request, auth):
     return render(request, 'home.html', context)
 
 
-
+# book detail 
 def detail_book(request, pk):
     try:
         book = Book.objects.get(id=pk)
@@ -190,7 +190,27 @@ def edit_book(request, pk):
     return render(request, 'books/edit_book.html', content)
 
 
+@login_required(login_url='login')
+@staff_user 
+def book_condition(request, pk):
+    book = Book.objects.get(id=pk)
+    if book.condition == True:
+        book.condition = False
+        book.save()
+    else:
+        book.condition = True
+        book.save()
+    return redirect('book_info', pk=book.id)
 
+
+@login_required(login_url='login')
+@staff_user 
+def unactive_books(request):
+    books = Book.objects.filter(condition=False)
+    return render(request, 'books/unactive_books.html', {'books': books})
+
+
+# add new book 
 # inam try except mikhad...     
 @login_required(login_url='login')
 @staff_user
@@ -266,7 +286,8 @@ def new_publisher(request):
     return render(request, 'books/add/new_forenkey.html', content)
 
     
-    
+
+# book request 
 @login_required(login_url='login')
 def request_book(request):
     try:
@@ -286,6 +307,7 @@ def request_book(request):
 
 
 @login_required(login_url='login')
+@staff_user
 def request_list(request):
     content = {
         'list': BookRequest.objects.all(),
@@ -293,6 +315,8 @@ def request_list(request):
     return render(request, 'books/request_list.html', content)
 
 
+@login_required(login_url='login')
+@staff_user
 def request_book_done(request, pk):
     obj = BookRequest.objects.get(id=pk)
     obj.delete()
