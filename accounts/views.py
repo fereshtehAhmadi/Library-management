@@ -15,7 +15,6 @@ from accounts.models import CustomUserModel
 from books.models import Categorie
 
 
-
 @login_required(login_url='login')
 @staff_user
 def user_list(request):

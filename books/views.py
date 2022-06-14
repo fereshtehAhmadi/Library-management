@@ -259,5 +259,11 @@ def request_list(request):
     content = {
         'list': BookRequest.objects.all(),
     }
-    return render(request, 'other/request_list.html', content)
-    
+    return render(request, 'books/request_list.html', content)
+
+
+def request_book_done(request, pk):
+    obj = BookRequest.objects.get(id=pk)
+    obj.delete()
+    return redirect('request_list')
+

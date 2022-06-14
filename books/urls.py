@@ -19,6 +19,7 @@ urlpatterns = [
     
     path('request_book/', views.request_book, name="request_book"),
     path('request_list/', views.request_list, name="request_list"),
+    path('request_done/<int:pk>', views.request_book_done, name="request_done"),
     
 
     ]

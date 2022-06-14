@@ -81,7 +81,7 @@
         <td>{{ obj.translator }}</td>
         <td>{{ obj.publisher }}</td>
         <td>{{ obj.user }}</td>
-        <td><a href="" id="demo" class="btn btn-info">done</a></td>
+        <td><a href="{% url 'request_done' obj.id %}" id="demo" class="btn btn-info">done</a></td>
     </tr>
     {% endfor %}
 </tbody>
