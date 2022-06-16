@@ -68,9 +68,15 @@
                   <p>{{ obj.content }}</p>
                   <ul class="list-inline d-sm-flex my-0">
                     <li class="list-inline-item g-mr-20">
-                      <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
-                        <i class="icon-heart-empty g-pos-rel g-top-1 g-mr-3"></i>
-                      </a>
+                      {% if obj.like_c %}
+                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
+                          <i class="fas fa-heart g-pos-rel g-top-1 g-mr-3" style="color: red;"></i>
+                        </a>
+                      {% else %}
+                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: none;">
+                          <i class="icon-heart-empty g-pos-rel g-top-1 g-mr-3"></i>
+                        </a>
+                      {% endif %}
                       <small>{{ obj.like_c }}</small>
                     </li>
 

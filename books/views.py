@@ -5,6 +5,7 @@ from django.db.models import Count, Q
 
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import unauthenticated_user, super_user, staff_user
+from django.contrib.postgres.search import SearchVector
 
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
@@ -55,6 +56,7 @@ def search(request):
 
 
 
+
 def advance_search(request):
     if request.method == 'GET':
         n = request.GET.get('n')
@@ -63,25 +65,23 @@ def advance_search(request):
         p = request.GET.get('p')
         
         if n or a or t or p:
-           query_set = Book.objects.filter(Q(name__icontains=n) | Q(
-            author__name__icontains=a) | Q(
-                publishers__name__icontains=p) |Q(
-                    translator__icontains=t)).distinct()
+            query_set = Book.objects.filter(
+                name__icontains=n).filter(
+                author__name__icontains=a).filter(
+                    translator__icontains=t).filter(
+                        publishers__name__icontains=p
+                    ).distinct()
 
-        if not query_set:
-            return redirect('advance_search')
-
-        elif query_set:
             paginator = Paginator(query_set, 12)
             page = request.GET.get('page')
             book_search = paginator.get_page(page)
             
             context = {
                 'page': page,
-                'book_search': posts,
-                'query': str(q),
+                'book_search': book_search,
             }
             return render(request, 'home.html', context)
+        
     return render(request, 'other/advance_search.html')
         
 

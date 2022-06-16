@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-sm-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -63,28 +63,28 @@
             <div class="col-md-12">
                 
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Book Name</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {{ book.name }}
                       </div>
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Book Id</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {{ book.id }}
                       </div>
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Authors</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {% for author in book.author.all %}
                         {{ author.name }}
                         {% endfor %}
@@ -92,10 +92,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Category</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {% for category in book.category.all %}
                         {{ category.category }}
                         {% endfor %}
@@ -103,37 +103,37 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Translator</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {{ book.translator }}
                       </div>
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-12 col-md-3">
                         <h6 class="mb-0">Publishers</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">
+                      <div class="col-sm-12 col-md-9 text-secondary">
                         {{ book.publishers }}
                       </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12 col-md-3">
                           <h6 class="mb-0">Adder</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div class="col-sm-12 col-md-9 text-secondary">
                           {{ book.user }}
                         </div>
                       </div>
                       <hr>
                       <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12 col-md-3">
                           <h6 class="mb-0">Borrower</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div class="col-sm-12 col-md-9 text-secondary">
                           {% if borrower %}
                           <a href="{% url 'user_detail' custom_user %}">{{ borrower }}</a>
                           {% else %}

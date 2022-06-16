@@ -52,7 +52,7 @@
 
 
 {% block content %}
-<div class="container py-4 col-10">
+<div class="container py-4 col-sm-12 col-md-10">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
         {% include '../tem/message.html' %}
@@ -69,47 +69,47 @@
 
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">book name:</label>
-    <div class="col-6">
+    <div class="col-sm-10 col-md-6">
       {{ edit_book.name }}
   </div>
   </div>
   
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">translator:</label>
-    <div class="col-6">
+    <div class="col-sm-10 col-md-6">
       {{ edit_book.translator }}
     </div>
   </div>
   
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">description:</label>
-    <div class="col-sm-10">
+    <div class="col-md-10">
       {% render_field edit_book.description class="form-control" rows="3" %}
     </div>
   </div>
  
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">category:</label>
-    <div class="col-3">
-      {{ edit_book.category }}
+    <div>
+      {% render_field edit_book.category class="form-control" %}
     </div>
-    <a href="{% url 'new_category' %}"><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_category' %}" style="margin-left: 5%;"><i class="fa fa-plus"></i></a>
   </div>
  
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">author:</label>
-    <div class="col-3">
-      {{ edit_book.author }}
+    <div>
+      {% render_field edit_book.author class="form-control" %}
     </div>
-    <a href="{% url 'new_author' %}"><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_author' %}" style="margin-left: 5%;"><i class="fa fa-plus"></i></a>
   </div>
   
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">publishers:</label>
-    <div class="col-3">
-      {{ edit_book.publishers }}
+    <div>
+      {% render_field edit_book.publishers class="form-control" %}
     </div>
-    <a href="{% url 'new_publisher' %}"><i class="fa fa-plus"></i></a>
+    <a href="{% url 'new_publisher' %}" style="margin-left: 5%;"><i class="fa fa-plus"></i></a>
   </div>
   
       <!-- custom user  -->
@@ -117,7 +117,7 @@
       
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">cover:</label>
-    <div class="col-6">
+    <div>
       {{ edit_book.cover }}
     </div>
   </div>

@@ -65,7 +65,7 @@
           {% include 'books/category_author.html' %}
           {% elif books %}
           {% include 'books/books.html' %}
-          {% else %}
+          {% elif book_search %}
           {% include 'books/search.html' %}
           {% endif %}
           
