@@ -166,7 +166,7 @@
                                 <th scope="row"><img src="{{ obj.book.cover.url }}" style="height: 100px; width:70px;" alt="{{ obj.id }}"></th>
                                 <td><br>{{ obj.book.name }}</td>
                                 <td><br>{{ obj.start_date }}</td>
-                                <td><br> 20000$</td>
+                                <td><br>{{ obj.loan_debt.amount}}</td>
                                 <td>
                                     <br>
                                   <button type="submit" class="btn btn-info">payment</button>

@@ -11,14 +11,6 @@ from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
 from loan.models import LoanModel, DebtModel
 
-# from loan.models.LoanModel import diff_time
-
-
-# def debt(request):
-#     diff = diff_time
-#     if diff >= 0/1/0:
-#         pass
-
 
 
 def add_loan(request, pk):
@@ -36,7 +28,7 @@ def add_loan(request, pk):
     return redirect('detail', pk=book.id)
 
 
-def loan_lis(request):
+def loan_list(request):
     try:
         user = CustomUserModel.objects.get(user=request.user)
         content = {
@@ -49,11 +41,38 @@ def loan_lis(request):
 
 @login_required(login_url='login')
 @staff_user
-def receive(request):
+def check_receive(request):
     if request.method == 'POST':
         id = request.POST['id']
         loan = LoanModel.objects.get(book=id)
-        loan.status = 'R'
-        loan.save()
+        return redirect('user_loan', pk=loan.book.id)
     return render(request, 'loan/receive.html')
-        
+
+
+@login_required(login_url='login')
+@staff_user
+def user_loan(request, pk):
+    book = Book.objects.get(id=pk)
+    loan = LoanModel.objects.filter(book=book, status='S').exists()
+    if loan:
+        obj =LoanModel.objects.get(book=book)
+        borrower = obj.user
+        custom_user = CustomUserModel.objects.get(user=borrower)
+        content = {
+        'book': book,
+        'borrower': borrower,
+        'custom_user': custom_user.user.id,
+        }
+    else:
+         content = {
+        'book': book,
+        }        
+    return render(request, 'loan/user_loan.html', content)
+
+
+def receive(request, pk):
+    book = Book.objects.get(id=pk)
+    loan = LoanModel.objects.get(book=pk)
+    loan.status = 'R'
+    loan.save()
+    return redirect('check_receive')

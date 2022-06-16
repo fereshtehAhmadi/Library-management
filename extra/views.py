@@ -14,16 +14,17 @@ from accounts.models import CustomUserModel
 
 @login_required(login_url='login')
 def add_book_marck(request, pk):
+    book = Book.objects.get(id=pk)
+    user = User.objects.get(username=request.user.username)
     try:
-        book = Book.objects.get(id=pk)
-        bookmarck = BookMarck.objects.filter(user=request.user).exists()
+        bookmarck = BookMarck.objects.filter(user=user).exists()
         validbook = BookMarck.objects.filter(user=request.user, book=book).exists()
         if not bookmarck:
             obj = BookMarck.objects.create(user=user)
             obj.book.add(book)
             obj.save()
         else:
-            obj = BookMarck.objects.get(user=request.user)
+            obj = BookMarck.objects.get(user=user)
             if validbook:
                 obj.book.remove(book)
                 obj.save()
@@ -32,7 +33,7 @@ def add_book_marck(request, pk):
                 obj.save()
     except:
         book = Book.objects.get(id=pk)
-        messages.error(request, 'Please complete your user information!!')
+        messages.error(request, 'Please login first!!')
     return redirect('detail', pk=book.id)
 
 
