@@ -57,7 +57,7 @@
 <div class="container">
     <div class="row">
         {% for obj in comment %}
-        <div class="col-md-10" style="margin-top: 10px;">
+        <div class="col-md-10 col-sm-12 col-12" style="margin-top: 10px;">
             <div class="media g-mb-30 media-comment">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                   <div class="g-mb-15">
@@ -97,12 +97,12 @@
 </div>
 <br>
 {% if request.user.is_authenticated %}
-                 <h5>Add comment:</h5>
+                 <h5 style="font-size:2vw;">Add comment:</h5>
                  <form action="{% url 'comment' book_id %}" method="POST">
                   {% csrf_token %}
-                <div class="col-md-10" style="margin-top: 10px;">
+                <div class="col-md-10 col-12 p-0" style="margin-top: 10px;">
                   <input type="text" class="form-control" placeholder="title" name="title">
-                  <textarea name="content" class="form-control" id="" cols="5" rows="5" placeholder="comment"></textarea>
+                  <textarea name="content" class="form-control" id="" rows="5" placeholder="comment"></textarea>
                 <ul class="list-inline d-sm-flex my-0">
             
                 <li class="list-inline-item ml-auto">

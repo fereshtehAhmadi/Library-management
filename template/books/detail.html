@@ -78,7 +78,6 @@
       .preview {
         margin-bottom: 20px; } }
   
-
   
   .preview-thumbnail.nav-tabs {
     border: none;
@@ -200,12 +199,38 @@
       opacity: 1;
       -webkit-transform: scale(1);
               transform: scale(1); } }
+
+@media screen and (min-width: 601px) {
+  .information {
+    font-size:2vw;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .information {
+    font-size:4vw;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .icon {
+    font-size:3vw;
+  }
+}
+@media screen and (max-width: 800px) {
+  .icon {
+    font-size:5vw;
+  }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 
-<div class="container py-4 col-10">
+<!-- {{ request.build_absolute_uri }} -->
+
+<div class="container py-4 col-12 col-lg-10 col-sm-12">
   {% include '../tem/message.html' %}
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
@@ -216,63 +241,72 @@
               <div class="card" id="card">
                 <div class="container-fliud">
                   <div class="wrapper row">
-                      
-                    <div class="preview col-md-4">
-                        <div class="col-12" id="pic"style="width:350px; height:100px;">
+                    
+                    <div class="preview col-xl-4 col-md-5 col-sm-12 col-12">
+                        <div class="col-12 p-0" id="pic">
+                          
+                          <div>
                           <img src="{{ detail.cover.url }}" alt="Alternative">
-                        <div style="margin-top: 50px;">
-                          <span style="font-size: 20px;">{{ like }}</span>
-                          <a href="{%if request.user.is_authenticated %}{% url 'like' detail.id %}{%endif%}" 
-                          style="cursor: pointer;">
-                          <i class="fa fa-thumbs-up" id="thumbs_up" style="font-size: 30px;"></i></a>
-                          <span style="font-size: 20px; margin-left: 30px;">{{ dislike }}</span>
-                          <a href="{%if request.user.is_authenticated %}{% url 'dislike' detail.id %}{%endif%}" 
-                          style="cursor: pointer;">
-                          <i class="fa fa-thumbs-down" id="thumbs_down" style="font-size: 30px;"></i></a>
-                          <a href="" style="cursor: pointer;"><i class="fa fa-share-alt" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
-                        {% if bookmarck_status%}
-                          <a href="{% url 'add_book_marck' detail.id %}"style="cursor: pointer;"><i class="fa fa-bookmark" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
+                          </div>
+
+                        <div class="col-12 p-0" style="margin-top: 3vw;">
+
+                          <span class="icon" style="font-size:2vw;">{{ like }}</span>
+                          <a class="icon" href="{%if request.user.is_authenticated %}{% url 'like' detail.id %}{%endif%}">
+                          <i class="fa fa-thumbs-up" id="thumbs_up"></i></a>
+                          
+                          <span class="margin" style="font-size:2vw; margin-left: 2vw;">{{ dislike }}</span>
+                          <a class="icon" href="{%if request.user.is_authenticated %}{% url 'dislike' detail.id %}{%endif%}">
+                          <i class="fa fa-thumbs-down" id="thumbs_down" ></i></a>
+                          
+                          <a class="icon margin" style="margin-left: 2vw;"><i class="fa fa-share-alt" style="color: black;"></i></a>
+                        
+                          {% if bookmarck_status%}
+                          <a class="icon" href="{% url 'add_book_marck' detail.id %}"
+                          style="margin-left: 2vw;">
+                          <i class="fa fa-bookmark" style="color: black;"></i></a>
                         {% else %}
-                          <a href="{%if request.user.is_authenticated %}{% url 'add_book_marck' detail.id %}{%endif%}"
-                          style="cursor: pointer; text-decoration: none;">
-                          <i class="icon-bookmark-empty" style="font-size: 30px; margin-left: 30px; color: black;"></i></a>
+                          <a class="icon margin" href="{%if request.user.is_authenticated %}{% url 'add_book_marck' detail.id %}{%endif%}"
+                          style="cursor: pointer; text-decoration: none; margin-left: 2vw;">
+                          <i class="icon-bookmark-empty" style="color: black;"></i></a>
                         {% endif %}
                         </div>
                         </div>
-                    </div>
+                        </div>
                     
-                    <div class="details col-8">
-                      <h2 class="product-title">{{ detail.name }}</h2>
+                    
+                    <div class="details col-xl-8 col-md-7 col-sm-12 col-12">
+                      <h2 class="product-title" style="font-size:5vw;">{{ detail.name }}</h2>
                       <div class="rating">
                         {% if not loan %}
-                        <span class="review-no" style="color: green;">This book is available</span>
+                        <span class="review-no" style="font-size:2vw; color: green;">This book is available</span>
                         {% else %}
-                        <span class="review-no" style="color: red;">This book is not available right now!!</span>
+                        <span class="review-no" style="font-size:2vw; color: red;">This book is not available right now!!</span>
                         {% endif %}
                       </div>
-                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
-                        <span style="color: rgb(151, 151, 151);">author: </span>
+                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(120, 120, 120);">author: </span>
                         {% for author in detail.author.all %}
                         {{ author.name }}, 
                         {% endfor %}
                       </h5>
-                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
-                        <span style="color: rgb(151, 151, 151);">category: </span>
+                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(120, 120, 120);">category: </span>
                         {% for category in detail.category.all %}
                         {{ category.category }}, 
                         {% endfor %}
                       </h5>
-                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
-                        <span style="color: rgb(151, 151, 151);">translator: </span>
+                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(120, 120, 120);">translator: </span>
                         {{ detail.translator }}
                       </h5>
-                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
-                        <span style="color: rgb(151, 151, 151);">publishers: </span>
+                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(120, 120, 120);">publishers: </span>
                         {{ detail.publishers }}
                       </h5>
                       <br>
-                      <h5 class="product-description" style="color: rgb(86, 86, 86);">
-                        <span style="color: rgb(151, 151, 151);">description: </span>
+                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                        <span style="color: rgb(120, 120, 120);">description: </span>
                         {{ detail.description }}
                       </h5>
                       <br>
@@ -284,15 +318,15 @@
                         <button class="add-to-cart btn btn-secondary btn-lg" type="button" style="color: black;">not available</button>
                         {% endif %}
                         {% if request.user.is_staff %}
-                        <a href="{% url 'book_info' detail.id %}" class="btn btn-sm btn-primary ml-4" type="button">detail</a>
+                        <a href="{% url 'book_info' detail.id %}" style="margin-top: 5px;" class="btn btn-sm btn-primary ml-4" type="button">detail</a>
                         {% endif %}
                       </div>
                     </div>
                   </div>
                   <hr>
                   <!-- comment  -->
-                  <div>
-                    <h3>comments</h3>
+                  <div class="col-12 m-0 p-0">
+                    <h3 style="font-size:4vw;">comments</h3>
                   </div>
                   {% include 'extra/comment.html'  with book_id=detail.id %}
 
@@ -327,6 +361,3 @@
 
 
 {% endblock %}
-
-
-<!-- {{ request.build_absolute_url }} -->

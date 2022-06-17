@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Count, Q
 
+# from urllib import quote_plus
+
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import unauthenticated_user, super_user, staff_user
 from django.contrib.postgres.search import SearchVector
@@ -115,6 +117,7 @@ def detail_book(request, pk):
         comment = Comment.objects.filter(book=pk)
         bookmarck_status = BookMarck.objects.filter(user=request.user, book=book).exists()
         like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
+        # share_string = quote_plus(instance.content)
         LB = None
         if like_b:
             LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
