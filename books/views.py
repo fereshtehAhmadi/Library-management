@@ -158,8 +158,7 @@ def book_info(request, pk):
          content = {
         'book': book,
         }
-                
-    
+ 
     return render(request, 'books/book_info.html', content)
 
 

@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-sm-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         {% include '../tem/message.html' %}
@@ -73,20 +73,16 @@
                     </div>
                     </div>
 
-                
-
-                <div class="row mb-4">
-                    <div class="col">
-                      <label for="email">email:</label>
+                    <div class="row mb-4">
+                      <div class="col-sm-12 col-md-6">
+                        <label for="email">email:</label>
                       <input type="text" class="form-control" name="email"value={{request.user.email}}>
-
-                    </div>
-                    <div class="col">
-                      <label for="phone">phone number:</label>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <label for="phone">phone number:</label>
                       <input type="text" class="form-control" name="phone" value={{custom_user.phone}}>
+                      </div>
                     </div>
-                  </div>
-
 
                 <div class="form-outline mb-4">
                   <label for="address">address:</label>
@@ -94,7 +90,7 @@
                 </div>
 
                 <div class="row justify-content-center align-items-center">
-                <input class="btn btn-info btn-md btn-block col-3" type="submit" value="save change">
+                <input class="btn btn-info btn-md btn-block col-md-3 col-sm-4" type="submit" value="save change">
                 </div>
               </form>
 

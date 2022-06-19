@@ -31,6 +31,8 @@ class Comment(models.Model):
         comment_obj = Comment.objects.get(id=self.id)
         obj_list = comment_obj.likecomment.all()
         return obj_list.filter(like=True).count()
+
+        
     
         
     
@@ -42,6 +44,7 @@ class LikeComment(models.Model):
     
     def __str__(self):
         return f'{self.user.username} like {self.comment.title}'
+
 
 
 class LikeBook(models.Model):

@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-sm-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         {% include '../tem/message.html' %}
@@ -65,64 +65,63 @@
                 {% csrf_token %}
                 <div class="form-outline">
 
-
-
-                    <div class="row mb-4">
-                        <div class="col">
-                          <label for="firstname">user name:</label>
-                          <input type="text" name="username" class="form-control" value={{user.username}}>
-                        </div>
-                        <div class="col">
-                          <label for="lastname">first name:</label>
-                          <input type="text" name="first_name" class="form-control">
-                      </div>
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="username">user name:</label>
+                      <input type="text" name="username" class="form-control" value={{user.username}}>
                     </div>
-
-                <div class="row mb-4">
-                  <div class="col">
-                    <label for="firstname">last name:</label>
-                    <input type="text" class="form-control" name="last_name">
-                </div>
-                  <div class="col">
-                    <label for="lastname">national code:</label>
-                    {{ profile.national_code }}
-                </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col">
-                      <label for="email">email:</label>
-                      <input type="text" name="email" class="form-control" value={{user.email}}>
-                    </div>
-                    <div class="col">
-                      <label for="firstname">phone number:</label>
-                      {{ profile.phone }}
+                    <div class="col-sm-12 col-md-6">
+                      <label for="firstname">first name:</label>
+                      <input type="text" name="first_name" class="form-control">
                     </div>
                   </div>
 
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="lastname">last name:</label>
+                    <input type="text" class="form-control" name="last_name">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="nationalcode">national code:</label>
+                    {{ profile.national_code }}
+                    </div>
+                  </div>
 
-                <div class="row mb-4">
-                    <div class="col">
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="email">email:</label>
+                      <input type="text" name="email" class="form-control" value={{user.email}}>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="phone">phone number:</label>
+                      {{ profile.phone }}
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
                       <label for="email">birthday:</label>
                       {% render_field profile.birthday type="date" class="form-control" %}
                     </div>
-                    <div class="col">
-                      <label for="firstname">gender:</label>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="gender">gender:</label>
                       <select name="gender" class="form-control">
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                       </select>
                     </div>
-                </div>
+                    </div>
 
-                <div class="form-outline mb-4">
-                  <label for="address">address:</label>
+                  <div class="row mb-4">
+                    <div class="col-12 mb-4">
+                      <label for="address">address:</label>
                   {% render_field profile.address rows=3 class="form-control" %}
-
-                </div>
+                    </div>
+                  </div>
+                
 
                 <div class="row justify-content-center align-items-center">
-                <input class="btn btn-info btn-md btn-block col-3" type="submit" value="save change">
+                <input class="btn btn-info btn-md btn-block col-md-3 col-sm-4" type="submit" value="save change">
                 </div>
               </form>
 
