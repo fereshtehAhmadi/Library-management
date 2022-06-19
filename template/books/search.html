@@ -5,6 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 {% endblock %}
+
 {% block style %}
 <style>
     body{
@@ -111,7 +112,7 @@
 {% endblock %}
 
 {% block content %}
-<body>
+<body>     
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -123,7 +124,7 @@
                         {% if book_search %}
                             
                             {% for obj in book_search %}
-                            <div class="col-2" style="margin-top: 10px;">
+                            <div class="col-xl-2 col-md-3" style="margin-top: 30px;">
                                 <div class="thumb-wrapper">
                                     <div class="img-box">
                                         <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
@@ -132,7 +133,7 @@
                                         <h6 style="color: black;">{{ obj.name }}</h6>
                                         <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
                                             {% for auth in obj.author.all %}									
-                                        <a href="{% url 'author' auth.id %}" class="consol-price" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
+                                        <a href="{% url 'author' auth.id %}" class="consol-price p-1" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
                                         <small>,</small>
                                             {% endfor %}
                                         </div>
@@ -140,26 +141,32 @@
                                     </div>		
                                 </div>
                             </div>
-                            {% endfor %}
-                            
-                            {% elif searched %} 
-                            <div style="margin-left: 250px;">
-                                <h3 style="color:#747d89;">we are sorry... </h3>
-                                <h3 style="color:#747d89;">A book called {{ searched }} is not available :(((</h3>
-                            </div>
+                            {% endfor %} 
                             {% endif %}
-                            </div>
-                            </div>
                         </div>
                     </div>
-                    
                 </div>
-            </div>
-            
+           </div>
+           </div>
         </div>
-        {% include 'tem/footer.html' %}
     </div>
+
+    <!-- pagintion  -->
+    <div class="text-center" style="margin-top: 20px;">
+
+    {% if books.has_previous %}
+    <a href="?page={{ books.previous_page_number }}" style="color: black; font-size: 25px;">&laquo</a>
+    {% endif %}
+
+    Page {{books.number}} of {{ books.paginator.num_pages }}
+
+    {% if books.has_next %}
+    <a href="?page={{ books.next_page_number }}" style="color: black; font-size: 25px;">&raquo</a>
+    {% endif %}
+
+    </div>
+    <!-- footer  -->
+    {% include 'tem/footer.html' %}
 </div>
-<!-- footer  -->
 </body>
 {% endblock %}

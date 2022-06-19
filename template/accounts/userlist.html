@@ -47,6 +47,11 @@
     margin-left: 20px;
     border: none;
   }
+  @media screen and (max-width: 800px) {
+    #th {
+      font-size: 2vw;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -64,13 +69,13 @@
 <table class="table table table-sm col-12">
     <thead>
       <tr>
-        <th scope="col" style="font-size: 2vw;">row</th>
-        <th scope="col" style="font-size: 2vw;">Username</th>
-        <th scope="col" style="font-size: 2vw;">Join date</th>
+        <th scope="col" id="th">row</th>
+        <th scope="col" id="th">Username</th>
+        <th scope="col" id="th">Join date</th>
         {% if user.is_superuser %}
-        <th scope="col" style="font-size: 2vw;">dastresii</th>
+        <th scope="col" id="th">dastresii</th>
         {% endif %}
-        <th scope="col" style="font-size: 2vw;">detail</th>
+        <th scope="col" id="th">detail</th>
         </tr>
        </thead>
        <tbody>
@@ -82,9 +87,9 @@
         {% endif %}
         {% if obj.is_superuser %}
         {% else %}
-        <th scope="row" style="font-size: 2vw;">{{ obj.id }}</th>
-        <td style="font-size: 2vw;">{{ obj.username }}</td>
-        <td style="font-size: 2vw;">{{ obj.date_joined }}</td>
+        <th scope="row" id="th">{{ obj.id }}</th>
+        <td id="th">{{ obj.username }}</td>
+        <td id="th">{{ obj.date_joined }}</td>
       {% if user.is_superuser%}
         {% if obj.is_staff %}
         <td>

@@ -47,6 +47,36 @@
     margin-left: 20px;
     border: none;
   }
+
+  @media screen and (min-width: 801px) {
+    .text {
+      font-size:1vw;
+    }
+    #main {
+      padding: 5vw;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .text {
+      font-size:3vw;
+    }
+    .smalll {
+      font-size: 2vw;
+      margin-left: 3vw;
+    }
+    #label {
+      font-size: 3vw;
+    }
+    #main {
+      padding: 4vw;
+    }
+    #input {
+      font-size: 3vw;
+    }
+    #btn {
+      font-size: 3vw;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -55,7 +85,7 @@
 
 {% include '../tem/message.html' %}
 
-<div class="container py-4 col-10">
+<div class="container py-4 col-md-10 col-sm-12">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
       <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
@@ -63,47 +93,47 @@
           {% include 'tem/navbar2.html' %}
 
           <!-- body  -->
-<div class="p-5">
-    <h5>Dear {{ user.username }}:</h5>
-    <h6>If you haven't found your favorite book in the books list in library, send us the book profile.</h6>
-    <h6>To we provide it as soon as possible ...</h6>
+<div id="main">
+    <h5 style="text">Dear {{ user.username }}:</h5>
+    <h6 class="text">If you haven't found your favorite book in the books list in library, send us the book profile.</h6>
+    <h6 class="text">To we provide it as soon as possible ...</h6>
     <br>
 
 <form method="POST" action="{% url 'request_book' %}">
   {% csrf_token %}
 
   <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">book name:</label>
-    <div class="col-6">
-        <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="book name" required>
+    <label for="inputEmail3" class="col-lg-2 col-md-3 col-form-label" id="label" >book name:</label>
+    <div class="col-md-6 col-12">
+        <input type="text" name="name" id="input" class="form-control" placeholder="book name" required>
   </div>
   </div>
   
   <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">author:</label>
-    <div class="col-6">
-        <input type="text" name="author" class="form-control" id="formGroupExampleInput" placeholder="author">
+    <label for="inputPassword3" class="col-12 col-md-2 col-form-label" id="label">author:</label>
+    <div class="col-md-6 col-12">
+        <input type="text" name="author" id="input" class="form-control" placeholder="author">
     </div>
-    <small>It is enough to mention the name of a author.</small>
+    <small class="smalll">It is enough to mention the name of a author.</small>
   </div>
   
   <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">translator:</label>
-    <div class="col-6">
-        <input type="text" name="translator" class="form-control" id="formGroupExampleInput" placeholder="translator">
+    <label for="inputPassword3" class="col-sm-2 col-form-label" id="label">translator:</label>
+    <div class="col-md-6 col-12">
+        <input type="text" name="translator" id="input" class="form-control" placeholder="translator">
     </div>
   </div>
 
   <div class="form-group row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">publisher:</label>
-    <div class="col-6">
-        <input type="text" name="publisher" class="form-control" id="formGroupExampleInput" placeholder="publisher">
+    <label for="inputPassword3" class="col-sm-2 col-form-label" id="label">publisher:</label>
+    <div class="col-md-6 col-12">
+        <input type="text" name="publisher" id="input" class="form-control" id="formGroupExampleInput" placeholder="publisher">
     </div>
   </div>
  
   <div class="form-group row">
     <div class="col-6">
-      <input type="submit" value="Send" class="btn btn-primary">
+      <input type="submit" value="Send" id="btn" class="btn btn-primary">
       <!-- <a href="{% url 'new_book' %}" class="btn btn-primary">Add book</a> -->
     </div>
   </div>

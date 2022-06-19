@@ -121,7 +121,7 @@
                     <div class="item carousel-item active">
                         <div class="row">
                             {% for obj in separation %}
-                            <div class="col-2" style="margin-top: 10px;">
+                            <div class="col-xl-2 col-md-3" style="margin-top: 30px;">
                                 <div class="thumb-wrapper">
                                     <div class="img-box">
                                         <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
@@ -141,27 +141,28 @@
                             {% endfor %} 
                         </div>
                     </div>
-                
-            </div>
-            </div>
+                </div>
+           </div>
+           </div>
         </div>
     </div>
-</div>
+
     <!-- pagintion  -->
     <div class="text-center" style="margin-top: 20px;">
 
-        {% if books.has_previous %}
-        <a href="?page={{ books.previous_page_number }}" style="color: black; font-size: 25px;">&laquo</a>
-        {% endif %}
-    
-        Page {{books.number}} of {{ books.paginator.num_pages }}
-    
-        {% if books.has_next %}
-        <a href="?page={{ books.next_page_number }}" style="color: black; font-size: 25px;">&raquo</a>
-        {% endif %}
-    
-        </div>
-<!-- footer  -->
-{% include 'tem/footer.html' %}
-    </body>
+    {% if books.has_previous %}
+    <a href="?page={{ books.previous_page_number }}" style="color: black; font-size: 25px;">&laquo</a>
+    {% endif %}
+
+    Page {{books.number}} of {{ books.paginator.num_pages }}
+
+    {% if books.has_next %}
+    <a href="?page={{ books.next_page_number }}" style="color: black; font-size: 25px;">&raquo</a>
+    {% endif %}
+
+    </div>
+    <!-- footer  -->
+    {% include 'tem/footer.html' %}
+</div>
+</body>
 {% endblock %}

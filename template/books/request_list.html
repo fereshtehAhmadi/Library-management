@@ -47,12 +47,23 @@
     margin-left: 20px;
     border: none;
   }
+  @media screen and (max-width: 800px) {
+    #th {
+      font-size: 2vw;
+    }
+    #tr {
+      font-size: 1vw;
+    }
+    #btn{
+      font-size: 1vw;
+    }
+  }
 </style>
 {% endblock %}
 
 
 {% block content %}
-<div class="container py-4 col-10">
+<div class="container py-4 col-md-10 col-12">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12">
       <div class="cardd shadow-2-strong" style="border-radius: 1rem;">
@@ -60,28 +71,29 @@
           {% include 'tem/navbar2.html' %}
 
 <!-- body  -->
-<table class="table table-striped p-5">
+<div class="col-12"></div>
+<table class="table table-sm col-12">
 <thead>
     <tr>
-        <th scope="col">row</th>
-        <th scope="col">book name</th>
-        <th scope="col">author</th>
-        <th scope="col">translator</th>
-        <th scope="col">publisher</th>
-        <th scope="col">username</th>
-        <th scope="col">done</th>
+        <th scope="col" id="th">row</th>
+        <th scope="col" id="th">book name</th>
+        <th scope="col" id="th">author</th>
+        <th scope="col" id="th">translator</th>
+        <th scope="col" id="th">publisher</th>
+        <th scope="col" id="th">username</th>
+        <th scope="col" id="th">done</th>
     </tr>
 </thead>
 <tbody>
     {% for obj in list %}
     <tr>
-        <th scope="row">{{ obj.id }}</th>
-        <td>{{ obj.name }}</td>
-        <td>{{ obj.author }}</td>
-        <td>{{ obj.translator }}</td>
-        <td>{{ obj.publisher }}</td>
-        <td>{{ obj.user }}</td>
-        <td><a href="{% url 'request_done' obj.id %}" id="demo" class="btn btn-info">done</a></td>
+        <th scope="row" id="tr">{{ obj.id }}</th>
+        <td id="tr">{{ obj.name }}</td>
+        <td id="tr">{{ obj.author }}</td>
+        <td id="tr">{{ obj.translator }}</td>
+        <td id="tr">{{ obj.publisher }}</td>
+        <td id="tr">{{ obj.user }}</td>
+        <td id="btn"><a href="{% url 'request_done' obj.id %}" id="btn" class="btn btn-info">done</a></td>
     </tr>
     {% endfor %}
 </tbody>

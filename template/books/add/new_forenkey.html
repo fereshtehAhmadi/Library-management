@@ -1,35 +1,46 @@
 {% extends 'base.html' %}
 
-{% block title %} about {% endblock %}
+{% block title %} new {% endblock %}
+
+{% block style %}
+<style>
+  @media screen and (max-width: 800px) {
+    #form {
+      font-size:3vw;
+    }
+    #btn {
+      font-size: 3vw;
+      margin-top: 1vw;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <!-- navbarText -->
           {% include 'tem/navbar2.html' %}
 
-          <div class="card-body p-5 ">
-
-            <br>
-            <br>
+          <div class="card-body p-5 mt-0">
             
             {% if author %}
             <form action="{% url 'new_author' %}" method="POST">
               {% csrf_token %}
                 <div class="form-group row">
-                    <label for="" class="col-2">author:</label>
-                    <input type="text" class="form-control col-7" name="author" id="">
+                    <label for="" class="col-lg-2 col-md-3 col-12" id="form">author:</label>
+                    <input type="text" id="form" class="form-control col-md-7 col-12" name="author" id="">
                 <div>
                 </div> 
                 </div>               
-                <br><br>
+                
                 <div class="form-group row">
-                    <label for="" class="col-2">description:</label>
-                    <textarea  class="form-control col-7" rows="3" name="description" id=""></textarea>
+                    <label for="" class="col-lg-2 col-md-3 col-12" id="form">description:</label>
+                    <textarea  class="form-control col-lg-7 col-md-7 col-12" id="form" rows="3" name="description" id=""></textarea>
                 <div>
-                    <button type="submit" class="btn btn-info" style="margin-left: 10px;">Add</button>
+                    <button type="submit" class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                 </div>
               </form>
 
@@ -37,10 +48,10 @@
                     <form action="{% url 'new_category' %}" method="POST">
                       {% csrf_token %}
                     <div class="form-group row">
-                        <label for="" class="col-2">category:</label>
-                        <input type="text" class="form-control col-7" name="category" id="">
+                        <label for="" class="col-lg-2 col-5 col-md-3" id="form">category:</label>
+                        <input type="text" class="form-control col-7" name="category" id="form">
                     <div>
-                        <button class="btn btn-info" style="margin-left: 10px;">Add</button>
+                        <button class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                     </div>
                   </form>
                
@@ -48,10 +59,10 @@
                 <form action="{% url 'new_publisher' %}" method="post">
                   {% csrf_token %}
                 <div class="form-group row">
-                    <label for="" class="col-2">publisher:</label>
-                    <input type="text" class="form-control col-7" name="publisher" id="">
+                    <label for="" class="col-lg-2 col-5 col-md-3" id="form">publisher:</label>
+                    <input type="text" class="form-control col-7" name="publisher" id="form">
                     <div>
-                    <button class="btn btn-info" style="margin-left: 10px;">Add</button>
+                    <button class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                 </div>
               </form>
                 {% endif %}
