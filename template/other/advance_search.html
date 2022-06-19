@@ -4,7 +4,7 @@
 {% block style %}
 <style>
   body{
-    background-color: #ffa556;
+    background-color: #483D8B;
   }
   .dropbtn {
       border: none;   
@@ -47,11 +47,16 @@
   a{
     text-decoration: none;
 }
+@media screen and (max-width: 800px) {
+  #form {
+    font-size: 2vw;
+  }
+}
 </style>
 {% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -62,30 +67,32 @@
                 {% csrf_token %}
                 <div class="form-outline">
 
-                    <div class="row mb-4">
-                        <div class="col">
-                          <label for="firstname">book name:</label>
-                          <input type="text" name="n" class="form-control" >
-                        </div>
-                        <div class="col">
-                          <label for="lastname">author:</label>
-                          <input type="text" name="a" class="form-control" >
-                      </div>
-                    </div>
 
-                <div class="row mb-4">
-                  <div class="col">
-                    <label for="firstname">translator:</label>
-                    <input type="text" name="t" class="form-control" >
-                </div>
-                  <div class="col">
-                    <label for="lastname">publishers:</label>
-                    <input type="text" name="p" class="form-control" >
-                </div>
-                </div>
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="firstname" id="form">book name:</label>
+                      <input type="text" name="n" id="form" class="form-control" >
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="lastname" id="form">author:</label>
+                      <input type="text" name="a" id="form" class="form-control" >
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="firstname" id="form">translator:</label>
+                      <input type="text" name="t" id="form" class="form-control" >
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="lastname" id="form">publishers:</label>
+                    <input type="text" name="p" id="form" class="form-control" >
+                    </div>
+                  </div>
+                  
 
                 <div class="row justify-content-center align-items-center">
-                <button class="btn btn-dark btn-md btn-block col-3" type="submit">Search</button>
+                <button class="btn btn-dark btn-md btn-block col-3" style="font-size: 2vw;" type="submit">Search</button>
                 </div>
               </form>
           </div>

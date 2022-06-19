@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %} about {% endblock %}
+{% block style %}
+<style>
+  @media screen and (max-width: 800px) {
+    #text {
+      font-size: 2vw;
+    }
+    #contact {
+      font-size: 3vw;
+    }
+    #message {
+      font-size: 2vw;
+    }
+    #form {
+      font-size: 2vw;
+    }
+    #btn{
+      font-size: 2vw;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-12">
     {% include '../tem/message.html' %}
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
@@ -13,45 +34,45 @@
 
           <div class="card-body p-5 ">
 
-            <span>Dear Friend Book:</span>
+            <span id="text">Dear Friend Book:</span>
             <br>
-            <span>In this library, we tried to access different types of books and build a comprehensive system for ease of dear users.</span>
+            <span id="text">In this library, we tried to access different types of books and build a comprehensive system for ease of dear users.</span>
   
-            <p>After registering information and membership in the library, you can enjoy the features of this collection, including: </p>
+            <p id="text">After registering information and membership in the library, you can enjoy the features of this collection, including: </p>
             <ul>
-                <li>Apply up to 5 books simultaneously</li>
-                <li>Book marck and share your faverit books</li>
-                <li>add Like, Dislike and comment for books</li>
-                <li>and ...</li>
+                <li id="text">Apply up to 5 books simultaneously</li>
+                <li id="text">Book marck and share your faverit books</li>
+                <li id="text">add Like, Dislike and comment for books</li>
+                <li id="text">and ...</li>
             </ul>
-            <p>You can also, if you don't find your favorite book, offer it via <a href="{% url 'request_book' %}">Book request</a>.</p>
-            <p>Thank you for your choice...</p>
+            <p id="text">You can also, if you don't find your favorite book, offer it via <a href="{% url 'request_book' %}">Book request</a>.</p>
+            <p id="text">Thank you for your choice...</p>
 
             <!-- contact us  -->
             <hr>
             <div class="row">
               <div id="form_container">
-                  <h2>Contact Us</h2>
-                  <p>
+                  <h2 id="contact">Contact Us</h2>
+                  <p id="message">
                      Please send your message below. We will get back to you at the earliest!
                   </p>
                   <form role="form" method="post" id="reused_form">
                     {% csrf_token %}
           
                     <div class="row">
-                      <div class="col-sm-6 form-group">
-                          <input type="text" class="form-control" id="name" name="title" placeholder="title" required>
+                      <div class="col-12 col-md-6 form-group">
+                          <input type="text" class="form-control" id="form" name="title" placeholder="title" required>
                       </div>
                   </div>
 
                       <div class="row">
                           <div class="col-sm-12 form-group">
-                              <textarea class="form-control" type="textarea" name="message" placeholder="message..." id="message" rows="4"></textarea>
+                              <textarea class="form-control" type="textarea" name="message" placeholder="message..." id="form" rows="4"></textarea>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col-sm-12 form-group">
-                              <button type="submit" class="btn btn-lg btn-info pull-right" >Send</button>
+                              <button type="submit" id="btn" class="btn btn-lg btn-info pull-right" >Send</button>
                           </div>
                       </div>
           

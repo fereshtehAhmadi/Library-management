@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %} about {% endblock %}
+{% block title %} Receive {% endblock %}
+{% block style %}
+<style>
+  @media screen and (max-width: 800px) {
+    #text {
+      font-size: 3vw;
+    }
+    #form {
+      font-size: 2vw;
+    }
+    #btn {
+      font-size: 2vw;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-  <div class="container py-4 col-8">
+  <div class="container py-4 col-md-8 col-12">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -12,16 +27,16 @@
 
           <div class="card-body p-5 ">
 
-            <span>Enter the code of the received books....</span>
+            <span id="text">Enter the code of the received books....</span>
             <br>
             <br>
             <br>
             <form action="" method="POST">
               {% csrf_token %}
               <div class="form-group row">
-                <input type="text" name="id" class="form-control col-6" name="" id="" placeholder="book id">
+                <input type="text" name="id" class="form-control col-6" id="form" placeholder="book id">
                 <div class="col-6">
-                  <button class="btn btn-info">detail</button>
+                  <button id="btn" class="btn btn-info">detail</button>
               </div>
               </div>
             </form>

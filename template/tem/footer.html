@@ -1,17 +1,35 @@
 {% extends 'base.html' %}
-
+{% block style %}
+<style>
+body {
+    background-color: #483D8B;
+}
+@media screen and (max-width: 800px) {
+    #icon {
+        font-size: 2vw;
+    }
+    #content {
+        font-size: 2vw;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-    <div class="bg-light text-center" style="border-radius: 1rem; margin-top: 30px;">
+    <div class="bg-light text-center" style="border-radius: 1rem; margin-top: 1vw;">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); border-radius: 0 0 1rem 1rem ;">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-            <a class="text-dark" href="">adminemail@gmail.com</a>
-            <br>
-            <i class="fa fa-phone" aria-hidden="true"></i>
-            <a class="text-dark" href="">+21-00000000</a>
-            <br>
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <a class="text-dark" href="">first street- next to metro Flan- third alley- this library</a>
+            <div class="mb-0">
+            <i class="fa fa-envelope" aria-hidden="true" id="icon"></i>
+            <a class="text-dark" href="" id="content">adminemail@gmail.com</a>
+            </div>
+            <div class="mb-0">
+            <i class="fa fa-phone" aria-hidden="true" id="icon"></i>
+            <a class="text-dark" href="" id="content">+21-00000000</a>
+            </div>
+            <div class="mb-0">
+            <i class="fa fa-map-marker" aria-hidden="true" id="icon"></i>
+            <a class="text-dark" href="" id="content">first street- next to metro Flan- third alley- this library</a>
+            </div>
         </div>
     </div>
 {% endblock %}

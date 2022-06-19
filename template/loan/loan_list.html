@@ -135,6 +135,34 @@
         opacity: 0.7;
         margin-right: 5px;
     }
+    @media screen and (min-width: 801px) {
+      #img {
+          height: 100px;
+          width: 70px;
+      }
+      #tr {
+          margin-top: 2vw;
+      }
+      #btn {
+          margin-top: 2vw;
+      }
+    }
+  @media screen and (max-width: 800px) {
+      #th {
+        font-size: 1vw;
+      }
+      #tr {
+          font-size: 1vw;
+          margin-top: 3vw;
+      }
+      #img {
+          width: 9vw;
+          height: 12vw;
+      }
+      #btn{
+        font-size: 1vw;
+      }
+    }
 
 
 </style>
@@ -148,32 +176,31 @@
           <!-- navbarText -->
             {% include 'tem/navbar2.html' %}
   
-            <!-- body  -->
-            <table class="table mb-4">
+    <!-- body  -->
+      <div class="col-12"></div>
+        <table class="table table-sm col-12">
                 <thead>
                     <tr>
-                        <th scope="col">pic</th>
-                        <th scope="col">book name</th>
-                        <th scope="col">start date</th>
-                        <th scope="col">debt</th>
-                                <th scope="col">payment</th>
-                                <th scope="col">detail</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                {% for obj in loan %}
-                              <tr>
-                                <th scope="row"><img src="{{ obj.book.cover.url }}" style="height: 100px; width:70px;" alt="{{ obj.id }}"></th>
-                                <td><br>{{ obj.book.name }}</td>
-                                <td><br>{{ obj.start_date }}</td>
-                                <td><br>{{ obj.loan_debt.amount}}</td>
+                        <th scope="col" id="th">pic</th>
+                        <th scope="col" id="th">book name</th>
+                        <th scope="col" id="th">start date</th>
+                        <th scope="col" id="th">debt</th>
+                        <th scope="col" id="th">payment</th>
+                        <th scope="col" id="th">detail</th>
+                    </tr>
+                </thead>
+                      <tbody>
+                        {% for obj in loan %}
+                          <tr>
+                                <th scope="row"><img src="{{ obj.book.cover.url }}" id="img" alt="{{ obj.id }}"></th>
+                                <td id="tr">{{ obj.book.name }}</td>
+                                <td id="tr">{{ obj.start_date }}</td>
+                                <td id="tr">{{ obj.loan_debt.amount}}</td>
                                 <td>
-                                    <br>
-                                  <button type="submit" class="btn btn-info">payment</button>
+                                  <button id="btn" type="submit" class="btn btn-info">payment</button>
                                 </td>
                                 <td>
-                                    <br>
-                                  <a href="{% url 'detail' obj.book.id %}" type="submit" class="btn btn-success ms-1">detail</a>
+                                  <a href="{% url 'detail' obj.book.id %}" id="btn" type="submit" class="btn btn-success ms-1">detail</a>
                                 </td>
                               </tr>
                               {% endfor %}
