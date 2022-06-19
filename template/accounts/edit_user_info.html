@@ -61,15 +61,16 @@
 
           <div class="card-body p-5 text-center">
             <form action="{% url 'edit' %}" method="post">
+              {% load widget_tweaks %}
                 {% csrf_token %}
                 <div class="form-outline">
-
-
-
-                    <div class="row mb-4">
-                        <div class="col">
-                          <label for="username">user name:</label>
-                          <input type="text" class="form-control" name="username" id="" value={{request.user.username}}>
+                  
+                  
+                  
+                  <div class="row mb-4">
+                    <div class="col">
+                      <label for="username">user name:</label>
+                      <input type="text" class="form-control" name="username" id="" value={{request.user.username}}>
                     </div>
                     </div>
 
@@ -80,8 +81,8 @@
                       </div>
                       <div class="col-sm-12 col-md-6">
                         <label for="phone">phone number:</label>
-                      <input type="text" class="form-control" name="phone" value={{custom_user.phone}}>
-                      </div>
+                        {% render_field custom_user_form.phone class="form-control" value=custom_user.phone %}
+                    </div>
                     </div>
 
                 <div class="form-outline mb-4">

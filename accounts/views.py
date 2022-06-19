@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from .decorators import unauthenticated_user, super_user, staff_user
 
-from accounts.forms import CustomUserForm, UserRegisterationForm
+from accounts.forms import CustomUserForm, UserRegisterationForm, EditCustomUser
 from accounts.models import CustomUserModel
 from books.models import Categorie
 
@@ -95,21 +95,32 @@ def account(request):
 def edit_user_info(request):
     custom_user = CustomUserModel.objects.get(user=request.user)
     user = User.objects.get(username=request.user.username)
+    custom_user_form = EditCustomUser(request.POST)
+
     if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        address = request.POST['address']
+        try:
+            user.username = request.POST['username']
+            user.email = request.POST['email']
+            user.save()
+        except:
+            messages.error(request, 'this username already exists!!')
+            return redirect('edit')
+        if custom_user_form.is_valid():
+            cd = custom_user_form.cleaned_data
+            phone= cd['phone']
+            address = request.POST['address']
+            custom_user.phone = phone
+            custom_user.address = address
+            custom_user.save()
+        else:
+            messages.error(request, custom_user_form.errors)
+            return redirect('edit')
         
-        user.username = username
-        user.email = email
-        user.save()
-        custom_user.phone = phone
-        custom_user.address = address
-        custom_user.save()
+                
         return redirect('account')
     content = {
         'custom_user': custom_user,
+        'custom_user_form': custom_user_form,
     }
     return render(request, 'accounts/edit_user_info.html', content)
         

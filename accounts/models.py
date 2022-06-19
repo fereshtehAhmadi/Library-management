@@ -9,9 +9,9 @@ class CustomUserModel(models.Model):
         ('F', 'Female'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    phone = models.CharField(null=False, blank=False, unique=True, max_length= 11) # PhoneNumberField, CharField
+    phone = models.CharField(null=False, blank=False, max_length= 11) # PhoneNumberField, CharField
     address = models.CharField(max_length=200)
-    national_code = models.CharField(max_length=10)
+    national_code = models.CharField(max_length=10, unique=True)
     birthday = models.DateField()
     gender = models.CharField(max_length = 1,null=True, choices = GENDER_CHOICES)
 

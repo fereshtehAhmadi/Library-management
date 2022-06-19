@@ -231,8 +231,7 @@ def unactive_books(request):
     return render(request, 'books/unactive_books.html', {'books': books})
 
 
-# add new book 
-# inam try except mikhad...     
+# add new book   
 @login_required(login_url='login')
 @staff_user
 def new_book(request):

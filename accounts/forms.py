@@ -68,3 +68,22 @@ class CustomUserForm(forms.ModelForm):
         return national_code
     
     
+
+class EditCustomUser(forms.ModelForm):
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    
+    class Meta:
+        model = CustomUserModel
+        fields = ('phone',)
+        
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone', None)
+        try:
+            int(phone)
+            l = list(phone)
+            if l[0] != '0' and l[1] != '9':
+                raise forms.ValidationError('Please enter a valid phone number!')
+        except (ValueError):
+            raise forms.ValidationError('Please enter a valid phone number!')
+        return phone
+    
