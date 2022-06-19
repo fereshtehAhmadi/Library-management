@@ -73,23 +73,41 @@ def advance_search(request):
                     translator__icontains=t).filter(
                         publishers__name__icontains=p
                     ).distinct()
-
-            paginator = Paginator(query_set, 12)
-            page = request.GET.get('page')
-            book_search = paginator.get_page(page)
+            if query_set.count() > 0 :
+                paginator = Paginator(query_set, 12)
+                page = request.GET.get('page')
+                book_search = paginator.get_page(page)
             
-            context = {
-                'page': page,
-                'book_search': book_search,
-            }
-            return render(request, 'home.html', context)
+                context = {
+                    'page': page,
+                    'book_search': book_search,
+                }
+                return render(request, 'home.html', context)
+            
+            else:
+                messages.error(request, 'not found!!!')
+                return redirect('advance_search')
+            
         
-    return render(request, 'other/advance_search.html')
+    return render(request, 'books/advance_search.html')
         
 
 
 def category(request, cats):
-    p = Paginator(Book.objects.filter(category= cats, condition=True), 12)
+    book = Book.objects.filter(category= cats, condition=True).count()
+    if book > 0 :
+        p = Paginator(Book.objects.filter(category= cats, condition=True), 12)
+        page = request.GET.get('page')
+        cate = p.get_page(page)
+        context = {
+            'separation': cate,
+            'cate': Categorie.objects.all(),
+        }
+        return render(request, 'home.html', context)
+    else:
+        messages.error(request, 'not found !!!')
+        return redirect('home')
+        
     page = request.GET.get('page')
     cate = p.get_page(page)
     context = {

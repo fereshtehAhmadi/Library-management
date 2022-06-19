@@ -121,7 +121,7 @@
       <a href="{% url 'logout_user' %}" style="text-decoration: none;">Log out</a>
       
       {% else %}
-      <a href="{% url 'advance_search' %}">Advanced search</a>
+      <a href="{% url 'advance_search' %}" style="text-decoration: none;">Advanced search</a>
       <a href="{% url 'login_user' %}" style="text-decoration: none;">login user</a>
       <a href="{% url 'register' %}" style="text-decoration: none;">register</a>
       <a href="{% url 'about' %}" style="text-decoration: none;">about library/ ruls</a>
@@ -137,7 +137,7 @@
     {% if request.user.is_authenticated%}
     <a id="access" href="{% url 'account' %}" style="text-decoration: none;">{{ request.user.username }}</a>
     {% else %}
-    <a href="{% url 'login_user' %}" d="access" style="text-decoration: none;">login/register</a>
+    <a href="{% url 'login_user' %}" id="access" style="text-decoration: none;">login</a>
     {% endif %}
   </span>
   </li>
