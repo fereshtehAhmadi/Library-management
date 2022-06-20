@@ -144,7 +144,7 @@ def detail_book(request, pk):
         LB = None
         bookmarck_status = False
     
-    finally:    
+    finally:   
         content = {
         'detail' : book,
         'comment': Comment.objects.filter(book=pk),

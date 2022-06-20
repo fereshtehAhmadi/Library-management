@@ -31,11 +31,13 @@ class Comment(models.Model):
         comment_obj = Comment.objects.get(id=self.id)
         obj_list = comment_obj.likecomment.all()
         return obj_list.filter(like=True).count()
+    
+    def like_checker(self, cm_id, user_id):
+        comment_obj = Comment.objects.get(id=cm_id)
+        obj_list = comment_obj.likecomment.all()
+        if obj_list.filter(like=True, user__id=user_id).exists():
+            return True
 
-        
-    
-        
-    
 
 class LikeComment(models.Model):
     comment = models.ForeignKey(Comment, null=True, blank=True, on_delete=models.CASCADE, related_name='likecomment')
