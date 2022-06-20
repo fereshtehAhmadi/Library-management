@@ -26,12 +26,6 @@ class LoanModel(models.Model):
         if datetime.now() >= self.expiration:
             self.status = 'T'
         return self.status
-    
-    def diff_time(self):
-        if status == 'T':
-            diff = datetime.now() - self.expiration
-            a = int(diff.days) / 7           
-        return debt(a)
 
 
 class DebtModel(models.Model):
@@ -43,7 +37,5 @@ class DebtModel(models.Model):
     def __str__(self):
         return f'{self.amount}'
     
-    def debt(self, a=0):
-        self.amount = a * 2000
-        return self.amount
+
         

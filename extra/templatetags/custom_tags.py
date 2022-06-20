@@ -1,6 +1,7 @@
 from django import template
 from extra.models import Comment, LikeComment
 
+
 register = template.Library()
 
 

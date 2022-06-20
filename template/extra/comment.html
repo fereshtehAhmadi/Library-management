@@ -118,12 +118,7 @@
                     <li class="list-inline-item">
                       {% load custom_tags %}
                       {% like_color obj.id request.user as MyValue %}
-                     
-                      {% comment %}
-                      {% with lc=like_color obj.id request.user %}
-                      {% endwith %}
-                      {% endcomment %}
-                      
+
                       {% if MyValue %}
                         <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: ltr;">
                           <i class="fas fa-heart g-pos-rel" style="color: red;" id="heart"></i>

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import unauthenticated_user, super_user, staff_user
 from django.contrib.postgres.search import SearchVector
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 from accounts.models import CustomUserModel
