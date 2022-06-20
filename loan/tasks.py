@@ -56,11 +56,3 @@ def debt(a, book):
 #     debt.amount = a * 2000
 #     debt.save()
 #     return debt.amount
-
-
-# def sum_debt(sum=0):
-#     debt = DebtModel.objects.filter(user=request.user)
-#     for obj in debt:
-#         sum += int(obj.amount)
-#         return sum_debt(sum)
-#     return sum
