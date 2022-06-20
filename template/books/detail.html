@@ -3,15 +3,44 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 {% block title %} Detail {% endblock %}
 
 {% block style %}
 <style>
-  body{
-    background-color: white;
-  }
+/* The actual popup */
+.popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popuptext::after {
+  content: "";
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+  background-color: white;
+}
+
+
   a{
     text-decoration: none;
 }
@@ -216,11 +245,13 @@
 @media screen and (min-width: 801px) {
   .icon {
     font-size:3vw;
+    cursor: pointer;
   }
 }
 @media screen and (max-width: 800px) {
   .icon {
     font-size:5vw;
+    cursor: pointer;
   }
 }
 </style>
@@ -228,7 +259,6 @@
 
 {% block content %}
 
-<!-- {{ request.build_absolute_uri }} -->
 
 <div class="container py-4 col-12 col-lg-10 col-sm-12">
   <!-- message  -->
@@ -259,9 +289,12 @@
                           <span class="margin" style="font-size:2vw; margin-left: 2vw;">{{ dislike }}</span>
                           <a class="icon" href="{%if request.user.is_authenticated %}{% url 'dislike' detail.id %}{%endif%}">
                           <i class="fa fa-thumbs-down" id="thumbs_down" ></i></a>
-                          
-                          <a class="icon margin" style="margin-left: 2vw;"><i class="fa fa-share-alt" style="color: black;"></i></a>
-                        
+
+                          <a class="icon margin" onclick="myFunction()" style="margin-left: 2vw;"><i class="fa fa-share-alt" style="color: black;"></i></a>
+                            <div class="container popuptext" id="myPopup">
+                              {% include './social_share.html' %}
+                            </div>
+
                           {% if bookmarck_status%}
                           <a class="icon" href="{% url 'add_book_marck' detail.id %}"
                           style="margin-left: 2vw;">
@@ -356,6 +389,12 @@
   thumbs_up.style.color = 'black';
   thumbs_down.style.color = 'black';
   {% endif %}
+
+
+  function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
 
 </script>
 

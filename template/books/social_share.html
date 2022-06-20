@@ -1,7 +1,30 @@
-<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-    <i class="fa-facebook-square" aria-hidden="true"></i>
-</a>
+{% extends 'base.html' %}
 
-<a href="https://twitter.com/home?status={{ sharing_string }}%20{{ request.build_absolute_uri }}">
-    <i class="fa fa-twitter" aria-hidden="true"></i>
-</a>
+{% block title %} Social share {% endblock %}
+
+
+{% block content %}
+
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-12">
+  
+  <div class="card shadow-2-strong" style="border-radius: 1rem;">
+    <div class="card-body parent container justify-content-center align-items-center">
+
+        {% load social_share %}
+
+        {% post_to_facebook "{{ request.build_absolute_uri }}" "<i class='icon-facebook' style='font-size: 2vw;'></i>" %}
+
+        {% post_to_twitter "I suggest this great book from this wonderful library :)" "{{ request.build_absolute_uri }}" "<i class='icon-twitter' style='color: blue; font-size: 2vw;'></i>" %}
+        
+        {% send_email "suggest book" "I suggest this great book from this wonderful library :)" "{{ request.build_absolute_uri }}" "<i class='fa fa-envelope' style='font-size: 2vw;'></i>" %}
+        
+        {% post_to_telegram "I suggest this great book from this wonderful library :)" "{{ request.build_absolute_uri }}" "<i class='fab fa-telegram' style='color: rgb(0, 186, 237); font-size: 2vw;'></i>" %}
+        
+        {% post_to_whatsapp "{{ request.build_absolute_uri }}" "<i class='fab fa-whatsapp' style='color: green; font-size: 2vw;'></i>" %}     
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
