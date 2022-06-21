@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} sign in {% endblock %}
+
+
+{% block content %}
+
+<section>
+  <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-5">
+        
+        {% include "../tem/message.html" %}
+
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-4 parent container justify-content-center align-items-center">
+  
+              <div class="row">
+                
+                <div class="col-12" style="margin-top: 10px;">
+                  <h5>Are you sure of paying a fine of ??</h5>
+                </div>
+                <div class="col-sm-12 col-md-6" style="margin-top: 10px;">
+                  <a href="{% url 'done_payment' %}" class="btn btn-info btn-lg">payment</a>
+                </div>
+                <div class="col-sm-12 col-md-6" style="margin-top: 10px;">
+                  <a href="{% url 'loan' %}" class="btn btn-danger btn-lg">cancle</a>
+                </div>
+              </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+{% endblock %}

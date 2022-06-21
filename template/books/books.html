@@ -112,16 +112,16 @@
 
 {% block content %}
 <body>     
-    <div class="container">
+    <div class="card" style="background: #eee">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
+                <div>
                     <div class="item carousel-item active">
-                        <div class="row">
+                        <div class="row col-12 mb-2">
                             {% for obj in books %}
-                            <div class="col-xl-2 col-md-3" style="margin-top: 30px;">
+                            <div class="col-xl-2 col-md-3 col-sm-6 col-12" style="margin-top: 30px;">
                                 <div class="thumb-wrapper">
                                     <div class="img-box">
                                         <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">

@@ -50,6 +50,14 @@
   nav div form span .text {
     display: none;
   }
+  #form {
+    font-size: 1vw;
+    margin-left: 0;
+    width: 40px;
+  }
+  #btn {
+    font-size: 1vw;
+  }
 }
 
 @media screen and (min-width: 801px) {
@@ -58,25 +66,27 @@
     margin-right: 4px;
   }
   #search_div {
-    margin-left: auto;
+    margin-right: auto;
+    margin-left: 20px;
   }
   #capability {
     margin-left: 2vw;
+  }
+  #name {
+    margin-right: 2vw;
   }
 }
 @media screen and (max-width: 800px) {
   #form {
     font-size: 1vw;
+    margin-left: 0;
   }
   #btn {
     font-size: 1vw;
+    width: 20px;
   }
   #search {
-    padding: 0;
     margin-top: 2vw;
-  }
-  #search_div {
-    margin-left: 1vw;
   }
   #access {
     font-size: 2vw;
@@ -90,7 +100,11 @@
   #list {
     font-size: 2vw;
   }
+  #name {
+    margin-right: 1vw;
+  }
 }
+
  
 </style>
 {% endblock %}
@@ -165,7 +179,8 @@
   </ul>
   {% endif %}
 
-<div class="dropdown bg-light marg" style="float:right;" id="capability">
+<div class="dropdown bg-light marg " style="float:right;" id="capability">
+  <div class="collapse  navbar-collapse">
   <button class="dropbtn dropdown-toggle" id="menu">category</button>
     <div class="dropdown-content dropdown-menu" id="list">
       {% for cat in cate %}
@@ -173,29 +188,28 @@
       {% endfor %}
     </div>
   </div>
+</div>
       
     <ul class="navbar-nav" id="search_div">
       <li class="nav-item">
-        <div class="search-container">
         <form action="{% url 'search' %}" method="get">
           {% csrf_token %}
-        <div class="input-group col-8 col-md-12" id="search">
-          <input type="text" name="q" class="form-control" id="form" placeholder="search..." aria-label="search" required>
-          <div class="input-group-prepend">
-            <button type="submit" class="btn btn-info" id="btn" style="cursor: pointer;"><i class="fas fa-search"></i></span>
+          <div class="input-group" id="search">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="btn"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" name="q" id="form" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
           </div>
-        </div>
       </form>
-    </div>
       </li>
     </ul>
 
-    <ul class="navbar-nav marg" >
+    <ul class="navbar-nav" id="name">
       <li class="nav-item">
           <h1 style="color: #4c4c4c; font-size: 3vw;">Library name</h1>
       </li>
     </ul>
-    <ul class="navbar-nav" id="capability">
+    <ul class="navbar-nav">
       <li class="nav-item">
   <span class="navbar-text">
     <a href="{% url 'home' %}" style="text-decoration: none;"><i class="fas fa-home" style="font-size: 3vw;"></i></a>

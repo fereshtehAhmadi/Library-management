@@ -213,7 +213,11 @@
                                 {% sum_debt request.user as sum %}
                                 
                                 <td style="margin-top: 2vw; font-size: 2vw;"><br>sum: {{ sum }}$</td>
+                                {% if sum != 0 %}
+                                <td><a href="{% url 'payment' %}" id="btn" class="btn btn-primary btn-lg">payment</a></td>
+                                {% else %}
                                 <td><a href="" id="btn" class="btn btn-primary btn-lg">payment</a></td>
+                                {% endif %}
                               </tr>
                             </tbody>
                           </table>
