@@ -14,18 +14,11 @@ class LoanModel(models.Model):
     )
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
-    expiration = models.DateField(default=datetime.now()+timedelta(days=30))
     status = models.CharField(max_length=1, choices=LOAN_STATUS)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'{self.user.user.username} has {self.book} and loan is in {self.status} faze'
-    
-    
-    def expiration(self):
-        if datetime.now() >= self.expiration:
-            self.status = 'T'
-        return self.status
 
 
 class DebtModel(models.Model):

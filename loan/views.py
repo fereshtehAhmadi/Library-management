@@ -75,8 +75,8 @@ def payment(request):
 def check_receive(request):
     if request.method == 'POST':
         id = request.POST['id']
-        loan = LoanModel.objects.get(book=id)
-        return redirect('user_loan', pk=loan.book.id)
+        book = Book.objects.get(id=id)
+        return redirect('user_loan', pk=book.id)
     return render(request, 'loan/receive.html')
 
 
