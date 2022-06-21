@@ -75,14 +75,22 @@
       }
     }
     @media screen and (max-width: 800px) {
+      #form-title {
+        font-size: 2vw;
+        height: 5vw;
+      }
+      #form-body {
+        font-size: 2vw;
+        height: 12vw;
+      }
       #div {
         padding: 5px;
       }
       #title {
-        font-size: 2vw;
+        font-size: 3vw;
       }
       #user {
-        font-size: 1vw;
+        font-size: 2vw;
       }
       #content{
         font-size: 1vw;
@@ -114,7 +122,7 @@
                   </div>
             
                   <p id="content">{{ obj.content }}</p>
-                  <ul class="list-inline d-sm-flex my-0">
+                  <ul class="list-inline d-sm-flex m-0">
                     <li class="list-inline-item">
                       {% load custom_tags %}
                       {% like_color obj.id request.user as MyValue %}
@@ -128,7 +136,7 @@
                           <i class="icon-heart-empty g-pos-rel" id="heart"></i>
                         </a>
                       {% endif %}
-                      <small id="icon">{{ obj.like_c }}</small>
+                      <small id="heart">{{ obj.like_c }}</small>
                     </li>
 
                     {% if request.user.is_staff %}
@@ -152,8 +160,8 @@
                  <form action="{% url 'comment' book_id %}" method="POST">
                   {% csrf_token %}
                 <div class="col-md-10 col-12 p-0" style="margin-top: 10px;">
-                  <input type="text" class="form-control" placeholder="title" name="title">
-                  <textarea name="content" class="form-control" id="" rows="5" placeholder="comment"></textarea>
+                  <input type="text" class="form-control" id="form-title" placeholder="title" name="title">
+                  <textarea name="content" class="form-control" id="form-body" rows="5" placeholder="comment"></textarea>
                 <ul class="list-inline d-sm-flex my-0">
             
                 <li class="list-inline-item ml-auto">

@@ -247,6 +247,12 @@
     font-size:3vw;
     cursor: pointer;
   }
+  #pic {
+    margin-top: 2vw;
+  }
+  #img {
+    width: 20vw;
+  }
 }
 @media screen and (max-width: 800px) {
   .icon {
@@ -277,7 +283,7 @@
                         <div class="col-12 p-0" id="pic">
                           
                           <div>
-                          <img src="{{ detail.cover.url }}" alt="Alternative">
+                          <img src="{{ detail.cover.url }}" alt="Alternative" id="img">
                           </div>
 
                         <div class="col-12 p-0" style="margin-top: 3vw;">
@@ -305,8 +311,8 @@
                           <i class="icon-bookmark-empty" style="color: black;"></i></a>
                         {% endif %}
                         </div>
-                        </div>
-                        </div>
+                      </div>
+                    </div>
                     
                     
                     <div class="details col-xl-8 col-md-7 col-sm-12 col-12">
