@@ -200,14 +200,17 @@ def logout_user(request):
 
 
 def about(request):
-    if request.method == 'POST':
-        user = request.user
-        title = request.POST['title']
-        message = request.POST['message']
-    
-        send_mail(title, message, settings.EMAIL_HOST_USER, [user.email])
-        messages.success(request, 'your massage send successfully!!')
-        redirect('about')
+    try:
+        if request.method == 'POST':
+            user = request.user
+            title = request.POST['title']
+            message = request.POST['message']
         
+            send_mail(title, message, settings.EMAIL_HOST_USER, [user.email])
+            messages.success(request, 'your massage send successfully!!')
+            redirect('about')
+    except:
+        message.erorr(request, 'Please complete your information first !!!')
+            
     return render(request, 'other/about.html')
 
