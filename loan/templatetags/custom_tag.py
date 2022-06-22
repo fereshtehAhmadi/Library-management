@@ -15,8 +15,8 @@ def sum_debt(user):
         for obj in debt:
             l.append(int(obj.amount))
         
-        listSum = sum(l)
-        return listSum
+        listsum = sum(l)
+        return listsum
     return 0
 
 

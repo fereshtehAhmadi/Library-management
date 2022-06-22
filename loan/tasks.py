@@ -13,7 +13,8 @@ def expiration():
         if diff.days >= 30:
             obj.status = 'T'
             obj.save()
-            return diff_time(diff.days, obj.id)
+            expiration = diff.days - 30
+            return diff_time(expiration, obj.id)
     return None
 
 
