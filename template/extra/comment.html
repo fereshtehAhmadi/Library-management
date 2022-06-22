@@ -155,7 +155,7 @@
     </div>
 </div>
 <br>
-{% if request.user.is_authenticated %}
+{% if user.condition %}
                  <h5 style="font-size:2vw;">Add comment:</h5>
                  <form action="{% url 'comment' book_id %}" method="POST">
                   {% csrf_token %}

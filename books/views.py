@@ -135,7 +135,6 @@ def detail_book(request, pk):
         comment = Comment.objects.filter(book=pk)
         bookmarck_status = BookMarck.objects.filter(user=request.user, book=book).exists()
         like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
-        # share_string = quote_plus(instance.content)
         LB = None
         if like_b:
             LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
@@ -147,7 +146,8 @@ def detail_book(request, pk):
     finally:   
         content = {
         'detail' : book,
-        'comment': Comment.objects.filter(book=pk),
+        'comment': comment,
+        'user': CustomUserModel.objects.get(user=request.user),
         'bookmarck_status': bookmarck_status,
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'color_like_b':LB,

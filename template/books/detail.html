@@ -352,11 +352,13 @@
                       <br>
                       
                       <div class="action">
+                      {% if user.condition %}
                         {% if not loan %}
                         <a href="{% url 'add_loan' detail.id %}" class="btn btn-lg btn-primary" type="button" style="font-size:2vw;">request</a>
                         {% else %}
                         <a class="add-to-cart btn btn-secondary btn-lg" type="button" style="color: black; font-size:2vw;">not available</a>
                         {% endif %}
+                      {% endif %}
                         {% if request.user.is_staff %}
                         <a href="{% url 'book_info' detail.id %}" style="margin-top: 5px; font-size:1vw;" class="btn btn-sm btn-primary ml-4" type="button">detail</a>
                         {% endif %}
@@ -400,7 +402,7 @@
   function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.style.width = '150px';
-    popup.style.height = '200px';
+    popup.style.height = '220px';
     popup.classList.toggle("show");
   }
 

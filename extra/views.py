@@ -51,10 +51,11 @@ def comment(request, pk):
         book = Book.objects.get(id=pk)
         customuser = CustomUserModel.objects.get(user=request.user)
         if request.method == 'POST':
-            title = request.POST['title']
-            content = request.POST['content']
-            Comment.objects.create(title=title, content=content, book=book, user=customuser)
-            return redirect('detail', pk=book.id)
+            if customuser.condition:
+                title = request.POST['title']
+                content = request.POST['content']
+                Comment.objects.create(title=title, content=content, book=book, user=customuser)
+                return redirect('detail', pk=book.id)
     except:
         messages.error(request, 'Please complete your user information!!')
     return redirect('detail', pk=book.id)

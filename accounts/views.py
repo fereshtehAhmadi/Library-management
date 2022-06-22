@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from library_managment import settings
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from accounts.decorators import unauthenticated_user, super_user, staff_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User, Group
@@ -13,6 +14,38 @@ from .decorators import unauthenticated_user, super_user, staff_user
 from accounts.forms import CustomUserForm, UserRegisterationForm, EditCustomUser
 from accounts.models import CustomUserModel
 from books.models import Categorie
+
+
+@login_required(login_url='login')
+@staff_user 
+def user_active(request, pk):
+    try:
+        user = CustomUserModel.objects.get(user_id=pk)
+        user.condition = True
+        user.save()
+    except:
+        messages.error(request, 'The user must complete their information!!!')
+        
+    return redirect('user_detail', pk=pk)
+
+
+@login_required(login_url='login')
+@staff_user 
+def user_unactive(request, pk):
+    user = CustomUserModel.objects.get(user_id=pk)
+    user.condition = False
+    user.save()
+    return redirect('user_detail', pk=pk)
+
+
+@login_required(login_url='login')
+@staff_user 
+def new_user(request):
+    content = {
+        'user':CustomUserModel.objects.filter(condition=False),
+    }
+    return render(request, 'accounts/new_users.html', content)
+
 
 
 @login_required(login_url='login')

@@ -1,6 +1,5 @@
 from django import forms
 from django.urls import reverse_lazy
-from phonenumber_field.formfields import PhoneNumberField
 
 from accounts.models import CustomUserModel
 

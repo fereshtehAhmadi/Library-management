@@ -52,6 +52,7 @@
 
 {% block content %}
   <div class="container py-4 col-sm-12 col-md-8">
+    {% include '../tem/message.html' %}
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -140,6 +141,15 @@
                       <hr>
                       <div class="row">
                         <div class="col-sm-3">
+                          <h6 class="mb-0">condition</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{ custom_user.condition }}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
                           <h6 class="mb-0">Address</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
@@ -147,17 +157,29 @@
                         </div>
                       </div>
                     <hr>
-                    {% if user.is_superuser %}
 
-                    <div class="row justify-content-center align-items-center" style="margin-top: 10px;">
-                        {% if user_info.is_superuser %}
-                        {% elif user_info.is_staff %}
-                    <a href="{% url 'decline' user_info.id %}" class="btn btn-warning btn-lg">Decline</a>
-                        {% else%}               
-                    <a href="{% url 'promote' user_info.id %}" class="btn btn-info btn-lg">Promotion</a>
-                        {% endif %}
-                      </div>
+                    {% if not custom_user.condition %}
+                    <div class="col-sm-12 col-md-5" style="margin-top: 10px;"></div>
+                      <a href="{% url 'user_active' user_info.id %}" class="btn btn-info btn-lg">active</a>
+                    </div>
+                    {% else %}
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-5" style="margin-top: 10px;">
+                          <a href="{% url 'user_unactive' user_info.id %}" class="btn btn-danger btn-lg">unactive</a>
+                        </div>
+                      {% if user.is_superuser %}
+                        <div class="col-sm-12 col-md-7" style="margin-top: 10px;">
+                          {% if user_info.is_superuser %}
+                          {% elif user_info.is_staff %}
+                          <a href="{% url 'decline' user_info.id %}" class="btn btn-warning btn-lg">Decline</a>
+                          {% else%}               
+                          <a href="{% url 'promote' user_info.id %}" class="btn btn-info btn-lg">Promotion</a>
+                          {% endif %}
+                        </div>
                       {% endif %}
+                      </div>
+                  {% endif %}
             </div>
         </div>
       </div>
