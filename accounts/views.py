@@ -211,6 +211,5 @@ def about(request):
             redirect('about')
     except:
         message.erorr(request, 'Please complete your information first !!!')
-            
     return render(request, 'other/about.html')
 
