@@ -128,15 +128,15 @@
                       {% like_color obj.id request.user as MyValue %}
 
                       {% if MyValue %}
-                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: ltr;">
+                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: ltr; text-decoration: none;">
                           <i class="fas fa-heart g-pos-rel" style="color: red;" id="heart"></i>
                         </a>
                       {% else %}
-                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: ltr;">
+                        <a href="{% url 'acceptable' obj.id book_id %}" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" style="text-decoration: ltr; text-decoration: none;">
                           <i class="icon-heart-empty g-pos-rel" id="heart"></i>
                         </a>
                       {% endif %}
-                      <small id="heart">{{ obj.like_c }}</small>
+                      <small id="heart" style="color: black;">{{ obj.like_c }}</small>
                     </li>
 
                     {% if request.user.is_staff %}

@@ -14,8 +14,11 @@ def create_user(num=5, staff=False):
     return [
         User.objects.create_user(
             username=fake.unique.first_name(),
-            password='passwd@2',
-            is_staff=staff,
+            first_name = fake.name(),
+            last_name = fake.name(),
+            email = fake.name() + '@gmail.com',
+            password = 'passwd@2',
+            is_staff = staff,
         )
     ]
 
@@ -35,6 +38,7 @@ def create_custom_user(users_list):
             address=fake.address(),
             national_code=choice(national_code_list),
             user=user_obj,
+            condition= True,
         )
         for user_obj in users_list
     ]
@@ -145,8 +149,8 @@ class Command(BaseCommand):
     help = 'Populates database with dummy-data.'
 
     def handle(self, *args, **kwargs):
-        user_list = create_user()
-        staff_list = create_user(staff=True)
+        user_list = create_user(5, staff=False)
+        staff_list = create_user(5, staff=True)
         custom_user_list = create_custom_user(staff_list)
         pub_list = create_publishers()
         cate_list = create_category()
