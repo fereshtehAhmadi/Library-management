@@ -1,11 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
+
+import django
+django.setup()
+
 from loan.models import LoanModel, DebtModel
 from django.contrib.auth.models import User
 from accounts.models import CustomUserModel
 
 
-@app.task
+@shared_task()
 def expiration():
     loan = LoanModel.objects.all()
     for obj in loan:

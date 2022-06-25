@@ -165,9 +165,10 @@
           {% csrf_token %}
           <div class="input-group" id="search">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="btn"><i class="fas fa-search"></i></span>
+              <button type="submit" class="input-group-text" id="btn"><i class="fas fa-search"></i></button>
             </div>
-            <input type="text" class="form-control" name="q" id="form" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            <!-- <input type="hidden" value="{{ page_name }}" name="page_name" /> -->
+            <input type="text" class="form-control" name="q" id="form" placeholder="search" aria-label="Username" aria-describedby="basic-addon1">
           </div>
       </form>
       </li>

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,16 +40,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Third-party Applications
     'widget_tweaks',
     'phonenumber_field',
     'django_social_share',
     'django.contrib.postgres',
+    'celery',
+    'django_celery_beat',
+    'djcelery', 
     
+    # Applications
     'accounts',
     'books',
     'extra',
-    'loan',
+    'loan',  
 ]
+
+import djcelery
+djcelery.setup_loader()
+
+BROKER_URL = "amqp://guest:guest@localhost:5672/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

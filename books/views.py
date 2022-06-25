@@ -293,6 +293,7 @@ def new_author(request):
     return render(request, 'books/add/new_forenkey.html', content)
 
 
+
 @login_required(login_url='login')
 @staff_user
 def new_publisher(request):

@@ -5,22 +5,15 @@ from celery.schedules import crontab
 from loan.tasks import expiration
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_managment.settings')
 
-app = Celery('proj')
+app = Celery('library_managment')
 
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 
 app.autodiscover_tasks()
-
-
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
-       
 
 
 app.conf.beat_schedule = {
