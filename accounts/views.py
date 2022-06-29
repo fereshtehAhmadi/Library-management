@@ -53,6 +53,7 @@ def new_user(request):
 def user_list(request):
     content = {
         'user_list': User.objects.order_by('username'),
+        
     }
     return render(request, 'accounts/userlist.html', content)
 
