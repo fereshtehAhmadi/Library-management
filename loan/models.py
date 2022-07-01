@@ -14,6 +14,7 @@ class LoanModel(models.Model):
     )
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
+    payment_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=LOAN_STATUS)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     
