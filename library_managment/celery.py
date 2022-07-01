@@ -46,17 +46,12 @@ def test():
                 debt = DebtModel.objects.create(loan=obj, book=obj.book, user=obj.user, amount=a*2000)
                 
         elif obj.status == 'T':
-            if obj.start_date.date() == obj.payment_date.date():
-                diff = datetime.now().date() - obj.start_date.date()
-                if diff.days >= 30:
-                    expiration = diff.days - 30
-            else:
-                diff = datetime.now().date() - obj.payment_date.date()
-                if diff.days >= 7:
-                    expiration = diff.days
-                        
-            a = int(expiration) / 7
             debt = DebtModel.objects.get(loan=obj)
-            debt.amount = a * 2000
-            debt.save()
+            diff = datetime.now().date() - debt.payment_date.date()
+            if diff.days >= 7:
+                expiration = diff.days
+                a = int(expiration) / 7
+                
+                debt.amount = a * 2000
+                debt.save()
     return 'done!!'
