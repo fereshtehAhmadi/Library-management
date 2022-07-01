@@ -235,46 +235,53 @@ def unactive_books(request):
 @login_required(login_url='login')
 @staff_user
 def new_book(request):
-    if request.method == 'POST':
-        book_form = NewBook(request.POST)
-        
-        if book_form.is_valid():
-            cd = book_form.cleaned_data
-            current_user_object = CustomUserModel.objects.get(user__username=cd['hidden_user'])        
-            book_obj = Book.objects.create(
-                user= current_user_object,
-                name = cd['name'],
-                cover=cd['cover'],
-                description=cd['description'],
-                translator=cd['translator'],
-                condition=cd['condition'],
-                publishers=cd['publishers'],
-            )
-            book_obj.author.set(cd["author"])
-            book_obj.category.set(cd["category"])
-            book_obj.save()
-            messages.success(request, 'Your registration was successfully done.')
-            return redirect('home')
-        else:
-            messages.error(request, book_form.errors.as_data())
-    book_form = NewBook()
-    content = {
-        'new_book':book_form,
-    }
-    return render(request, 'books/add/new_books.html', content)
+    try:
+        if request.method == 'POST':
+            book_form = NewBook(request.POST)
+            
+            if book_form.is_valid():
+                cd = book_form.cleaned_data
+                current_user_object = CustomUserModel.objects.get(user__username=cd['hidden_user'])        
+                book_obj = Book.objects.create(
+                    user= current_user_object,
+                    name = cd['name'],
+                    cover=cd['cover'],
+                    description=cd['description'],
+                    translator=cd['translator'],
+                    condition=cd['condition'],
+                    publishers=cd['publishers'],
+                )
+                book_obj.author.set(cd["author"])
+                book_obj.category.set(cd["category"])
+                book_obj.save()
+                messages.success(request, 'Your registration was successfully done.')
+                return redirect('home')
+            else:
+                messages.error(request, book_form.errors.as_data())
+        book_form = NewBook()
+        content = {
+            'new_book':book_form,
+        }
+    except:
+        messages.error(request, 'Please complete you informations!!!')
 
+    return render(request, 'books/add/new_books.html', content)
 
 
 @login_required(login_url='login')
 @staff_user
 def new_catrgory(request):
-    if request.method == 'POST':
-        category = request.POST['category']
-        Categorie.objects.create(category=category)
-        return redirect('new_book')
-    content = {
-        'category': 'category',
-    }
+    try:
+        if request.method == 'POST':
+            category = request.POST['category']
+            Categorie.objects.create(category=category)
+            return redirect('new_book')
+        content = {
+            'category': 'category',
+        }
+    except:
+        messages.error(request, 'Please complete you informations!!!')
+        
     return render(request, 'books/add/new_forenkey.html', content)
 
 
@@ -282,14 +289,18 @@ def new_catrgory(request):
 @login_required(login_url='login')
 @staff_user
 def new_author(request):
-    if request.method == 'POST':
-        author = request.POST['author']
-        description = request.POST['description']
-        Author.objects.create(name=author, description=description)
-        return redirect('new_book')
-    content = {
-        'author': 'author',
-    }
+    try:
+        if request.method == 'POST':
+            author = request.POST['author']
+            description = request.POST['description']
+            Author.objects.create(name=author, description=description)
+            return redirect('new_book')
+        content = {
+            'author': 'author',
+        }
+    except:
+        messages.error(request, 'Please complete you informations!!!')
+        
     return render(request, 'books/add/new_forenkey.html', content)
 
 
@@ -297,13 +308,16 @@ def new_author(request):
 @login_required(login_url='login')
 @staff_user
 def new_publisher(request):
-    if request.method == 'POST':
-        publisher = request.POST['publisher']
-        Publishers.objects.create(name=publisher)
-        return redirect('new_book')
-    content = {
-        'publisher': 'publisher',
-    }
+    try:
+        if request.method == 'POST':
+            publisher = request.POST['publisher']
+            Publishers.objects.create(name=publisher)
+            return redirect('new_book')
+        content = {
+            'publisher': 'publisher',
+        }
+    except:
+        messages.error(request, 'Please complete you informations!!!')
     return render(request, 'books/add/new_forenkey.html', content)
 
     

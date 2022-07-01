@@ -44,9 +44,6 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_social_share',
     'django.contrib.postgres',
-    # 'celery',
-    'django_celery_beat',
-    'djcelery', 
     
     # Applications
     'accounts',
@@ -54,10 +51,6 @@ INSTALLED_APPS = [
     'extra',
     'loan',  
 ]
-
-# Celery conf
-djcelery.setup_loader()
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 
 MIDDLEWARE = [
@@ -97,23 +90,23 @@ WSGI_APPLICATION = 'library_managment.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
-#  'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'postgres',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+ 'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -169,3 +162,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD =''
 EMAIL_USE_TLS = True
+
