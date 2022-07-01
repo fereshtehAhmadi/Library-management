@@ -13,7 +13,7 @@
 
 # ---------------------------------------------------------
 # @app.task
-# def add_author():
+# def expiration():
 #     loan = LoanModel.objects.all()
 #     for obj in loan:
 #         if obj.status == 'S':

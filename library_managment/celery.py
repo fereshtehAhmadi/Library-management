@@ -18,8 +18,9 @@ enable_utc=True
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-from books.models import Author
 
+from loan.models import LoanModel, DebtModel
+from datetime import datetime
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
@@ -30,7 +31,30 @@ def setup_periodic_tasks(sender, **kwargs):
 
 @app.task
 def test():
-    return  Author.objects.create(name='veryyyyy author', description='test')
+    loan = LoanModel.objects.all()
+    for obj in loan:
+        if obj.status == 'S':
+            diff = datetime.now() - obj.start_date
+            if diff.days >= 1:
+                obj.status = 'T'
+                obj.save()
+                # expiration = diff.days - 30
+                
+                # a = int(expiration) / 7
+                a = int(diff.days) / 2
+                
+                debt = DebtModel.objects.create(loan=obj, book=obj.book, user=obj.user, amount=a*2000)
+                
+        elif obj.status == 'T':
+            diff = datetime.now() - obj.start_date
+            if diff.days >= 1:
+                # expiration = diff.days - 30
+                # a = int(expiration) / 7
+                a = int(diff.days) / 2
+                debt = DebtModel.objects.get(loan=obj)
+                debt.amount = a * 2000
+                debt.save()
+    return 'done!!'
 
 
 # ------------------------------------------------------------------
@@ -79,8 +103,6 @@ def test():
 
 
 # app.autodiscover_tasks()
-
-
 
 # CELERY_IMPORTS = (
 #     'loan.tasks.expiration',
