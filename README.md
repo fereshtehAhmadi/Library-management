@@ -17,5 +17,5 @@
 #### If users information are approved by library staff, they can borrow up to 5 books from the library simultaneously and submit their comments on them.
 ####  If the books are not returned after 30 days, it will include penalties and will not be able to receive a new book until the penalty is paid.
 #### Library employees also have features such as adding new books, editing and deactivating books, viewing users 'list and their specifications, confirming users' membership, and so on.
-#### Library employees also have features such as adding new books, editing and deactivating books, viewing users 'list and their specifications, confirming users' membership, and so on.
+#### The penalty calculation section is processed by celery each midnight and the amount of delay in delivery is applied for each week.
 
