@@ -33,9 +33,9 @@
         overflow: hidden;
     }
     .carousel .thumb-wrapper {
-        padding: 15px 5px;
+        padding: 15px 4px;
         background: #fff;
-        border-radius: 6px;
+        border-radius: 4px;
         text-align: center;
         position: relative;
         box-shadow: 0 2px 3px rgba(0,0,0,0.2);
@@ -127,7 +127,9 @@
                                         <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
                                     </div>
                                     <div class="thumb-content">
-                                        <h6 style="color: black;">{{ obj.name }}</h6>
+                                        <div style="height: 30px;">
+                                            <h6 style="color: black;">{{ obj.name }}</h6>
+                                        </div>
                                         <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
                                             {% for auth in obj.author.all %}									
                                         <a href="{% url 'author' auth.id %}" class="consol-price p-1" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>

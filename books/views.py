@@ -19,7 +19,7 @@ from books.forms import NewBook, EditBook
 
 # home page 
 def books(request):
-    p = Paginator(Book.objects.filter(condition=True).order_by('?'), 12)
+    p = Paginator(Book.objects.filter(condition=True), 18)
     page = request.GET.get('page')
     book_list = p.get_page(page)
     context = {
@@ -41,7 +41,7 @@ def search(request):
             return redirect('home')
 
         elif query_set:
-            paginator = Paginator(query_set, 12)
+            paginator = Paginator(query_set, 18)
             page = request.GET.get('page')
             book_search = paginator.get_page(page)
             
@@ -72,7 +72,7 @@ def advance_search(request):
                         publishers__name__icontains=p
                     ).distinct()
             if query_set.count() > 0 :
-                paginator = Paginator(query_set, 12)
+                paginator = Paginator(query_set, 18)
                 page = request.GET.get('page')
                 book_search = paginator.get_page(page)
             
@@ -94,7 +94,7 @@ def advance_search(request):
 def category(request, cats):
     book = Book.objects.filter(category= cats, condition=True).count()
     if book > 0 :
-        p = Paginator(Book.objects.filter(category= cats, condition=True), 12)
+        p = Paginator(Book.objects.filter(category= cats, condition=True), 18)
         page = request.GET.get('page')
         cate = p.get_page(page)
         context = {
@@ -116,7 +116,7 @@ def category(request, cats):
 
 
 def search_author(request, auth):
-    p = Paginator(get_list_or_404(Book, author= auth, condition=True), 12)
+    p = Paginator(get_list_or_404(Book, author= auth, condition=True), 18)
     page = request.GET.get('page')
     author = p.get_page(page)
     context = {
@@ -192,9 +192,8 @@ def edit_book(request, pk):
             book.cover=cd['cover']
             book.description=cd['description']
             book.translator=cd['translator']
-            book.condition=cd['condition']
+            book.condition= True
             book.publishers=cd['publishers']
-            book.save()
             book.author.set(cd["author"])
             book.category.set(cd["category"])
             book.save()
@@ -246,7 +245,7 @@ def new_book(request):
                     cover=cd['cover'],
                     description=cd['description'],
                     translator=cd['translator'],
-                    condition=cd['condition'],
+                    condition=True,
                     publishers=cd['publishers'],
                 )
                 book_obj.author.set(cd["author"])

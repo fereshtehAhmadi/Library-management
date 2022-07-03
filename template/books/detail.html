@@ -229,18 +229,9 @@
       -webkit-transform: scale(1);
               transform: scale(1); } }
 
-@media screen and (min-width: 601px) {
-  .information {
-    font-size:2vw;
-  }
-}
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 600px) {
-  .information {
-    font-size:3vw;
-  }
-}
+
 
 @media screen and (min-width: 801px) {
   .icon {
@@ -253,11 +244,23 @@
   #img {
     width: 20vw;
   }
+  .information {
+    font-size:1.4rem;
+  }
+  #book_name {
+    font-size: 2.5rem;
+  }
 }
 @media screen and (max-width: 800px) {
   .icon {
     font-size:5vw;
     cursor: pointer;
+  }
+  .information {
+    font-size:2vw;
+  }
+  #book_name {
+    font-size: 2.5vw;
   }
 }
 </style>
@@ -316,7 +319,7 @@
                     
                     
                     <div class="details col-xl-8 col-md-7 col-sm-12 col-12">
-                      <h2 class="product-title" style="font-size:4vw;">{{ detail.name }}</h2>
+                      <h2 class="product-title" id="book_name" style="margin-bottom: 1vw; margin-top: 1vw;">{{ detail.name }}</h2>
                       <div class="rating">
                         {% if not loan %}
                         <span class="review-no" style="font-size:2vw; color: green;">This book is available</span>
@@ -344,10 +347,10 @@
                         <span style="color: rgb(120, 120, 120);">publishers: </span>
                         {{ detail.publishers }}
                       </h5>
-                      <br>
-                      <h5 class="product-description information" style="color: rgb(86, 86, 86);">
+                      <h5 class="product-description information" id="description" style="color: rgb(86, 86, 86);">
                         <span style="color: rgb(120, 120, 120);">description: </span>
-                        {{ detail.description }}
+                        {{ detail.description|truncatewords:50}} 
+                        <a class="icon margin" id="more" style="font-size: 1.5rem; text-decoration: none;">see more</a>
                       </h5>
                       <br>
                       
@@ -404,7 +407,12 @@
     popup.style.width = '150px';
     popup.style.height = '220px';
     popup.classList.toggle("show");
-  }
+  };
+
+  more = document.getElementById('more').onclick = function() {
+    description = document.getElementById("description");
+    description.innerHTML = "<span>description: </span> {{detail.description}}";
+ };
 
 </script>
 
