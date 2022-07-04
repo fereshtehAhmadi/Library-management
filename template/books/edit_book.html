@@ -72,7 +72,7 @@
 
           <!-- body  -->
 <div class="p-5">
-<form action="{% url 'edit_book' book.id %}" method="post">
+<form action="{% url 'edit_book' book.id %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {% load widget_tweaks %}
 

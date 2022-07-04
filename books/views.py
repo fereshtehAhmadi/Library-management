@@ -183,7 +183,7 @@ def book_info(request, pk):
 @staff_user  
 def edit_book(request, pk):
     book = Book.objects.get(id=pk)
-    book_form = NewBook(request.POST, instance=request.user)
+    book_form = NewBook(request.POST, request.FILES, instance=request.user)
     if request.method == 'POST':
         if book_form.is_valid():
             cd = book_form.cleaned_data
@@ -232,9 +232,9 @@ def unactive_books(request):
 @login_required(login_url='login')
 @staff_user
 def new_book(request):
-    try:
+    # try:
         if request.method == 'POST':
-            book_form = NewBook(request.POST)
+            book_form = NewBook(request.POST, request.FILES)
             
             if book_form.is_valid():
                 cd = book_form.cleaned_data
@@ -242,9 +242,9 @@ def new_book(request):
                 book_obj = Book.objects.create(
                     user= current_user_object,
                     name = cd['name'],
-                    cover=cd['cover'],
-                    description=cd['description'],
-                    translator=cd['translator'],
+                    cover = cd['cover'],
+                    description = cd['description'],
+                    translator = cd['translator'],
                     condition=True,
                     publishers=cd['publishers'],
                 )
@@ -255,14 +255,14 @@ def new_book(request):
                 return redirect('home')
             else:
                 messages.error(request, book_form.errors.as_data())
-        book_form = NewBook()
+    # except:
+    #     messages.error(request, 'Please complete you informations!!!')
+        
+        book_form = NewBook(request.POST)
         content = {
             'new_book':book_form,
         }
-    except:
-        messages.error(request, 'Please complete you informations!!!')
-
-    return render(request, 'books/add/new_books.html', content)
+        return render(request, 'books/add/new_books.html', content)
 
 
 @login_required(login_url='login')

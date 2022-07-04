@@ -351,7 +351,7 @@
                         <span style="color: rgb(120, 120, 120);">description: </span>
                         {{ detail.description|truncatewords:50}} 
                       </h5>
-                      <a class="icon margin" id="more" style="font-size: 1.5rem; text-decoration: none; margin-top: 0;">see more  <i id='sort' class='fa fa-sort-down' style='font-size:24px'></i></a>
+                      <a class="icon margin" id="more" style="font-size: 2vw; text-decoration: none; margin-top: 0;">see more  <i id='sort' class='fa fa-sort-down' style='font-size:2vw'></i></a>
                       <br>
                       
                       <div class="action">
@@ -417,7 +417,7 @@
     description.innerHTML = "<span style='color: rgb(120, 120, 120);'>description: </span> {{detail.description}}";
     tag = document.getElementById('more');
     tag.id = "less";
-    tag.innerHTML = "see less  <i id='sort' class='fa fa-sort-up' style='font-size:24px'></i>";
+    tag.innerHTML = "see less  <i id='sort' class='fa fa-sort-up' style='font-size: 2vw;'></i>";
     document.getElementById('less').onclick = see_less;
   };
   
@@ -428,7 +428,7 @@
       description.innerHTML = "<span style='color: rgb(120, 120, 120);'>description: </span> {{ detail.description|truncatewords:50}}";
       tag = document.getElementById('less');
       tag.id = "more";
-      tag.innerHTML = "see more  <i id='sort' class='fa fa-sort-down' style='font-size:24px;'></i>";
+      tag.innerHTML = "see more  <i id='sort' class='fa fa-sort-down' style='font-size: 2vw;'></i>";
       tag = document.getElementById('more').onclick = see_more;
   };
 
