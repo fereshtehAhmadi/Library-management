@@ -34,6 +34,7 @@ def user_active(request, pk):
 def user_unactive(request, pk):
     user = CustomUserModel.objects.get(user_id=pk)
     user.condition = False
+    user.is_staff=False
     user.save()
     return redirect('user_detail', pk=pk)
 

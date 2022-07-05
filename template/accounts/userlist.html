@@ -72,9 +72,7 @@
         <th scope="col" id="th">row</th>
         <th scope="col" id="th">Username</th>
         <th scope="col" id="th">Join date</th>
-        {% if user.is_superuser %}
         <th scope="col" id="th">dastresii</th>
-        {% endif %}
         <th scope="col" id="th">detail</th>
         </tr>
        </thead>
@@ -85,26 +83,22 @@
         {% else %}
         <tr class="table-Light">
         {% endif %}
-        {% if obj.is_superuser %}
-        {% else %}
         <th scope="row" id="th">{{ obj.id }}</th>
         <td id="th">{{ obj.username }}</td>
         <td id="th">{{ obj.date_joined }}</td>
-      {% if user.is_superuser%}
-        {% if obj.is_staff %}
+        {% if obj.is_superuser %}
         <td>
-          <a href="{% url 'decline' obj.id %}" class="btn btn-warning" style="font-size: 1vw;">
-            Decline
-          </a>
+          admin
+        </td>
+        {% elif obj.is_staff %}
+        <td>
+          staff
         </td>
         {% else%}
         <td>
-          <a href="{% url 'promote' obj.id %}" class="btn btn-info" style="font-size: 1vw;">
-            Promotion
-          </a>
+          ____
         </td>
         {% endif %}
-      {% endif %}
         {% csrf_token %}
         <td>
           <a href="{% url 'user_detail' obj.id %}"class="btn btn-dark" style="font-size: 1vw;">
@@ -113,7 +107,6 @@
         </td>
     </tr>
       <!-- Decline -->
-      {% endif %}
       {% endfor %}
     </tbody>
       </table>

@@ -133,6 +133,11 @@ def detail_book(request, pk):
         comment = Comment.objects.filter(book=pk)
         bookmarck_status = BookMarck.objects.filter(user=request.user, book=book).exists()
         like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
+        if CustomUserModel.objects.filter(user=request.user).exists() :
+            user = CustomUserModel.objects.get(user=request.user)
+        else:
+            user = False
+        
         LB = None
         if like_b:
             LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
@@ -140,12 +145,13 @@ def detail_book(request, pk):
     except:
         LB = None
         bookmarck_status = False
+        user = None
     
     finally:   
         content = {
         'detail' : book,
         'comment': comment,
-        'user': CustomUserModel.objects.get(user=request.user),
+        'user': user,
         'bookmarck_status': bookmarck_status,
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'color_like_b':LB,
@@ -232,9 +238,9 @@ def unactive_books(request):
 @login_required(login_url='login')
 @staff_user
 def new_book(request):
-    # try:
+    book_form = NewBook(request.POST, request.FILES)
+    try:
         if request.method == 'POST':
-            book_form = NewBook(request.POST, request.FILES)
             
             if book_form.is_valid():
                 cd = book_form.cleaned_data
@@ -254,15 +260,14 @@ def new_book(request):
                 messages.success(request, 'Your registration was successfully done.')
                 return redirect('home')
             else:
-                messages.error(request, book_form.errors.as_data())
-    # except:
-    #     messages.error(request, 'Please complete you informations!!!')
+                messages.error(request, book_form.errors)
+    except:
+        messages.error(request, 'Please complete you informations!!!')
         
-        book_form = NewBook(request.POST)
-        content = {
-            'new_book':book_form,
-        }
-        return render(request, 'books/add/new_books.html', content)
+    content = {
+        'new_book':book_form,
+    }
+    return render(request, 'books/add/new_books.html', content)
 
 
 @login_required(login_url='login')
