@@ -132,6 +132,8 @@ def detail_book(request, pk):
         book = Book.objects.get(id=pk)
         comment = Comment.objects.filter(book=pk)
         bookmarck_status = BookMarck.objects.filter(user=request.user, book=book).exists()
+        loan1 = LoanModel.objects.filter(book=book, status='S').exists()
+        loan2 = LoanModel.objects.filter(book=book, status='T').exists()
         like_b = LikeBook.objects.filter(user=request.user, book=book).exists()
         if CustomUserModel.objects.filter(user=request.user).exists() :
             user = CustomUserModel.objects.get(user=request.user)
@@ -156,7 +158,7 @@ def detail_book(request, pk):
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'color_like_b':LB,
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
-        'loan': LoanModel.objects.filter(book=book, status='S').exists(),
+        'loan': loan1|loan2,
         }
         return render(request, 'books/detail.html', content)  
     
@@ -166,8 +168,9 @@ def detail_book(request, pk):
 @staff_user
 def book_info(request, pk):
     book = Book.objects.get(id=pk)
-    loan = LoanModel.objects.filter(book=book, status='S').exists()
-    if loan:
+    loan1 = LoanModel.objects.filter(book=book, status='S').exists()
+    loan2 = LoanModel.objects.filter(book=book, status='T').exists()
+    if loan1 or loan2:
         obj =LoanModel.objects.get(book=book)
         borrower = obj.user
         custom_user = CustomUserModel.objects.get(user=borrower)
@@ -189,17 +192,19 @@ def book_info(request, pk):
 @staff_user  
 def edit_book(request, pk):
     book = Book.objects.get(id=pk)
-    book_form = NewBook(request.POST, request.FILES, instance=request.user)
+    initial = {"cover": book.cover}
+    # initial = dict(author=[book.author])
+    book_form = NewBook(request.POST, request.FILES, instance=request.user, initial=initial)
     if request.method == 'POST':
         if book_form.is_valid():
             cd = book_form.cleaned_data
             
             book.name=cd['name']
             book.cover=cd['cover']
-            book.description=cd['description']
+            book.description=request.POST['description']
             book.translator=cd['translator']
             book.condition= True
-            book.publishers=cd['publishers']
+            book.publishers= cd['publishers']
             book.author.set(cd["author"])
             book.category.set(cd["category"])
             book.save()
@@ -207,8 +212,9 @@ def edit_book(request, pk):
         else:
             messages.error(request, book_form.errors)
     content = {
-        'edit_book':book_form,
+        'edit_book': book_form,
         'book': book,
+        'publishers': Publishers.objects.all(),
     }
     return render(request, 'books/edit_book.html', content)
 
