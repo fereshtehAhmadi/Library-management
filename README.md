@@ -3,10 +3,23 @@
 
 ## Tecnology
 #### python 3.10.2
-#### django 3.2
-#### celery 5.2.7
-#### django-social-share 2.2.1
-#### Faker 13.12.0
+|Packages           |Version|
+|--------           |-------|
+|django             |3.2.13 |
+|celery             | 5.2.7 |
+|django-social-share| 2.2.1 |
+|Faker              |13.12.0|
+
+# How to install and run project?
+#### Go into virtual environment and run the command in below:
+
+| pip install django=="3.2.13" |
+| pip install celery="5.2.7" |
+| pip install django-social-share |
+| pip install Faker |
+
+#### python manage.py runserver
+
 
 # How does this project work?
 #### Initially a list of books is displayed, and the book's search capability is based on the name of the book, the author's name and the subject in the navbar.
