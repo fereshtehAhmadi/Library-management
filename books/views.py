@@ -143,11 +143,14 @@ def detail_book(request, pk):
         LB = None
         if like_b:
             LB = LikeBook.objects.filter(user=request.user, book=book, vote='L').exists()
+        
+        loan = loan1|loan2
             
     except:
         LB = None
         bookmarck_status = False
         user = None
+        loan = None
     
     finally:   
         content = {
@@ -158,7 +161,7 @@ def detail_book(request, pk):
         'like' : LikeBook.objects.filter(book=book, vote='L').count(),
         'color_like_b':LB,
         'dislike' : LikeBook.objects.filter(book=book, vote='D').count(),
-        'loan': loan1|loan2,
+        'loan': loan,
         }
         return render(request, 'books/detail.html', content)  
     

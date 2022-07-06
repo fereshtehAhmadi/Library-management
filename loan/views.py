@@ -14,34 +14,32 @@ from loan.models import LoanModel, DebtModel
 
 @login_required(login_url='login')
 def add_loan(request, pk):
-        book = Book.objects.get(id=pk)
-    # try:
-        user = CustomUserModel.objects.get(user=request.user)
-        start = LoanModel.objects.filter(user=user, status='S')
-        to_be_returned = LoanModel.objects.filter(user=user, status='T')
-        loan = start | to_be_returned
-        valid = loan.count()
-        if valid < 5:
-            debt = DebtModel.objects.filter(user=user)
-            if debt.exists():
-                l = []
-                for obj in debt:
-                    l.append(int(obj.amount))
-                listsum = sum(l)
+    book = Book.objects.get(id=pk)
+    user = CustomUserModel.objects.get(user=request.user)
+    start = LoanModel.objects.filter(user=user, status='S')
+    to_be_returned = LoanModel.objects.filter(user=user, status='T')
+    loan = start | to_be_returned
+    valid = loan.count()
+    if valid < 5:
+        debt = DebtModel.objects.filter(user=user)
+        if debt.exists():
+            l = []
+            for obj in debt:
+                l.append(int(obj.amount))
+            listsum = sum(l)
         
-                if listsum > 0:
-                    messages.error(request, 'Please pay your fines first.')
-                else:
-                    loan = LoanModel.objects.create(user=user,book=book, status='S')
-                    messages.success(request, 'Your request has been successfully submitted...')
+            if listsum > 0:
+                messages.error(request, 'Please pay your fines first.')
             else:
                 loan = LoanModel.objects.create(user=user,book=book, status='S')
                 messages.success(request, 'Your request has been successfully submitted...')
         else:
-            messages.error(request, 'You can only borrow 5 books from the library at the same time!!')
-    # except:
-    #     messages.error(request, 'Please complete your user information!!')
-        return redirect('detail', pk=book.id)
+            loan = LoanModel.objects.create(user=user,book=book, status='S')
+            messages.success(request, 'Your request has been successfully submitted...')
+    else:
+        messages.error(request, 'You can only borrow 5 books from the library at the same time!!')
+        
+    return redirect('detail', pk=book.id)
 
 
 @login_required(login_url='login')
@@ -86,10 +84,13 @@ def payment(request):
 @login_required(login_url='login')
 @staff_user
 def check_receive(request):
-    if request.method == 'POST':
-        id = request.POST['id']
-        book = Book.objects.get(id=id)
-        return redirect('user_loan', pk=book.id)
+    try:
+        if request.method == 'POST':
+            id = request.POST['id']
+            book = Book.objects.get(id=id)
+            return redirect('user_loan', pk=book.id)
+    except:
+        messages.error(request, 'A book with this profile was not found!!')
     return render(request, 'loan/receive.html')
 
 
