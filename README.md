@@ -11,14 +11,17 @@
 |Faker              |13.12.0|
 
 # How to install and run project?
-#### Go into virtual environment and run the command in below:
-
+#### 1.Go into virtual environment and run the command in below:
+|---------------------------------|
 | pip install django=="3.2.13" |
+|---------------------------------|
 | pip install celery="5.2.7" |
+|---------------------------------|
 | pip install django-social-share |
+|---------------------------------|
 | pip install Faker |
 
-#### python manage.py runserver
+#### 2.python manage.py runserver
 
 
 # How does this project work?
