@@ -196,7 +196,7 @@ def book_info(request, pk):
 def edit_book(request, pk):
     book = Book.objects.get(id=pk)
     initial = {"cover": book.cover}
-    book_form = EditBook(instance=book)
+    book_form = EditBook(instance=book, initial=initial)
 
     if request.method == 'POST':
         book_form = EditBook(request.POST, request.FILES, instance=book)
