@@ -196,9 +196,11 @@ def book_info(request, pk):
 def edit_book(request, pk):
     book = Book.objects.get(id=pk)
     initial = {"cover": book.cover}
-    # initial = dict(author=[book.author])
-    book_form = NewBook(request.POST, request.FILES, instance=request.user, initial=initial)
+    book_form = EditBook(instance=book)
+
     if request.method == 'POST':
+        book_form = EditBook(request.POST, request.FILES, instance=book)
+
         if book_form.is_valid():
             cd = book_form.cleaned_data
             

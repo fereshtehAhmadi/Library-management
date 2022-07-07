@@ -22,18 +22,8 @@ class NewBook(forms.ModelForm):
 
 
 class EditBook(forms.ModelForm):    
-    category = forms.ModelMultipleChoiceField(Categorie.objects.all(), required=True)
-    author = forms.ModelMultipleChoiceField(Author.objects.all(), required=True)
-    publishers = forms.ModelChoiceField(Publishers.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}), required=True)
-    tanslator = forms.CharField(required=True)
+    hidden_user = forms.CharField(widget=forms.HiddenInput())
+    
     class Meta:
         model = Book
         exclude = ("user",)
-        
-        widgets = {
-        'name' : forms.TextInput(attrs={'class': 'form-control'}),
-        'discription' : forms.TextInput(attrs={'class': 'form-control'}),
-        'category' : forms.TextInput(attrs={'class': 'form-control'}),
-        'translator' : forms.TextInput(attrs={'class': 'form-control'}),
-        'author' : forms.TextInput(attrs={'class': 'form-control'},),
-       }
