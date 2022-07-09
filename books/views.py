@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -15,7 +16,7 @@ from books.models import Book, Categorie, Author, Publishers, BookRequest
 from extra.models import Comment, LikeBook, LikeComment, BookMarck
 from loan.models import LoanModel, DebtModel
 
-from books.forms import NewBook, EditBook
+from books.forms import BookForm
 
 # home page 
 def books(request):
@@ -196,10 +197,10 @@ def book_info(request, pk):
 def edit_book(request, pk):
     book = Book.objects.get(id=pk)
     initial = {"cover": book.cover}
-    book_form = EditBook(instance=book, initial=initial)
+    book_form = BookForm(instance=book, initial=initial)
 
     if request.method == 'POST':
-        book_form = EditBook(request.POST, request.FILES, instance=book)
+        book_form = BookForm(request.POST, request.FILES, instance=book)
 
         if book_form.is_valid():
             cd = book_form.cleaned_data
@@ -249,7 +250,7 @@ def unactive_books(request):
 @login_required(login_url='login')
 @staff_user
 def new_book(request):
-    book_form = NewBook(request.POST, request.FILES)
+    book_form = BookForm(request.POST, request.FILES)
     try:
         if request.method == 'POST':
             

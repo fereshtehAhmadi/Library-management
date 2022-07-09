@@ -31,14 +31,14 @@
               {% csrf_token %}
                 <div class="form-group row">
                     <label for="" class="col-lg-2 col-md-3 col-12" id="form">author:</label>
-                    <input type="text" id="form" class="form-control col-md-7 col-12" name="author" id="">
+                    <input type="text" id="form" class="form-control col-md-7 col-12" required name="author" id="">
                 <div>
                 </div> 
                 </div>               
                 
                 <div class="form-group row">
                     <label for="" class="col-lg-2 col-md-3 col-12" id="form">description:</label>
-                    <textarea  class="form-control col-lg-7 col-md-7 col-12" id="form" rows="3" name="description" id=""></textarea>
+                    <textarea  class="form-control col-lg-7 col-md-7 col-12" id="form" rows="3" name="description" required id=""></textarea>
                 <div>
                     <button type="submit" class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                 </div>
@@ -49,7 +49,7 @@
                       {% csrf_token %}
                     <div class="form-group row">
                         <label for="" class="col-lg-2 col-5 col-md-3" id="form">category:</label>
-                        <input type="text" class="form-control col-7" name="category" id="form">
+                        <input type="text" class="form-control col-7" name="category" id="form" required>
                     <div>
                         <button class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                     </div>
@@ -60,7 +60,7 @@
                   {% csrf_token %}
                 <div class="form-group row">
                     <label for="" class="col-lg-2 col-5 col-md-3" id="form">publisher:</label>
-                    <input type="text" class="form-control col-7" name="publisher" id="form">
+                    <input type="text" class="form-control col-7" name="publisher" required id="form">
                     <div>
                     <button class="btn btn-info" id="btn" style="margin-left: 10px;">Add</button>
                 </div>
