@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.contrib import messages
 from django.db.models import Count
@@ -39,7 +40,7 @@ def add_loan(request, pk):
     else:
         messages.error(request, 'You can only borrow 5 books from the library at the same time!!')
         
-    return redirect('detail', pk=book.id)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 @login_required(login_url='login')
@@ -98,8 +99,9 @@ def check_receive(request):
 @staff_user
 def user_loan(request, pk):
     book = Book.objects.get(id=pk)
-    loan = LoanModel.objects.filter(book=book, status='S').exists()
-    if loan:
+    loan_s = LoanModel.objects.filter(book=book, status='S').exists()
+    loan_t = LoanModel.objects.filter(book=book, status='T').exists()
+    if loan_s or loan_t:
         obj =LoanModel.objects.get(book=book)
         borrower = obj.user
         custom_user = CustomUserModel.objects.get(user=borrower)

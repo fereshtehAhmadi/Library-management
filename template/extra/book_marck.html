@@ -133,14 +133,16 @@
                                 <div class="row">
                                     {% for i in bookmarck %}
                                     {% for obj in i.book.all %}
-                                    <div class="col-xl-2 col-md-3" style="margin-top: 30px;">
+                                    <div class="col-xl-2 col-md-3 col-sm-6 col-12" style="margin-top: 30px;">
                                         <div class="thumb-wrapper">
                                             <div class="img-box">
-                                                <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative">
+                                                <img src="{{ obj.cover.url }}" class="img-fluid" alt="Alternative" width="120vw">
                                             </div>
                                             <div class="thumb-content">
+                                                <div style="height: 40px;">
                                                 <h6 style="color: black;">{{ obj.name }}</h6>
-                                                <div class="thumb-content row justify-content-center align-items-center" style="height: 50px;">
+                                                </div>
+                                                <div style="height: 40px;">
                                                     {% for auth in obj.author.all %}									
                                                 <a href="{% url 'author' auth.id %}" class="consol-price p-1" style="color: rgb(97, 97, 97); font-size:12px;">{{ auth.name }}</a>
                                                 <small>,</small>
