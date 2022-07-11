@@ -21,7 +21,7 @@ from books.forms import BookForm
 
 # home page 
 def books(request):
-    p = Paginator(Book.objects.filter(condition=True), 18)
+    p = Paginator(Book.objects.filter(condition=True).order_by('create'), 18)
     page = request.GET.get('page')
     book_list = p.get_page(page)
     context = {
@@ -96,7 +96,7 @@ def advance_search(request):
 def category(request, cats):
     book = Book.objects.filter(category= cats, condition=True).count()
     if book > 0 :
-        p = Paginator(Book.objects.filter(category= cats, condition=True), 18)
+        p = Paginator(Book.objects.filter(category= cats, condition=True).order_by('create'), 18)
         page = request.GET.get('page')
         cate = p.get_page(page)
         context = {
@@ -118,7 +118,7 @@ def category(request, cats):
 
 
 def search_author(request, auth):
-    p = Paginator(get_list_or_404(Book, author= auth, condition=True), 18)
+    p = Paginator(get_list_or_404(Book, author= auth, condition=True).order_by('create'), 18)
     page = request.GET.get('page')
     author = p.get_page(page)
     context = {
