@@ -18,6 +18,7 @@ from loan.models import LoanModel, DebtModel
 
 from books.forms import BookForm
 
+
 # home page 
 def books(request):
     p = Paginator(Book.objects.filter(condition=True), 18)
