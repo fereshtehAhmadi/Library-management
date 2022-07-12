@@ -21,14 +21,18 @@ from books.forms import BookForm
 
 # home page 
 def books(request):
-    p = Paginator(Book.objects.filter(condition=True).order_by('create'), 18)
-    page = request.GET.get('page')
-    book_list = p.get_page(page)
-    context = {
-        'books': book_list,
-        'cate': Categorie.objects.all(),
-    }
-    return render(request, 'home.html', context)
+    try:
+        p = Paginator(Book.objects.filter(condition=True).order_by('create'), 18)
+        page = request.GET.get('page')
+        book_list = p.get_page(page)
+        context = {
+            'books': book_list,
+            'cate': Categorie.objects.all(),
+        }
+        return render(request, 'home.html', context)
+    except:
+        return render(request, 'home.html')
+        
 
 
 def search(request):
