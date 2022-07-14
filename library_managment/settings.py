@@ -16,6 +16,9 @@ import django_heroku
 from pathlib import Path
 import os
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,14 +27,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-5zqx)v505(d8u6#nalpqop=1yqr4kl$w#h57f#qb4nu9(56%8e'
-SECRET_KEY = '#'
+SECRET_KEY = 'django-insecure-5zqx)v505(d8u6#nalpqop=1yqr4kl$w#h57f#qb4nu9(56%8e'
+# SECRET_KEY = '#'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['library-managments.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -73,7 +76,9 @@ ROOT_URLCONF = 'library_managment.urls'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
 TEMPLATES = [
     {
@@ -107,6 +112,8 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+import dj_database_url
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -147,14 +154,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+        
+STATIC_URL = '/staticfiles/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+   ]
+else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type

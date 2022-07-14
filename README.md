@@ -5,7 +5,7 @@ This site is designed for better and easier management of the library.
 #### python 3.10.2
 |Packages           |Version|
 |--------           |-------|
-|django             |3.2.13 |
+|django             | 4.0.6 |
 |celery             | 5.2.7 |
 |django-social-share| 2.2.1 |
 |Faker              |13.12.0|
