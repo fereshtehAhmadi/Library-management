@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-5zqx)v505(d8u6#nalpqop=1yqr4kl$w#h57f#qb4nu9(56%8e
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['library-managments.herokuapp.com', '127.0.0.1']
 
@@ -76,9 +76,6 @@ ROOT_URLCONF = 'library_managment.urls'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
 
 TEMPLATES = [
     {

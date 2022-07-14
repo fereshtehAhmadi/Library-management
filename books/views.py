@@ -122,7 +122,7 @@ def category(request, cats):
 
 
 def search_author(request, auth):
-    p = Paginator(get_list_or_404(Book, author= auth, condition=True).order_by('create'), 18)
+    p = Paginator(get_list_or_404(Book, author= auth, condition=True), 18)
     page = request.GET.get('page')
     author = p.get_page(page)
     context = {
