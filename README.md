@@ -1,7 +1,7 @@
 # Library management
 This site is designed for better and easier management of the library.
 
-## Tecnology
+## Technology
 #### python 3.10.2
 |Packages           |Version|
 |--------           |-------|
