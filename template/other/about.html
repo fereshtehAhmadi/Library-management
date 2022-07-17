@@ -3,6 +3,11 @@
 {% block title %} about {% endblock %}
 {% block style %}
 <style>
+  @media screen and (min-width: 801px) {
+    #caard {
+      padding: 5vw 5vw;
+    }
+  }
   @media screen and (max-width: 800px) {
     #text {
       font-size: 2vw;
@@ -17,7 +22,13 @@
       font-size: 2vw;
     }
     #btn{
-      font-size: 2vw;
+      font-size: 5vw;
+    }
+    #caard {
+      padding: 5vw 5vw;
+    }
+    #contact {
+      padding: 5vw 5vw;
     }
   }
 </style>
@@ -32,7 +43,7 @@
           <!-- navbarText -->
           {% include '../tem/navbar2.html' %}
 
-          <div class="card-body p-5 ">
+          <div class="card-body" id="caard">
 
             <span id="text">Dear Friend Book:</span>
             <br>
@@ -50,7 +61,7 @@
 
             <!-- contact us  -->
             <hr>
-            <div class="row">
+            <div class="row" id="contact">
               <div id="form_container">
                   <h2 id="contact">Contact Us</h2>
                   <p id="message">

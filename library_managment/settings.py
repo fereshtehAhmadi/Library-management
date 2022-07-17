@@ -17,18 +17,11 @@ from pathlib import Path
 import os
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '#'
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['library-managments.herokuapp.com', '127.0.0.1']
@@ -146,27 +139,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-        
-# STATIC_URL = '/staticfiles/'
-# if DEBUG:
-#     STATICFILES_DIRS = [
-#         os.path.join(BASE_DIR, 'static')
-#    ]
-# else:
-#         STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-STATIC_URL = '/StaticFiles/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "StaticFiles"),
-)
-
-MEDIA_ROOT = (
-BASE_DIR
-)
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -55,7 +55,7 @@ class LikeBook(models.Model):
         ('D', 'Dislike'),
     )
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='like')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     vote = models.CharField(max_length = 1, choices = vote_status)
     
     def __str__(self):
