@@ -16,8 +16,15 @@ This site is designed for better and easier management of the library.
 ```
 $ pip install -r requirments.txt 
 ```
-
-2.python manage.py runserver
+```
+$ python manage.py makemigrations accounts books extra loan
+```
+```
+$ python manage.py migrate
+```
+```
+$ python manage.py runserver
+```
 
 
 # How does this project work?
